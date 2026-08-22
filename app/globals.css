@@ -433,17 +433,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .simple-page-heading h1{max-width:900px;margin:60px 0 0;font-size:clamp(62px,7vw,104px);font-weight:420;line-height:.96;letter-spacing:-.07em}
 .simple-team-profiles{padding-top:0;padding-bottom:130px}
 .simple-team-profiles .team-profile-grid{margin-top:0;grid-template-columns:repeat(2,minmax(0,1fr))}
-.simple-team-profiles .team-profile{display:block}
-.simple-team-profiles .team-profile-copy{min-height:340px}
-.team-link-placeholder{width:fit-content;margin-top:2px;padding:12px 15px!important;display:inline-flex!important;border:1px solid var(--line);color:rgba(11,34,49,.42)!important;font:9px var(--font-geist-sans),sans-serif!important;letter-spacing:0!important;text-transform:none!important}
+.simple-team-profiles .team-profile{display:block;grid-column:auto}
+.simple-team-profiles .team-profile-copy{min-height:240px;padding:34px 30px;display:flex;flex-direction:column;align-items:flex-start}
+.simple-team-profiles .team-profile-copy h2{margin:0 0 11px}
+.simple-team-profiles .team-profile-role{margin-bottom:34px!important}
+.team-link{margin-top:auto;min-width:120px}
 
 .simple-contact{min-height:760px;padding-top:190px;padding-bottom:130px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
 .simple-contact h1{max-width:900px;margin:58px 0 24px;font-size:clamp(62px,7vw,104px);font-weight:420;line-height:.96;letter-spacing:-.07em}
 .simple-contact>p:not(.eyebrow){margin:0;color:rgba(11,34,49,.6);font-size:18px}
-.contact-email-link{margin:42px 0 24px;font-size:clamp(22px,2.4vw,34px);letter-spacing:-.035em;border-bottom:1px solid var(--coral)}
-.contact-email-pending{margin-top:42px;display:flex;flex-direction:column;align-items:flex-start;gap:22px}
-.contact-email-pending>span:first-child{color:rgba(11,34,49,.46);font:9px var(--font-geist-mono),monospace;letter-spacing:.08em;text-transform:uppercase}
-.button-disabled{opacity:.42;cursor:not-allowed}
+.contact-email-link{border-bottom:1px solid var(--coral);color:var(--navy)}
+.contact-email-button{margin-top:36px}
 
 .global-footer{padding:64px var(--pad) 28px}
 .footer-minimal{padding-bottom:58px;display:grid;grid-template-columns:1fr auto auto;gap:80px;align-items:start;border-bottom:1px solid rgba(244,241,233,.16)}
@@ -452,6 +452,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .footer-minimal nav a:hover,.footer-contact a:hover{color:var(--coral-soft)}
 .footer-contact span{color:rgba(244,241,233,.38)}
 .footer-legal{padding-top:26px;display:block}
+
+@media(max-width:1050px){
+  .simple-team-profiles .team-profile:last-child .team-profile-portrait{min-height:370px}.simple-team-profiles .team-profile:last-child .team-profile-copy{min-height:240px}
+}
 
 @media(max-width:760px){
   .journey-intro-copy{font-size:13px}.process-disclaimer-simple{padding-top:42px;padding-bottom:42px}

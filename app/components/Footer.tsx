@@ -2,7 +2,8 @@ import Link from "next/link";
 import { BrandMark } from "./BrandMark";
 
 const pages = [["Home", "/"], ["How It Works", "/how-it-works"], ["Meet the Team", "/team"], ["Contact", "/contact"]] as const;
-const contactEmail: string | null = null;
+const contactEmail = "d.suresh22@taylorshill.ie";
+const emailHref = "mailto:d.suresh22@taylorshill.ie?subject=BioPancrea%20enquiry";
 
 export function Footer() {
   return (
@@ -13,7 +14,7 @@ export function Footer() {
           {pages.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
         </nav>
         <div className="footer-contact">
-          {contactEmail ? <a href={`mailto:${contactEmail}`}>{contactEmail}</a> : <span>Contact email pending</span>}
+          <a href={emailHref}>{contactEmail}</a>
           <Link href="/privacy">Privacy</Link>
         </div>
       </div>

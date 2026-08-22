@@ -1,24 +1,33 @@
-const placeholders = [
-  { number: "01", mark: "01" },
-  { number: "02", mark: "02" },
+const team = [
+  {
+    name: "Deepta Suresh",
+    role: "CEO & Co-Founder",
+    linkedIn: "https://www.linkedin.com/in/deepta-suresh-b51913367/",
+    initials: "DS",
+    imageAlt: "Deepta Suresh, CEO and Co-Founder of BioPancrea",
+  },
+  {
+    name: "Janefrances Muoneke",
+    role: "Co-Founder",
+    linkedIn: "https://www.linkedin.com/in/janefrances-muoneke-3313113a2/",
+    initials: "JM",
+    imageAlt: "Janefrances Muoneke, Co-Founder of BioPancrea",
+  },
 ] as const;
 
 export function TeamProfiles() {
   return (
     <div className="team-profile-grid">
-      {placeholders.map(({ number, mark }) => (
-        <article className="team-profile" key={number}>
-          <div className="team-profile-portrait" role="img" aria-label={`Team member ${number} photograph pending confirmation`}>
-            <span aria-hidden="true">{mark}</span>
-            <small>Real photograph pending</small>
+      {team.map(({ name, role, linkedIn, initials, imageAlt }) => (
+        <article className="team-profile" key={name}>
+          <div className="team-profile-portrait is-placeholder" role="img" aria-label={imageAlt}>
+            <span aria-hidden="true">{initials}</span>
+            <small>LinkedIn photo could not be retrieved — image needed</small>
           </div>
           <div className="team-profile-copy">
-            <span>Team member {number}</span>
-            <h2>Name pending confirmation</h2>
-            <p className="team-profile-role">Role pending confirmation</p>
-            <p>Short biography pending verified information.</p>
-            <dl><dt>Relevant expertise</dt><dd>Pending confirmation</dd></dl>
-            <span className="team-link-placeholder" aria-disabled="true">LinkedIn pending</span>
+            <h2>{name}</h2>
+            <p className="team-profile-role">{role}</p>
+            <a className="button button-dark team-link" href={linkedIn} target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
         </article>
       ))}
