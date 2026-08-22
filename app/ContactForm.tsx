@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 
-const interests = ["Research", "Clinical collaboration", "Strategic partnership", "Investment", "Media", "General enquiry"];
+const interests = ["Research", "Clinical collaboration", "Strategic partnership", "Investment", "Careers and future opportunities", "Media", "General enquiry"];
 
 export function ContactForm({ compact = false }: { compact?: boolean }) {
   const [state, setState] = useState<"idle" | "sending" | "success" | "error">("idle");
