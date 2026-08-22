@@ -60,9 +60,6 @@ export function ProcessStory() {
             <p className="section-label"><span>0{index + 1}</span>Step {index + 1}</p>
             <h2>{title}</h2>
             <p>{copy}</p>
-            {index === 0 ? <aside>The sample provides skin cells—not islet cells.</aside> : null}
-            {index === 5 ? <aside>Conceptual placement only. This is not a procedural instruction or an available treatment.</aside> : null}
-            {index === 6 ? <aside>Intended research aim; not a claim of demonstrated clinical function.</aside> : null}
           </article>
         ))}
       </div>

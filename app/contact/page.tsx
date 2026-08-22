@@ -1,12 +1,30 @@
 import type { Metadata } from "next";
-import { ContactForm } from "../ContactForm";
-import { PageHero } from "../components/PageHero";
 
-export const metadata: Metadata = { title: "Contact", description: "Start a thoughtful conversation with BioPancrea." };
+export const metadata: Metadata = { title: "Contact", description: "Connect with BioPancrea." };
+
+const contactEmail: string | null = null;
 
 export default function ContactPage() {
-  return <main>
-    <PageHero index="05" label="Contact" title="Let’s start a meaningful conversation." copy="We welcome conversations with people and organisations who share our interest in advancing pancreatic health." variant="coral" />
-    <section className="contact-page container"><div className="contact-aside"><p className="section-label"><span>01</span>Make contact</p><h2>Aligned interests.<br />Open dialogue.</h2><p>We are especially interested in thoughtful conversations across research, clinical practice, strategic collaboration, investment, and company building.</p><div className="contact-notes"><span>01 — Every message is reviewed</span><span>02 — Your details are handled with care</span><span>03 — No confidential information is required</span></div></div><ContactForm /></section>
-  </main>;
+  const emailHref = contactEmail ? `mailto:${contactEmail}?subject=${encodeURIComponent("BioPancrea enquiry")}` : null;
+
+  return (
+    <main>
+      <section className="simple-contact container">
+        <p className="eyebrow"><span>03</span>Contact</p>
+        <h1>Want to connect?</h1>
+        <p>Connect here.</p>
+        {contactEmail && emailHref ? (
+          <>
+            <a className="contact-email-link" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+            <a className="button button-dark" href={emailHref}>Send an email</a>
+          </>
+        ) : (
+          <div className="contact-email-pending">
+            <span>Contact email pending confirmation</span>
+            <span className="button button-disabled" aria-disabled="true">Send an email</span>
+          </div>
+        )}
+      </section>
+    </main>
+  );
 }

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { CookieNotice } from "./components/CookieNotice";
 import { CursorAura } from "./components/CursorAura";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
@@ -48,7 +47,6 @@ export default function RootLayout({
         <Header />
         <div className="page-transition">{children}</div>
         <Footer />
-        <CookieNotice />
         <CursorAura />
       </body>
     </html>

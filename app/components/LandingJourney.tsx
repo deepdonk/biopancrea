@@ -35,7 +35,11 @@ export function LandingJourney() {
         </div>
       </div>
       <div className="landing-journey-copy">
-        <header><p className="section-label"><span>02</span>How it is created</p><h2>One continuous cell journey.</h2></header>
+        <header>
+          <p className="section-label"><span>01</span>How it is created</p>
+          <h2>From skin cells to a vascular platform.</h2>
+          <p className="journey-intro-copy">BioPancrea begins with a small skin-cell sample. The cells are reprogrammed into iPSCs, guided toward insulin-producing beta-like cells, supported within a hydrogel, and incorporated into a stent-based vascular platform.</p>
+        </header>
         {journeySteps.map(([title, copy], index) => (
           <article key={title} data-stage={index} className={activeStage === index ? "is-active" : ""} ref={(element) => { stepRefs.current[index] = element; }}>
             <div className="journey-mobile-diagram"><JourneyDiagram stage={index} id={`mobile-${index}`} /></div>
