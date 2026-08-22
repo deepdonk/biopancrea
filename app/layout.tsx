@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://biopancrea.knmmkk.chatgpt.site"),
   title: "BioPancrea — Rethinking pancreatic health",
   description: "BioPancrea is exploring new possibilities at the intersection of biology, technology, and human health.",
   openGraph: {
