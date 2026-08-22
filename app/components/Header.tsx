@@ -7,9 +7,10 @@ import { BrandMark } from "./BrandMark";
 
 const navItems = [
   ["Home", "/"],
-  ["How It Works", "/how-it-works"],
-  ["Science", "/science"],
-  ["Team", "/team"],
+  ["About", "/about"],
+  ["Our Focus", "/focus"],
+  ["Approach", "/approach"],
+  ["Insights", "/insights"],
   ["Contact", "/contact"],
 ] as const;
 
@@ -33,7 +34,7 @@ export function Header() {
           <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined}>{label}</Link>
         ))}
       </nav>
-      <Link className="header-connect" href="/how-it-works">Explore the concept <span aria-hidden="true">↗</span></Link>
+      <Link className="header-connect" href="/contact">Connect <span aria-hidden="true">↗</span></Link>
       <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((value) => !value)}>
         <span className="visually-hidden">{open ? "Close menu" : "Open menu"}</span>
         <i /><i />
