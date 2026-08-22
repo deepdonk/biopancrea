@@ -1,65 +1,45 @@
 import Link from "next/link";
-import { OrganicField } from "./components/OrganicField";
-
-const principles = [
-  ["01", "Biology-led", "We begin with the complexity of biology and let evidence shape the way forward."],
-  ["02", "Patient-centred", "Human needs and lived experience remain at the centre of how we think."],
-  ["03", "Built for translation", "We pursue ideas with the potential to move thoughtfully from insight to impact."],
-] as const;
-
-const previews = [
-  ["Our purpose", "Why pancreatic health deserves deeper, more focused attention.", "/about"],
-  ["Our focus", "A considered view of a complex and connected biological frontier.", "/focus"],
-  ["Our approach", "How disciplined inquiry can move insight toward meaningful possibility.", "/approach"],
-] as const;
+import { ConceptSequence } from "./components/ConceptSequence";
+import { PlatformField } from "./components/PlatformField";
 
 export default function Home() {
   return (
     <main>
-      <section className="home-hero">
+      <section className="home-hero home-hero-platform">
         <div className="home-hero-copy">
-          <p className="eyebrow"><span>BP—01</span>Pancreatic &amp; metabolic health</p>
-          <h1>Rethinking<br />pancreatic health.</h1>
-          <p>BioPancrea is exploring new possibilities at the intersection of biology, technology, and human health.</p>
-          <div className="button-row"><Link className="button button-dark" href="/about">Discover our purpose <span aria-hidden="true">↗</span></Link><Link className="button button-line" href="/contact">Connect with us</Link></div>
+          <p className="eyebrow"><span>BP—01</span>Research-stage cell-therapy platform</p>
+          <h1>Patient-derived insulin-producing cells, supported by a vascular implant.</h1>
+          <p>BioPancrea is developing a research-stage platform that begins with a small skin-cell sample, reprograms those cells into iPSCs, differentiates them into insulin-producing beta-like cells, and supports them within a hydrogel and stent-based implant.</p>
+          <div className="button-row"><Link className="button button-dark" href="/how-it-works">See how it works <span aria-hidden="true">↗</span></Link><Link className="button button-line" href="/science">Explore the science</Link></div>
+          <p className="hero-sequence">Cells → iPSCs → beta-like cells → hydrogel → stent <span>Intended placement: femoral artery</span></p>
         </div>
-        <OrganicField />
-        <div className="scroll-cue" aria-hidden="true"><i /> Scroll to explore</div>
+        <PlatformField />
       </section>
 
-      <section className="intro-section container">
-        <p className="section-label"><span>01</span>Our purpose</p>
+      <ConceptSequence />
+
+      <section className="intro-section platform-purpose container">
+        <p className="section-label"><span>02</span>Problem and approach</p>
         <div className="intro-grid reveal">
-          <h2>A vital organ.<br /><em>An overlooked frontier.</em></h2>
-          <div><p>The pancreas plays an important role across interconnected biological systems. We believe it deserves deeper attention, careful inquiry, and a wider field of possibility.</p><Link className="inline-link" href="/about">More about BioPancrea <span aria-hidden="true">↗</span></Link></div>
+          <h2>A biological response.<br /><em>A supported path.</em></h2>
+          <div><p>The BioPancrea concept connects patient-derived cell biology with a supportive biomaterial and a vascular delivery platform. The aim is to study these elements as one research-stage system while keeping each scientific and engineering question clearly defined.</p><Link className="inline-link" href="/how-it-works">Follow the process <span aria-hidden="true">↗</span></Link></div>
         </div>
-        <div className="system-line" aria-hidden="true"><span>Observe</span><i /><span>Understand</span><i /><span>Translate</span></div>
+        <div className="system-line" aria-hidden="true"><span>Reprogram</span><i /><span>Differentiate</span><i /><span>Support</span><i /><span>Deliver</span></div>
       </section>
 
-      <section className="principles-section container">
-        <div className="section-heading-row"><div><p className="section-label light"><span>02</span>Principles</p><h2>Principled by design.</h2></div><p>Clear thinking, human relevance, and scientific discipline guide each step.</p></div>
-        <div className="principle-cards">
-          {principles.map(([number,title,copy]) => <article className="principle-card" key={number}><div><span>{number}</span><i /></div><h3>{title}</h3><p>{copy}</p></article>)}
-        </div>
+      <section className="home-science-preview container">
+        <div><p className="section-label light"><span>03</span>Science</p><h2>Four connected disciplines. One research-stage concept.</h2></div>
+        <div><p>Cell reprogramming, beta-cell differentiation, biomaterials, and vascular platform design each shape a different part of the BioPancrea concept.</p><Link className="button button-light" href="/science">Explore the science <span aria-hidden="true">↗</span></Link></div>
       </section>
 
-      <section className="visual-statement">
-        <div className="visual-grain" aria-hidden="true"><i /><i /><i /></div>
-        <p>Perspective / Biology / Purpose</p>
-        <h2>Complex biology demands<br />a <em>new perspective.</em></h2>
-        <span>BioPancrea — A focused biological frontier</span>
-      </section>
-
-      <section className="preview-section container">
-        <p className="section-label"><span>03</span>Explore BioPancrea</p>
-        <div className="preview-list">
-          {previews.map(([title,copy,href],index) => <Link className="preview-row" href={href} key={href}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p><i aria-hidden="true">↗</i></Link>)}
-        </div>
+      <section className="home-team-preview container">
+        <p className="section-label"><span>04</span>Meet the team</p>
+        <div><h2>Built across biological and engineered disciplines.</h2><div><p>BioPancrea brings together relevant thinking across cell biology, biomaterials, medical devices, and translational development. Individual profiles will be published only when verified and approved.</p><Link className="inline-link" href="/team">Meet the team <span aria-hidden="true">↗</span></Link></div></div>
       </section>
 
       <section className="closing-cta container">
-        <div><p className="section-label"><span>04</span>Connect</p><h2>The next chapter<br />is taking shape.</h2></div>
-        <div><p>We welcome conversations with researchers, clinicians, strategic partners, and investors whose interests align with our purpose.</p><Link className="button button-dark" href="/contact">Start a conversation <span aria-hidden="true">↗</span></Link></div>
+        <div><p className="section-label"><span>05</span>Connect</p><h2>Let’s start a thoughtful conversation.</h2></div>
+        <div><p>We welcome conversations with researchers, clinical experts, strategic partners, and investors whose interests align with the platform.</p><Link className="button button-dark" href="/contact">Start a conversation <span aria-hidden="true">↗</span></Link></div>
       </section>
     </main>
   );

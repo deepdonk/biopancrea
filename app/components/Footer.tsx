@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BrandMark } from "./BrandMark";
 
-const pages = [["About", "/about"], ["Our Focus", "/focus"], ["Approach", "/approach"], ["Insights", "/insights"], ["Contact", "/contact"]] as const;
+const pages = [["How It Works", "/how-it-works"], ["Science", "/science"], ["Meet the Team", "/team"], ["Contact", "/contact"]] as const;
 const legal = [["Privacy", "/privacy"], ["Cookies", "/cookies"], ["Terms", "/terms"], ["Disclaimer", "/disclaimer"]] as const;
 
 export function Footer() {
@@ -15,13 +15,13 @@ export function Footer() {
         <Link className="circle-link" href="/contact" aria-label="Connect with BioPancrea"><span>Connect</span><i aria-hidden="true">↗</i></Link>
       </div>
       <div className="footer-grid">
-        <div className="footer-statement"><p>Focused thinking for a complex biological frontier.</p><span>BioPancrea / 2026</span></div>
+        <div className="footer-statement"><p>A research-stage concept connecting cell biology, biomaterials, and vascular platform design.</p><span>BioPancrea / 2026</span></div>
         <div><p className="footer-label">Explore</p>{pages.map(([label,href]) => <Link key={href} href={href}>{label}</Link>)}</div>
         <div><p className="footer-label">Legal</p>{legal.map(([label,href]) => <Link key={href} href={href}>{label}</Link>)}</div>
       </div>
       <div className="footer-legal">
         <p>© {new Date().getFullYear()} BioPancrea. All rights reserved.</p>
-        <p>This website provides general corporate and educational information only and does not provide medical advice.</p>
+        <p>This website provides general corporate and educational information only. The platform is investigational and the website does not provide medical advice.</p>
       </div>
     </footer>
   );

@@ -18,19 +18,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://biopancrea.knmmkk.chatgpt.site"),
-  title: { default: "BioPancrea — Rethinking pancreatic health", template: "%s — BioPancrea" },
-  description: "BioPancrea is exploring new possibilities at the intersection of biology, technology, and human health.",
+  title: { default: "BioPancrea — Research-stage cell-therapy platform", template: "%s — BioPancrea" },
+  description: "BioPancrea is developing a research-stage concept connecting patient-derived beta-like cells, hydrogel support, and a stent-based vascular platform.",
   icons: { icon: "/favicon.png", shortcut: "/favicon.png" },
   openGraph: {
-    title: "BioPancrea — Rethinking pancreatic health",
-    description: "Exploring new possibilities at the intersection of biology, technology, and human health.",
+    title: "BioPancrea — Research-stage cell-therapy platform",
+    description: "Patient-derived beta-like cells, hydrogel support, and a stent-based vascular platform concept.",
     type: "website",
     images: [{ url: "/og.png", width: 1672, height: 941, alt: "BioPancrea — Rethinking pancreatic health." }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BioPancrea — Rethinking pancreatic health",
-    description: "Exploring new possibilities at the intersection of biology, technology, and human health.",
+    title: "BioPancrea — Research-stage cell-therapy platform",
+    description: "Patient-derived beta-like cells, hydrogel support, and a stent-based vascular platform concept.",
     images: ["/og.png"],
   },
 };
