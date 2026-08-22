@@ -1,112 +1,66 @@
-import { ContactForm } from "./ContactForm";
+import Link from "next/link";
+import { OrganicField } from "./components/OrganicField";
 
 const principles = [
-  { number: "01", title: "Biology-led", copy: "We begin with the complexity of biology and let evidence shape the way forward." },
-  { number: "02", title: "Patient-centred", copy: "Human needs and lived experience remain at the centre of how we think." },
-  { number: "03", title: "Built for meaningful translation", copy: "We pursue ideas with the potential to move thoughtfully from insight to impact." },
-];
+  ["01", "Biology-led", "We begin with the complexity of biology and let evidence shape the way forward."],
+  ["02", "Patient-centred", "Human needs and lived experience remain at the centre of how we think."],
+  ["03", "Built for translation", "We pursue ideas with the potential to move thoughtfully from insight to impact."],
+] as const;
+
+const previews = [
+  ["Our purpose", "Why pancreatic health deserves deeper, more focused attention.", "/about"],
+  ["Our focus", "A considered view of a complex and connected biological frontier.", "/focus"],
+  ["Our approach", "How disciplined inquiry can move insight toward meaningful possibility.", "/approach"],
+] as const;
 
 export default function Home() {
   return (
     <main>
-      <header className="site-header" aria-label="Primary navigation">
-        <a className="wordmark" href="#top" aria-label="BioPancrea home">
-          <span className="wordmark-mark" aria-hidden="true"><i /><i /><i /></span>
-          BioPancrea
-        </a>
-        <nav>
-          <a href="#purpose">Purpose</a>
-          <a href="#approach">Approach</a>
-          <a className="nav-contact" href="#contact">Connect</a>
-        </nav>
-      </header>
-
-      <section className="hero" id="top">
-        <div className="hero-copy">
-          <p className="eyebrow hero-eyebrow"><span /> Pancreatic &amp; metabolic health</p>
+      <section className="home-hero">
+        <div className="home-hero-copy">
+          <p className="eyebrow"><span>BP—01</span>Pancreatic &amp; metabolic health</p>
           <h1>Rethinking<br />pancreatic health.</h1>
-          <p className="hero-support">BioPancrea is exploring new possibilities at the intersection of biology, technology, and human health.</p>
-          <div className="hero-actions">
-            <a className="primary-button" href="#contact">Connect with us <span aria-hidden="true">↗</span></a>
-            <p><span className="pulse" /> Currently operating in focused development.</p>
-          </div>
+          <p>BioPancrea is exploring new possibilities at the intersection of biology, technology, and human health.</p>
+          <div className="button-row"><Link className="button button-dark" href="/about">Discover our purpose <span aria-hidden="true">↗</span></Link><Link className="button button-line" href="/contact">Connect with us</Link></div>
         </div>
-        <div className="bio-visual" aria-hidden="true">
-          <div className="orb orb-one"><span /><span /><span /></div>
-          <div className="orb orb-two"><span /><span /></div>
-          <div className="orb orb-three"><span /></div>
-          <div className="field-line line-one" /><div className="field-line line-two" />
-          <p className="visual-label label-a">CELLULAR ENVIRONMENT</p>
-          <p className="visual-label label-b">BIOLOGICAL SYSTEMS</p>
-          <p className="visual-index">BP—01</p>
-        </div>
+        <OrganicField />
+        <div className="scroll-cue" aria-hidden="true"><i /> Scroll to explore</div>
       </section>
 
-      <section className="purpose section-pad" id="purpose">
-        <div className="section-kicker"><span>01</span><p>Our purpose</p></div>
-        <div className="purpose-content">
+      <section className="intro-section container">
+        <p className="section-label"><span>01</span>Our purpose</p>
+        <div className="intro-grid reveal">
           <h2>A vital organ.<br /><em>An overlooked frontier.</em></h2>
-          <div className="purpose-statement">
-            <p>The pancreas plays a central role in human health, yet much remains to be understood. BioPancrea is working toward a deeper view of its biology—and toward better possibilities for the future.</p>
-            <a className="text-link" href="#approach">How we think <span aria-hidden="true">↓</span></a>
-          </div>
+          <div><p>The pancreas plays an important role across interconnected biological systems. We believe it deserves deeper attention, careful inquiry, and a wider field of possibility.</p><Link className="inline-link" href="/about">More about BioPancrea <span aria-hidden="true">↗</span></Link></div>
         </div>
-        <div className="purpose-mark" aria-hidden="true"><span>Understand</span><i /><span>Explore</span><i /><span>Translate</span></div>
+        <div className="system-line" aria-hidden="true"><span>Observe</span><i /><span>Understand</span><i /><span>Translate</span></div>
       </section>
 
-      <section className="approach section-pad" id="approach">
-        <div className="section-kicker light"><span>02</span><p>Our approach</p></div>
-        <div className="approach-heading">
-          <h2>Principled by design.</h2>
-          <p>Clear thinking, patient attention, and scientific discipline guide each step.</p>
-        </div>
-        <div className="principle-grid">
-          {principles.map((principle) => (
-            <article className="principle" key={principle.number}>
-              <div className="principle-top"><span>{principle.number}</span><i aria-hidden="true" /></div>
-              <h3>{principle.title}</h3><p>{principle.copy}</p>
-            </article>
-          ))}
+      <section className="principles-section container">
+        <div className="section-heading-row"><div><p className="section-label light"><span>02</span>Principles</p><h2>Principled by design.</h2></div><p>Clear thinking, human relevance, and scientific discipline guide each step.</p></div>
+        <div className="principle-cards">
+          {principles.map(([number,title,copy]) => <article className="principle-card" key={number}><div><span>{number}</span><i /></div><h3>{title}</h3><p>{copy}</p></article>)}
         </div>
       </section>
 
-      <section className="vision section-pad" id="vision">
-        <div className="vision-art" aria-hidden="true">
-          <div className="vision-ring ring-a" /><div className="vision-ring ring-b" /><div className="vision-ring ring-c" />
-          <span className="vision-dot dot-a" /><span className="vision-dot dot-b" /><span className="vision-dot dot-c" />
-        </div>
-        <div className="vision-copy">
-          <div className="section-kicker"><span>03</span><p>Our vision</p></div>
-          <h2>Building toward<br />a healthier future.</h2>
-          <p>We are pursuing scientifically grounded innovation with care, discipline, and a sense of long-term purpose.</p>
-          <div className="quiet-note"><i /> Thoughtful progress, grounded in biology.</div>
+      <section className="visual-statement">
+        <div className="visual-grain" aria-hidden="true"><i /><i /><i /></div>
+        <p>Perspective / Biology / Purpose</p>
+        <h2>Complex biology demands<br />a <em>new perspective.</em></h2>
+        <span>BioPancrea — A focused biological frontier</span>
+      </section>
+
+      <section className="preview-section container">
+        <p className="section-label"><span>03</span>Explore BioPancrea</p>
+        <div className="preview-list">
+          {previews.map(([title,copy,href],index) => <Link className="preview-row" href={href} key={href}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p><i aria-hidden="true">↗</i></Link>)}
         </div>
       </section>
 
-      <section className="contact section-pad" id="contact">
-        <div className="contact-intro">
-          <div className="section-kicker"><span>04</span><p>Contact</p></div>
-          <h2>Let’s start a<br />conversation.</h2>
-          <p>We welcome thoughtful conversations with aligned researchers, clinical experts, strategic partners, and investors.</p>
-          <a href="mailto:hello@biopancrea.com">hello@biopancrea.com <span aria-hidden="true">↗</span></a>
-        </div>
-        <ContactForm />
+      <section className="closing-cta container">
+        <div><p className="section-label"><span>04</span>Connect</p><h2>The next chapter<br />is taking shape.</h2></div>
+        <div><p>We welcome conversations with researchers, clinicians, strategic partners, and investors whose interests align with our purpose.</p><Link className="button button-dark" href="/contact">Start a conversation <span aria-hidden="true">↗</span></Link></div>
       </section>
-
-      <footer>
-        <div className="footer-main">
-          <div>
-            <a className="wordmark footer-wordmark" href="#top" aria-label="BioPancrea home"><span className="wordmark-mark" aria-hidden="true"><i /><i /><i /></span>BioPancrea</a>
-            <p>Advancing pancreatic health.</p>
-          </div>
-          <a className="back-top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
-        </div>
-        <div className="footer-bottom">
-          <p id="legal-note">© {new Date().getFullYear()} BioPancrea. General corporate information only; not medical advice.</p>
-          <div><a href="#privacy-note">Privacy</a><a href="#legal-note">Legal</a></div>
-          <p id="privacy-note" className="visually-hidden">Contact details are used only to respond to your enquiry.</p>
-        </div>
-      </footer>
     </main>
   );
 }

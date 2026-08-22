@@ -1,0 +1,55 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { BrandMark } from "./BrandMark";
+
+const navItems = [
+  ["Home", "/"],
+  ["About", "/about"],
+  ["Our Focus", "/focus"],
+  ["Approach", "/approach"],
+  ["Insights", "/insights"],
+  ["Contact", "/contact"],
+] as const;
+
+export function Header() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle("menu-open", open);
+    return () => document.body.classList.remove("menu-open");
+  }, [open]);
+
+  return (
+    <header className="global-header">
+      <Link className="brand" href="/" aria-label="BioPancrea home">
+        <BrandMark />
+        <span>BioPancrea</span>
+      </Link>
+      <nav className="desktop-nav" aria-label="Primary navigation">
+        {navItems.map(([label, href]) => (
+          <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined}>{label}</Link>
+        ))}
+      </nav>
+      <Link className="header-connect" href="/contact">Connect <span aria-hidden="true">↗</span></Link>
+      <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((value) => !value)}>
+        <span className="visually-hidden">{open ? "Close menu" : "Open menu"}</span>
+        <i /><i />
+      </button>
+      <div className={`mobile-menu${open ? " is-open" : ""}`} id="mobile-menu" aria-hidden={!open}>
+        <div className="mobile-menu-inner">
+          <p className="micro-label">Navigate</p>
+          <nav aria-label="Mobile navigation">
+            {navItems.map(([label, href], index) => (
+              <Link key={href} href={href} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}><span>0{index + 1}</span>{label}</Link>
+            ))}
+          </nav>
+          <p className="mobile-disclaimer">General corporate and educational information only. Not medical advice.</p>
+        </div>
+      </div>
+    </header>
+  );
+}

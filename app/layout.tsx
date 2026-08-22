@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { CookieNotice } from "./components/CookieNotice";
+import { CursorAura } from "./components/CursorAura";
+import { Footer } from "./components/Footer";
+import { Header } from "./components/Header";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,8 +18,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://biopancrea.knmmkk.chatgpt.site"),
-  title: "BioPancrea — Rethinking pancreatic health",
+  title: { default: "BioPancrea — Rethinking pancreatic health", template: "%s — BioPancrea" },
   description: "BioPancrea is exploring new possibilities at the intersection of biology, technology, and human health.",
+  icons: { icon: "/favicon.png", shortcut: "/favicon.png" },
   openGraph: {
     title: "BioPancrea — Rethinking pancreatic health",
     description: "Exploring new possibilities at the intersection of biology, technology, and human health.",
@@ -40,7 +45,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Header />
+        <div className="page-transition">{children}</div>
+        <Footer />
+        <CookieNotice />
+        <CursorAura />
       </body>
     </html>
   );
