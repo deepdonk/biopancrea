@@ -1,6 +1,3 @@
-import { ensureDatabase, getDb } from "../../../db";
-import { enquiries } from "../../../db/schema";
-
 const interests = new Set(["Research", "Clinical collaboration", "Strategic partnership", "Investment", "Media", "General enquiry"]);
 
 export async function POST(request: Request) {
@@ -17,8 +14,19 @@ export async function POST(request: Request) {
       return Response.json({ error: "Please complete all required fields." }, { status: 400 });
     }
 
-    await ensureDatabase();
-    await getDb().insert(enquiries).values({ name, email, organisation, interest, message, consent });
+    const endpoint = process.env.CONTACT_WEBHOOK_URL;
+    if (!endpoint) {
+      return Response.json({ error: "Contact service is not configured." }, { status: 503 });
+    }
+
+    const delivery = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "contact", name, email, organisation, interest, message, consent }),
+      cache: "no-store",
+    });
+
+    if (!delivery.ok) throw new Error("Contact delivery failed.");
     return Response.json({ ok: true }, { status: 201 });
   } catch {
     return Response.json({ error: "Unable to save this enquiry." }, { status: 500 });
