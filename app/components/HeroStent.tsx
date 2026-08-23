@@ -40,7 +40,8 @@ export function HeroStent() {
     const bounds = field.getBoundingClientRect();
     const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 16;
     const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 10;
-    field.style.setProperty("--stent-shift", `translate3d(${x}px,${y}px,0)`);
+    field.style.setProperty("--stent-shift", `translate3d(${x}px,${y}px,0) rotate(${x * .08}deg)`);
+    field.style.setProperty("--particle-shift", `translate3d(${x * .28}px,${y * .28}px,0)`);
   }
 
   function handlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
@@ -49,10 +50,14 @@ export function HeroStent() {
 
   function resetPosition() {
     fieldRef.current?.style.setProperty("--stent-shift", "translate3d(0,0,0)");
+    fieldRef.current?.style.setProperty("--particle-shift", "translate3d(0,0,0)");
   }
 
   return (
     <div className="hero-stent-field" ref={fieldRef} onPointerMove={handlePointerMove} onPointerDown={handlePointerDown} onPointerUp={resetPosition} onPointerLeave={resetPosition}>
+      <div className="bio-particle-field" aria-hidden="true">
+        {Array.from({ length: 12 }).map((_, index) => <i key={index} />)}
+      </div>
       <svg viewBox="0 0 900 620" role="img" aria-labelledby="hero-stent-title hero-stent-description">
         <title id="hero-stent-title">Conceptual vascular stent platform</title>
         <desc id="hero-stent-description">An open cylindrical stent with a repeating diamond lattice, a thin hydrogel layer and small beta-like cell clusters positioned away from the central blood-flow channel.</desc>

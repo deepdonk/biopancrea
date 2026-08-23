@@ -1,6 +1,9 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { HeroStent } from "./components/HeroStent";
-import { LandingJourney } from "./components/LandingJourney";
+
+const LandingJourney = dynamic(() => import("./components/LandingJourney").then((module) => module.LandingJourney));
+const LayeredPlatform = dynamic(() => import("./components/LayeredPlatform").then((module) => module.LayeredPlatform));
 
 export default function Home() {
   return (
@@ -8,9 +11,8 @@ export default function Home() {
       <section className="landing-hero">
         <div className="landing-hero-copy">
           <p className="eyebrow">ARTIFICIAL PANCREAS STARTUP</p>
-          <h1>Building an artificial pancreas within a vascular stent.</h1>
-          <p className="landing-hero-lead">BioPancrea is a biotechnology startup developing an implantable artificial-pancreas concept. The platform combines patient-derived insulin-producing beta-like cells, a supportive hydrogel, and a vascular stent designed for placement in the femoral artery.</p>
-          <p className="landing-startup-statement">An early-stage biotechnology startup developing a new approach to insulin delivery.</p>
+          <h1>Building an <span className="hero-headline-accent">artificial pancreas</span> within a vascular stent.</h1>
+          <p className="landing-hero-lead">BioPancrea is a biotechnology startup developing an implantable artificial-pancreas concept that combines patient-derived beta-like cells, a supportive hydrogel, and a vascular stent.</p>
           <div className="landing-hero-actions">
             <Link className="button button-dark" href="/how-it-works">How it works</Link>
           </div>
@@ -19,6 +21,7 @@ export default function Home() {
       </section>
 
       <LandingJourney />
+      <LayeredPlatform />
     </main>
   );
 }
