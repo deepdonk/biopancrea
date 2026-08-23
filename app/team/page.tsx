@@ -3,7 +3,7 @@ import { TeamProfiles } from "../components/TeamProfiles";
 
 export const metadata: Metadata = {
   title: "Meet the Team",
-  description: "Meet the two people behind BioPancrea.",
+  description: "Meet the two co-founders of BioPancrea, an early-stage biotechnology startup.",
 };
 
 export default function TeamPage() {

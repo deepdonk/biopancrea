@@ -346,6 +346,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .landing-hero h1{max-width:760px;margin:29px 0 25px;font-size:clamp(48px,4.5vw,68px);font-weight:440;line-height:.98;letter-spacing:-.066em;animation:rise .8s .08s both}
 .landing-hero-lead{max-width:620px;margin:0 0 13px;color:rgba(11,34,49,.66);font-size:15px;line-height:1.62;letter-spacing:-.015em}
 .landing-hero-detail{max-width:580px;margin:0;color:rgba(11,34,49,.48);font-size:11px;line-height:1.65}
+.landing-startup-statement{max-width:590px;margin:15px 0 0;color:rgba(11,34,49,.48);font:9px/1.6 var(--font-geist-mono),monospace;letter-spacing:.045em}
 .landing-hero-actions{margin-top:30px;display:flex;flex-wrap:wrap;gap:30px;align-items:center}
 .hero-stent-field{--stent-shift:translate3d(0,0,0);position:relative;min-height:100%;overflow:hidden;background:var(--sage);isolation:isolate;touch-action:pan-y}
 .hero-stent-field svg{position:absolute;inset:3%;width:94%;height:94%;overflow:visible}

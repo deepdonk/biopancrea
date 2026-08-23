@@ -17,19 +17,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://biopancrea.knmmkk.chatgpt.site"),
-  title: { default: "BioPancrea — Research-stage cell-therapy platform", template: "%s — BioPancrea" },
-  description: "BioPancrea is developing a research-stage concept connecting patient-derived beta-like cells, hydrogel support, and a stent-based vascular platform.",
+  title: { default: "BioPancrea — Artificial pancreas startup", template: "%s — BioPancrea" },
+  description: "BioPancrea is an early-stage biotechnology startup developing an implantable artificial-pancreas concept using patient-derived beta-like cells, a supportive hydrogel, and a vascular stent.",
   icons: { icon: "/favicon.png", shortcut: "/favicon.png" },
   openGraph: {
-    title: "BioPancrea — Research-stage cell-therapy platform",
-    description: "Patient-derived beta-like cells, hydrogel support, and a stent-based vascular platform concept.",
+    title: "BioPancrea — Artificial pancreas startup",
+    description: "An early-stage biotechnology startup developing an implantable artificial-pancreas concept.",
     type: "website",
     images: [{ url: "/og.png", width: 1672, height: 941, alt: "BioPancrea — Rethinking pancreatic health." }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BioPancrea — Research-stage cell-therapy platform",
-    description: "Patient-derived beta-like cells, hydrogel support, and a stent-based vascular platform concept.",
+    title: "BioPancrea — Artificial pancreas startup",
+    description: "An early-stage biotechnology startup developing an implantable artificial-pancreas concept.",
     images: ["/og.png"],
   },
 };

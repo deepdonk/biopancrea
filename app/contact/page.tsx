@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Contact", description: "Connect with BioPancrea." };
+export const metadata: Metadata = { title: "Contact", description: "Contact BioPancrea, an early-stage biotechnology startup." };
 
 const contactEmail = "d.suresh22@taylorshill.ie";
 const emailHref = "mailto:d.suresh22@taylorshill.ie?subject=BioPancrea%20enquiry";
