@@ -23,7 +23,7 @@ button,input,textarea,select { font: inherit; }
 button { color: inherit; }
 ::selection { background: var(--coral); color: var(--navy); }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-.container { padding-left: var(--pad); padding-right: var(--pad); }
+.container { width: 100%; max-width: none; padding-left: var(--pad); padding-right: var(--pad); }
 .page-transition { animation: page-in .55s ease both; }
 
 /* Global navigation */
