@@ -1,11 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const layers = [
-  { id: "cells", index: "01", name: "Cells", copy: "Patient-derived cells are reprogrammed and guided toward insulin-producing beta-like cells." },
-  { id: "hydrogel", index: "02", name: "Hydrogel", copy: "A supportive hydrogel provides the cells with a structured environment." },
-  { id: "stent", index: "03", name: "Stent", copy: "A vascular stent carries the cell-containing platform." },
+  { id: "cells", index: "01", name: "Insulin-producing cells", copy: "Beta-like cells form the biological component of the platform." },
+  { id: "hydrogel", index: "02", name: "Supportive hydrogel", copy: "A hydrogel provides a structured environment for the cells." },
+  { id: "stent", index: "03", name: "Vascular stent", copy: "A stent-based system provides the implantable platform." },
 ] as const;
 
 type LayerId = typeof layers[number]["id"];
@@ -49,8 +50,8 @@ export function LayeredPlatform() {
         {Array.from({ length: 12 }).map((_, index) => <i key={index} />)}
       </div>
       <header className="layered-platform-heading">
-        <p className="section-label light"><span>02</span>Platform architecture</p>
-        <h2>One platform. Three connected layers.</h2>
+        <p className="section-label light"><span>02</span>The concept</p>
+        <h2>One concept. Three connected components.</h2>
       </header>
       <div className="layered-platform-body">
         <div className={`layered-platform-graphic${activeLayer ? ` isolate-${activeLayer}` : ""}`} role="img" aria-label="A beta-like cell cluster surrounded by a supportive hydrogel and an open cylindrical vascular stent">
@@ -71,6 +72,7 @@ export function LayeredPlatform() {
               <i aria-hidden="true">{activeLayer === layer.id ? "−" : "+"}</i>
             </button>
           ))}
+          <Link className="button concept-button" href="/how-it-works">See how it works</Link>
         </div>
       </div>
     </section>

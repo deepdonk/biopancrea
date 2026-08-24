@@ -7,6 +7,7 @@ import { BrandMark } from "./BrandMark";
 
 const navItems = [
   ["Home", "/"],
+  ["Mission", "/mission"],
   ["How It Works", "/how-it-works"],
   ["Meet the Team", "/team"],
   ["Contact", "/contact"],

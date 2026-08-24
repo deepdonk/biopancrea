@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 
 const steps = [
-  ["Cell sample", "A small skin-cell sample provides the starting material."],
-  ["Reprogramming", "The skin cells are reprogrammed into induced pluripotent stem cells, giving them the ability to develop toward another specialised cell type."],
-  ["Differentiation", "The iPSCs are guided through a controlled differentiation process toward insulin-producing beta-like cells."],
-  ["Hydrogel integration", "The cells are incorporated into a hydrogel designed to provide a supportive structural environment."],
-  ["Stent integration", "The cell-containing hydrogel is integrated with BioPancrea’s stent-based platform."],
-  ["Intended placement", "The platform is being explored for placement in the femoral artery through a vascular delivery approach."],
-  ["Intended biological response", "The aim is to investigate whether the cells can respond to changing glucose levels by releasing insulin into the bloodstream."],
+  ["Skin-cell sample", "A small skin-cell sample provides the starting material."],
+  ["Reprogramming into iPSCs", "The skin cells are reprogrammed into induced pluripotent stem cells, giving them the ability to develop toward another specialised cell type."],
+  ["Differentiation into beta-like cells", "The iPSCs are guided through a controlled differentiation process toward insulin-producing beta-like cells."],
+  ["Integration with the hydrogel", "The cells are incorporated into a hydrogel designed to provide a supportive structural environment."],
+  ["Integration with the stent", "The cell-containing hydrogel is integrated with BioPancrea’s stent-based platform."],
+  ["Intended femoral-artery placement", "The platform is being explored for placement in the femoral artery through a vascular delivery approach."],
+  ["Intended glucose-responsive insulin release", "The aim is to investigate whether the cells can respond to changing glucose levels by releasing insulin into the bloodstream."],
 ] as const;
 
 export function ProcessStory() {
@@ -87,9 +87,12 @@ function ProcessDiagram({ activeStep }: { activeStep: number }) {
           {Array.from({ length: 7 }).map((_, index) => <path key={`hv${index}`} d={`M ${245 + index * 38} 210 Q ${275 + index * 30} 320 ${245 + index * 38} 428`} />)}
         </g>
         <g className="diagram-stent" aria-hidden="true">
-          <rect x="178" y="180" width="354" height="274" rx="137" />
-          {[-45,0,45].map((offset) => <path key={`sa${offset}`} d={`M ${224 + offset} 199 L ${465 + offset} 435`} />)}
-          {[-45,0,45].map((offset) => <path key={`sb${offset}`} d={`M ${224 + offset} 435 L ${465 + offset} 199`} />)}
+          <ellipse cx="188" cy="318" rx="31" ry="118" />
+          <ellipse cx="512" cy="318" rx="31" ry="118" />
+          <ellipse cx="188" cy="318" rx="22" ry="96" />
+          <ellipse cx="512" cy="318" rx="22" ry="96" />
+          {Array.from({ length: 8 }).map((_, row) => <path key={`stent-${row}`} d={`M${181 + row * 4} ${214 + row * 27} L${505 + row * 2} ${422 - row * 27} M${181 + row * 4} ${422 - row * 27} L${505 + row * 2} ${214 + row * 27}`} />)}
+          <path className="diagram-channel" d="M190 318 H510" />
         </g>
         <g className="diagram-vessel" aria-hidden="true">
           <path d="M40 235 C185 164 495 167 640 235" />

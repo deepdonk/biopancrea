@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BrandMark } from "./BrandMark";
 
-const pages = [["Home", "/"], ["How It Works", "/how-it-works"], ["Meet the Team", "/team"], ["Contact", "/contact"]] as const;
+const pages = [["Home", "/"], ["Mission", "/mission"], ["How It Works", "/how-it-works"], ["Meet the Team", "/team"], ["Contact", "/contact"]] as const;
 const contactEmail = "d.suresh22@taylorshill.ie";
 const emailHref = "mailto:d.suresh22@taylorshill.ie?subject=BioPancrea%20enquiry";
 
