@@ -18,9 +18,10 @@ export function WhyItMatters() {
           </g>
           <g className="response-glucose" aria-hidden="true">{[[92,220],[148,275],[210,228]].map(([x,y], index) => <path key={index} d={`M${x - 8} ${y} L${x} ${y - 8} L${x + 8} ${y} L${x} ${y + 8}Z`}/>)}</g>
           <g className="response-insulin" aria-hidden="true">{[[474,213],[528,257],[585,224],[630,279]].map(([cx,cy], index) => <circle key={index} cx={cx} cy={cy} r="6"/>)}</g>
-          <g className="response-labels" aria-hidden="true"><text x="74" y="112">GLUCOSE</text><text x="315" y="112">BETA-LIKE CELLS</text><text x="548" y="112">INSULIN</text></g>
+          <g className="response-sequence" aria-hidden="true"><path d="M150 118 H290 M438 118 H548"/><path d="M280 113 L290 118 L280 123 M538 113 L548 118 L538 123"/></g>
+          <g className="response-labels" aria-hidden="true"><text x="74" y="112">Glucose</text><text x="300" y="112">Beta-like cell response</text><text x="558" y="112">Insulin</text><text className="response-investigational" x="72" y="420">Investigational concept</text></g>
         </svg>
-        <figcaption>Intended biological response / Concept illustration</figcaption>
+        <figcaption>Intended biological response / Investigational concept</figcaption>
       </figure>
     </section>
   );

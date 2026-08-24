@@ -269,6 +269,86 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   .platform-field svg{transform:none!important}.platform-stent rect,.platform-stent path{stroke-dashoffset:0}.platform-particles circle,.platform-cell>circle:first-child,.platform-hydrogel path,.sequence-line i,.sequence-glyph i,.diagram-cell,.diagram-flow>*,.science-map-centre i{animation:none!important}
 }
 
+/* Unified BioPancrea platform graphic */
+.platform-model{display:block;width:100%;height:100%;overflow:visible}
+.platform-model-grid{fill:none;stroke:rgba(11,34,49,.1);stroke-width:.7}
+.master-platform{transform-box:fill-box;transform-origin:center}
+.master-stent,.master-hydrogel,.master-cells,.master-flow{transform-box:fill-box;transform-origin:center;transition:opacity .55s ease,transform .8s cubic-bezier(.2,.8,.2,1),filter .55s ease}
+.master-stent{fill:none;stroke:rgba(244,241,233,.78);stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
+.master-stent-back{opacity:.3;stroke-width:1.15}
+.master-stent-front{filter:drop-shadow(0 1px 1px rgba(11,34,49,.24))}
+.master-lumen-ring{stroke:rgba(244,241,233,.38);stroke-width:1}
+.master-gel-surface{fill:rgba(203,213,202,.19);stroke:rgba(244,241,233,.48);stroke-width:1}
+.master-gel-network,.master-gel-pore{fill:none;stroke:rgba(11,34,49,.25);stroke-width:.9;stroke-linecap:round}
+.master-cell>circle:first-child{fill:rgba(220,128,109,.84);stroke:rgba(244,241,233,.76);stroke-width:1.15;transform-box:fill-box;transform-origin:center;animation:master-cell-motion 6.8s ease-in-out infinite alternate}
+.master-cell>circle:last-child{fill:rgba(244,241,233,.68)}
+.master-cell:nth-child(2n)>circle:first-child{animation-delay:-2.1s}.master-cell:nth-child(3n)>circle:first-child{animation-delay:-4.2s}
+.master-flow{fill:rgba(244,241,233,.82)}.master-flow circle{animation:master-channel-flow 5.8s linear infinite}.master-flow circle:nth-child(2n){animation-delay:-2.2s}.master-flow circle:nth-child(3n){animation-delay:-4s}
+.master-labels{fill:none;stroke:rgba(11,34,49,.43);stroke-width:1;stroke-dasharray:3 5}.master-labels circle{fill:var(--navy);stroke:none}.master-labels text{fill:rgba(11,34,49,.67);stroke:none;font:8px var(--font-geist-mono),monospace;letter-spacing:.09em;text-transform:uppercase}
+.master-platform.isolate-cells .master-stent,.master-platform.isolate-cells .master-hydrogel,.master-platform.isolate-cells .master-flow,.master-platform.isolate-hydrogel .master-stent,.master-platform.isolate-hydrogel .master-cells,.master-platform.isolate-hydrogel .master-flow,.master-platform.isolate-stent .master-hydrogel,.master-platform.isolate-stent .master-cells,.master-platform.isolate-stent .master-flow{opacity:.11;filter:blur(.35px)}
+.master-platform.is-exploded:not(.is-assembled) .master-cells{transform:translateX(-150px)}
+.master-platform.is-exploded:not(.is-assembled) .master-hydrogel{transform:translateX(0) scale(.88)}
+.master-platform.is-exploded:not(.is-assembled) .master-stent{transform:translateX(150px)}
+
+.hero-stent-pointer{position:absolute;inset:0;transform:var(--stent-shift);transform-origin:center;transition:transform .65s cubic-bezier(.2,.8,.2,1)}
+.hero-stent-field .hero-platform-model{position:absolute;inset:2%;width:96%;height:96%}
+.hero-platform-model .master-platform{animation:master-platform-rotation 15s 1.5s ease-in-out infinite}
+.hero-platform-model .master-stent line{stroke-dasharray:88;stroke-dashoffset:88;animation:master-strut-draw .9s .12s ease-out forwards}
+.hero-platform-model .master-stent ellipse{opacity:0;animation:master-layer-appear .55s .65s ease-out forwards}
+.hero-platform-model .master-hydrogel{opacity:0;animation:master-layer-appear .75s .72s ease-out forwards}
+.hero-platform-model .master-cells{opacity:0;animation:master-layer-appear .72s 1.18s ease-out forwards}
+.hero-platform-model .master-flow{opacity:0;animation:master-layer-appear .65s 1.65s ease-out forwards}
+.hero-platform-model .master-labels{opacity:0;animation:master-layer-appear .55s 1.9s ease-out forwards}
+
+.layered-platform-graphic{display:grid;place-items:center;overflow:hidden}
+.layered-platform-graphic .platform-model{width:min(100%,780px);min-height:470px;transform:var(--platform-shift);transition:transform .65s cubic-bezier(.2,.8,.2,1)}
+.layered-platform .platform-model-grid{stroke:rgba(244,241,233,.06)}
+.layered-platform .master-labels{stroke:rgba(244,241,233,.34)}.layered-platform .master-labels circle{fill:var(--ivory)}.layered-platform .master-labels text{fill:rgba(244,241,233,.6)}
+
+.mission-concept-diagram{display:flex;flex-direction:column;justify-content:center;padding:28px 26px 76px}
+.mission-concept-diagram .platform-model{min-height:440px}
+.mission-platform-labels{position:absolute;left:32px;right:32px;bottom:54px;display:grid;grid-template-columns:repeat(3,1fr);color:rgba(11,34,49,.57);font:8px var(--font-geist-mono),monospace;letter-spacing:.08em;text-transform:uppercase}
+.mission-platform-labels span:nth-child(2){text-align:center}.mission-platform-labels span:last-child{text-align:right}
+.mission-concept-diagram figcaption{left:32px;right:32px;bottom:22px;display:block;color:rgba(11,34,49,.62);font:9px/1.5 var(--font-geist-sans),Arial,sans-serif;letter-spacing:0;text-transform:none;text-align:center}
+
+.process-story{grid-template-columns:.8fr 1fr}
+.process-visual-column{grid-column:2;grid-row:1}.process-copy-column{grid-column:1;grid-row:1}
+.diagram-master-platform{opacity:0;transform-box:fill-box;transform-origin:center;transition:opacity .55s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.process-diagram[data-stage="3"] .diagram-master-platform,.process-diagram[data-stage="4"] .diagram-master-platform,.process-diagram[data-stage="5"] .diagram-master-platform,.process-diagram[data-stage="6"] .diagram-master-platform{opacity:1}
+.process-diagram[data-stage="3"] .diagram-master-platform .master-stent{opacity:0;transform:scaleY(.72)}
+.process-diagram[data-stage="3"] .diagram-cells,.process-diagram[data-stage="4"] .diagram-cells,.process-diagram[data-stage="5"] .diagram-cells,.process-diagram[data-stage="6"] .diagram-cells{opacity:0}
+.process-diagram[data-stage="5"] .diagram-master-platform,.process-diagram[data-stage="6"] .diagram-master-platform{transform:scale(.78)}
+.process-diagram .master-labels{display:none}.process-diagram .master-stent{stroke:rgba(244,241,233,.78)}
+.process-diagram .master-gel-surface{fill:rgba(203,213,202,.2)}
+.response-sequence{fill:none;stroke:rgba(11,34,49,.34);stroke-width:1}.response-investigational{fill:rgba(11,34,49,.44);letter-spacing:.08em;text-transform:uppercase}
+
+@keyframes master-strut-draw{to{stroke-dashoffset:0}}
+@keyframes master-layer-appear{to{opacity:1}}
+@keyframes master-platform-rotation{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+@keyframes master-cell-motion{from{transform:translate3d(-1px,2px,0) scale(.98)}to{transform:translate3d(3px,-3px,0) scale(1.03)}}
+@keyframes master-channel-flow{from{transform:translateX(-75px);opacity:0}18%{opacity:.84}82%{opacity:.84}to{transform:translateX(82px);opacity:0}}
+
+@media(max-width:1050px){
+  .process-story{grid-template-columns:.85fr 1fr}
+  .mission-concept-diagram .platform-model{min-height:390px}
+}
+
+@media(max-width:760px){
+  .hero-stent-field .hero-platform-model{inset:0;width:100%;height:100%}.master-labels text{font-size:10px}.master-labels{stroke-width:1.2}
+  .layered-platform-graphic .platform-model{width:112%;min-height:350px}.layered-platform-graphic{min-height:390px}
+  .mission-concept-diagram{padding:18px 8px 112px}.mission-concept-diagram .platform-model{width:112%;min-height:310px;transform:translateX(-5%)}
+  .mission-platform-labels{left:22px;right:22px;bottom:66px;grid-template-columns:1fr;gap:5px}.mission-platform-labels span,.mission-platform-labels span:nth-child(2),.mission-platform-labels span:last-child{text-align:left}
+  .mission-concept-diagram figcaption{left:22px;right:22px;bottom:20px;text-align:left}
+  .process-story{grid-template-columns:1fr}.process-copy-column{grid-column:1;grid-row:2}.process-visual-column{grid-column:1;grid-row:1;position:sticky;top:var(--header-height);padding:10px 0 14px;background:var(--ivory)}
+  .process-diagram{min-height:315px}.process-diagram svg{min-height:315px}.process-diagram .diagram-labels{font-size:10px}.process-diagram .diagram-master-platform>g{transform:translate(5px 148px) scale(.69)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-platform-model .master-platform,.hero-platform-model .master-stent line,.hero-platform-model .master-stent ellipse,.hero-platform-model .master-hydrogel,.hero-platform-model .master-cells,.hero-platform-model .master-flow,.hero-platform-model .master-labels,.master-cell>circle:first-child,.master-flow circle{animation:none!important}
+  .hero-platform-model .master-stent line{stroke-dashoffset:0}.hero-platform-model .master-stent ellipse,.hero-platform-model .master-hydrogel,.hero-platform-model .master-cells,.hero-platform-model .master-flow,.hero-platform-model .master-labels{opacity:1}
+  .master-stent,.master-hydrogel,.master-cells,.master-flow,.diagram-master-platform{transition:none!important}.master-platform.is-exploded .master-stent,.master-platform.is-exploded .master-hydrogel,.master-platform.is-exploded .master-cells{transform:none!important}
+}
+
 /* Homepage clarity and Mission page */
 .why-matters{scroll-margin-top:var(--header-height);min-height:860px;padding-top:120px;padding-bottom:120px;display:grid;grid-template-columns:.72fr 1fr;gap:10%;align-items:center;background:var(--paper)}
 .why-matters-copy h2{max-width:650px;margin:64px 0 30px;font-size:clamp(52px,5.8vw,82px);font-weight:420;line-height:.98;letter-spacing:-.066em}
@@ -605,4 +685,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   .hero-headline-accent::after,.bio-particle-field i,.hero-stent-assembly,.hero-stent-back line,.hero-stent-front line,.platform-layer-cells i,.transformation-technical-line i{animation:none!important}
   .hero-headline-accent::after{transform:scaleX(1)}.hero-stent-back line,.hero-stent-front line{stroke-dashoffset:0}.hero-stent-assembly,.hero-stent-pointer,.layered-platform-graphic{transform:none!important}.bio-particle-field i{opacity:.35}
   .platform-layer-cells,.platform-layer-hydrogel,.platform-layer-stent,.platform-channel-label{opacity:1;transition:none}.platform-layer-cells{transform:translate(-50%,-50%) scale(1)}.platform-layer-hydrogel,.platform-layer-stent{transform:translate(-50%,-50%) scale(1)}
+}
+
+/* Final cascade adjustments for the unified platform system. */
+.mission-concept-diagram{display:flex;flex-direction:column;justify-content:center;padding:28px 26px 76px}
+.mission-concept-diagram .platform-model{position:relative;z-index:1;min-height:440px}
+.mission-concept-diagram figcaption{left:32px;right:32px;bottom:22px;display:block;color:rgba(11,34,49,.62);font:9px/1.5 var(--font-geist-sans),Arial,sans-serif;letter-spacing:0;text-transform:none;text-align:center}
+.layered-platform-graphic .platform-model{position:relative;inset:auto;width:min(100%,780px);height:auto;min-height:470px}
+
+@media(max-width:760px){
+  .mission-concept-diagram{padding:18px 8px 112px}
+  .mission-concept-diagram .platform-model{width:112%;min-height:310px;transform:translateX(-5%)}
+  .mission-concept-diagram figcaption{left:22px;right:22px;bottom:20px;display:block;text-align:left}
+  .layered-platform-graphic .platform-model{width:112%;min-height:350px}
 }

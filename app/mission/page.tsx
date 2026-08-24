@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { TeamProfiles } from "../components/TeamProfiles";
+import { MissionPlatformGraphic } from "../components/MissionPlatformGraphic";
 
 export const metadata: Metadata = {
   title: "Mission",
@@ -30,12 +31,7 @@ export default function MissionPage() {
           <h2>What we are building</h2>
           <p>BioPancrea is developing a concept in which patient-derived cells are guided toward an insulin-producing beta-like identity, supported within a hydrogel, and incorporated into a vascular stent platform.</p>
         </div>
-        <figure className="mission-concept-diagram" role="img" aria-label="A simple diagram connecting beta-like cells, supportive hydrogel and a vascular stent">
-          <div className="mission-diagram-cells" aria-hidden="true"><i/><i/><i/><i/><i/></div>
-          <div className="mission-diagram-hydrogel" aria-hidden="true" />
-          <div className="mission-diagram-stent" aria-hidden="true" />
-          <figcaption><span>Beta-like cells</span><span>Supportive hydrogel</span><span>Vascular stent</span></figcaption>
-        </figure>
+        <MissionPlatformGraphic />
       </section>
 
       <section className="mission-why container">

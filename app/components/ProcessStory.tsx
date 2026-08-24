@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { PlatformModelLayers } from "./PlatformModel";
 
 const steps = [
   ["Skin-cell sample", "A small skin-cell sample provides the starting material."],
@@ -38,17 +39,6 @@ export function ProcessStory() {
 
   return (
     <section className="process-story container">
-      <div className="process-visual-column">
-        <div className="process-visual-sticky">
-          <div className="process-progress" aria-label={`Stage ${activeStep + 1} of ${steps.length}`}>
-            <span>0{activeStep + 1}</span><i><b style={{ width: `${((activeStep + 1) / steps.length) * 100}%` }} /></i><span>0{steps.length}</span>
-          </div>
-          <ProcessDiagram activeStep={activeStep} />
-          <div className="process-stage-nav" aria-label="Process stages">
-            {steps.map(([title], index) => <button key={title} type="button" className={activeStep === index ? "is-active" : ""} onClick={() => goToStep(index)}><span className="visually-hidden">Go to {title}</span></button>)}
-          </div>
-        </div>
-      </div>
       <div className="process-copy-column">
         {steps.map(([title, copy], index) => (
           <article
@@ -62,6 +52,17 @@ export function ProcessStory() {
             <p>{copy}</p>
           </article>
         ))}
+      </div>
+      <div className="process-visual-column">
+        <div className="process-visual-sticky">
+          <div className="process-progress" aria-label={`Stage ${activeStep + 1} of ${steps.length}`}>
+            <span>0{activeStep + 1}</span><i><b style={{ width: `${((activeStep + 1) / steps.length) * 100}%` }} /></i><span>0{steps.length}</span>
+          </div>
+          <ProcessDiagram activeStep={activeStep} />
+          <div className="process-stage-nav" aria-label="Process stages">
+            {steps.map(([title], index) => <button key={title} type="button" className={activeStep === index ? "is-active" : ""} onClick={() => goToStep(index)}><span className="visually-hidden">Go to {title}</span></button>)}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -81,18 +82,10 @@ function ProcessDiagram({ activeStep }: { activeStep: number }) {
         <g className="diagram-cells" aria-hidden="true">
           {[[278,294,31],[327,269,34],[373,302,32],[318,327,29],[365,345,27],[410,321,24]].map(([cx,cy,r], index) => <g key={index} className={`diagram-cell diagram-cell-${index + 1}`}><circle cx={cx} cy={cy} r={r} /><circle cx={cx - 7} cy={cy - 6} r={r * .22} /></g>)}
         </g>
-        <g className="diagram-hydrogel" aria-hidden="true">
-          <rect x="220" y="208" width="270" height="220" rx="110" />
-          {Array.from({ length: 8 }).map((_, index) => <path key={`hg${index}`} d={`M 230 ${230 + index * 25} Q 355 ${205 + index * 27} 480 ${230 + index * 25}`} />)}
-          {Array.from({ length: 7 }).map((_, index) => <path key={`hv${index}`} d={`M ${245 + index * 38} 210 Q ${275 + index * 30} 320 ${245 + index * 38} 428`} />)}
-        </g>
-        <g className="diagram-stent" aria-hidden="true">
-          <ellipse cx="188" cy="318" rx="31" ry="118" />
-          <ellipse cx="512" cy="318" rx="31" ry="118" />
-          <ellipse cx="188" cy="318" rx="22" ry="96" />
-          <ellipse cx="512" cy="318" rx="22" ry="96" />
-          {Array.from({ length: 8 }).map((_, row) => <path key={`stent-${row}`} d={`M${181 + row * 4} ${214 + row * 27} L${505 + row * 2} ${422 - row * 27} M${181 + row * 4} ${422 - row * 27} L${505 + row * 2} ${214 + row * 27}`} />)}
-          <path className="diagram-channel" d="M190 318 H510" />
+        <g className="diagram-master-platform" aria-hidden="true">
+          <g transform="translate(22 134) scale(.66)">
+            <PlatformModelLayers id="process-platform" showLabels={false} showFlow={activeStep >= 5} />
+          </g>
         </g>
         <g className="diagram-vessel" aria-hidden="true">
           <path d="M40 235 C185 164 495 167 640 235" />
@@ -107,12 +100,12 @@ function ProcessDiagram({ activeStep }: { activeStep: number }) {
         </g>
         <g className="diagram-labels" aria-hidden="true">
           <text x="54" y="74">BIOPANCREA / PROCESS</text>
-          <text className="label-ipsc" x="298" y="505">iPSC</text>
-          <text className="label-beta" x="288" y="505">BETA-LIKE CELLS</text>
-          <text className="label-gel" x="300" y="505">HYDROGEL</text>
-          <text className="label-stent-diagram" x="286" y="505">STENT PLATFORM</text>
-          <text className="label-artery" x="280" y="505">INTENDED PLACEMENT</text>
-          <text className="label-response" x="270" y="505">INTENDED RESPONSE</text>
+          <text className="label-ipsc" x="226" y="505">INDUCED PLURIPOTENT STEM CELLS</text>
+          <text className="label-beta" x="224" y="505">INSULIN-PRODUCING BETA-LIKE CELLS</text>
+          <text className="label-gel" x="274" y="505">HYDROGEL INTEGRATION</text>
+          <text className="label-stent-diagram" x="280" y="505">STENT INTEGRATION</text>
+          <text className="label-artery" x="272" y="505">FEMORAL-ARTERY PLACEMENT</text>
+          <text className="label-response" x="266" y="505">INTENDED BIOLOGICAL RESPONSE</text>
         </g>
       </svg>
       <figcaption>Concept illustration / Not to scale / Research-stage</figcaption>
