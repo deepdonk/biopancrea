@@ -350,7 +350,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 
 /* Homepage clarity and Mission page */
-.why-matters{scroll-margin-top:var(--header-height);min-height:860px;padding-top:120px;padding-bottom:120px;display:grid;grid-template-columns:.72fr 1fr;gap:10%;align-items:center;background:var(--paper)}
+.why-matters{scroll-margin-top:var(--header-height);min-height:860px;padding-top:120px;padding-bottom:120px;display:grid;grid-template-columns:.72fr 1fr;gap:4%;align-items:center;background:var(--paper)}
 .why-matters-copy h2{max-width:650px;margin:64px 0 30px;font-size:clamp(52px,5.8vw,82px);font-weight:420;line-height:.98;letter-spacing:-.066em}
 .why-matters-copy>p:not(.section-label){max-width:610px;margin:0;color:rgba(11,34,49,.64);font-size:15px;line-height:1.72}
 .why-matters-copy strong{max-width:610px;margin-top:38px;padding:22px 0 0;display:block;border-top:1px solid var(--coral);font-size:18px;font-weight:480;line-height:1.5}
