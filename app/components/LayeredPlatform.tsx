@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { PlatformModel } from "./PlatformModel";
 
@@ -61,7 +60,7 @@ export function LayeredPlatform() {
               <i aria-hidden="true">{activeLayer === layer.id ? "−" : "+"}</i>
             </button>
           ))}
-          <Link className="button concept-button" href="/how-it-works">See how it works</Link>
+          <a className="button concept-button" href="/how-it-works">See how it works</a>
         </div>
       </div>
     </section>

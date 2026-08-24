@@ -94,6 +94,19 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 - `npm test`: build the starter and verify its rendered loading skeleton
 - `npm run db:generate`: generate Drizzle migrations after schema changes
 
+## Contact form delivery
+
+The contact form posts only to the server-side `/api/contact` endpoint. Configure
+these private runtime variables in the hosting platform before enabling delivery:
+
+- `CONTACT_RECIPIENT`: private destination mailbox
+- `RESEND_API_KEY`: private Resend API credential
+- `CONTACT_FROM_EMAIL`: a sender address on a domain verified in Resend
+
+None of these values should use a public/client-exposed prefix. If delivery is not
+configured or the provider rejects a request, the endpoint returns a generic error
+and the form keeps the visitor's message so they can retry.
+
 ## Learn More
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)

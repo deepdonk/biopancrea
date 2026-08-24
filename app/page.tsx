@@ -1,4 +1,3 @@
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import { HeroStent } from "./components/HeroStent";
 import { WhyItMatters } from "./components/WhyItMatters";
@@ -14,8 +13,8 @@ export default function Home() {
           <h1>Building an <span className="hero-headline-accent">artificial pancreas</span> within a vascular stent.</h1>
           <p className="landing-hero-lead">BioPancrea is an early-stage biotechnology startup developing an implantable, cell-based artificial-pancreas concept. The platform brings together insulin-producing beta-like cells, a supportive hydrogel, and a vascular stent intended for placement in the femoral artery.</p>
           <div className="landing-hero-actions">
-            <Link className="button button-dark" href="#why-it-matters">Why BioPancrea?</Link>
-            <Link className="button button-line" href="/how-it-works">How it works</Link>
+            <a className="button button-dark" href="#why-it-matters">Why BioPancrea?</a>
+            <a className="button button-line" href="/how-it-works">How it works</a>
           </div>
         </div>
         <HeroStent />
@@ -30,7 +29,7 @@ export default function Home() {
         </div>
         <div>
           <p>BioPancrea was created to explore a different approach to restoring insulin production through the combination of cell biology, biomaterials, and vascular-device design.</p>
-          <Link className="button button-dark" href="/mission">Our mission</Link>
+          <a className="button button-dark" href="/mission">Our mission</a>
         </div>
       </section>
     </main>

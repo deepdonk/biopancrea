@@ -5,3 +5,11 @@ export function BrandMark({ light = false }: { light?: boolean }) {
     </span>
   );
 }
+
+export function BrandWordmark() {
+  return (
+    <span className="brand-wordmark" aria-hidden="true">
+      BioPancrea<sup className="brand-trademark">™</sup>
+    </span>
+  );
+}

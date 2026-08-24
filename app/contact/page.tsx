@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
+import { ContactForm } from "../components/ContactForm";
+import { PlatformModel } from "../components/PlatformModel";
 
 export const metadata: Metadata = { title: "Contact", description: "Contact BioPancrea, an early-stage biotechnology startup." };
 
-const contactEmail = "d.suresh22@taylorshill.ie";
-const emailHref = "mailto:d.suresh22@taylorshill.ie?subject=BioPancrea%20enquiry";
-
 export default function ContactPage() {
   return (
-    <main>
-      <section className="simple-contact container">
-        <p className="eyebrow"><span>04</span>Contact</p>
-        <h1>Want to connect?</h1>
-        <p>Email us at <a className="contact-email-link" href={emailHref}>{contactEmail}</a></p>
-        <a className="button button-dark contact-email-button" href={emailHref}>Send an email</a>
+    <main className="contact-split">
+      <section className="contact-introduction">
+        <div className="contact-introduction-copy">
+          <p className="contact-label">CONTACT</p>
+          <h1>Want to connect?</h1>
+          <p>Send us a message and we’ll get back to you.</p>
+          <i className="contact-coral-line" aria-hidden="true" />
+        </div>
+        <div className="contact-lattice" aria-hidden="true">
+          <PlatformModel id="contact-lattice" showFlow={false} showLabels={false} />
+        </div>
+      </section>
+      <section className="contact-form-panel" aria-label="Send BioPancrea a message">
+        <ContactForm />
       </section>
     </main>
   );

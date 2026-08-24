@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
+/* eslint-disable @next/next/no-html-link-for-pages -- Native navigation is required for reliable routing on the public Sites host. */
+
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BrandMark } from "./BrandMark";
+import { BrandMark, BrandWordmark } from "./BrandMark";
 
 const navItems = [
   ["Home", "/"],
@@ -39,16 +40,16 @@ export function Header() {
 
   return (
     <header className={`global-header${scrolled ? " is-scrolled" : ""}`}>
-      <Link className="brand" href="/" aria-label="BioPancrea home">
+      <a className="brand" href="/" aria-label="BioPancrea">
         <BrandMark />
-        <span>BioPancrea</span>
-      </Link>
+        <BrandWordmark />
+      </a>
       <nav className="desktop-nav" aria-label="Primary navigation">
         {navItems.map(([label, href]) => (
-          <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined}>{label}</Link>
+          <a key={href} href={href} aria-current={pathname === href ? "page" : undefined}>{label}</a>
         ))}
       </nav>
-      <Link className="header-connect" href="/how-it-works">How it works <span aria-hidden="true">↗</span></Link>
+      <a className="header-connect" href="/how-it-works">How it works <span aria-hidden="true">↗</span></a>
       <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((value) => !value)}>
         <span className="visually-hidden">{open ? "Close menu" : "Open menu"}</span>
         <i /><i />
@@ -58,7 +59,7 @@ export function Header() {
           <p className="micro-label">Navigate</p>
           <nav aria-label="Mobile navigation">
             {navItems.map(([label, href], index) => (
-              <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}><span>0{index + 1}</span>{label}</Link>
+              <a key={href} href={href} aria-current={pathname === href ? "page" : undefined} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}><span>0{index + 1}</span>{label}</a>
             ))}
           </nav>
           <p className="mobile-disclaimer">General corporate and educational information only. Not medical advice.</p>
