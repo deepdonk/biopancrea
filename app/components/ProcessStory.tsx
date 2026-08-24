@@ -13,6 +13,8 @@ const steps = [
   ["Intended glucose-responsive insulin release", "The aim is to investigate whether the cells can respond to changing glucose levels by releasing insulin into the bloodstream."],
 ] as const;
 
+const progressLabels = ["Cell sample", "Reprogramming", "Beta-like cells", "Hydrogel", "Stent", "Placement", "Intended response"] as const;
+
 export function ProcessStory() {
   const [activeStep, setActiveStep] = useState(0);
   const stepRefs = useRef<Array<HTMLElement | null>>([]);
@@ -55,12 +57,21 @@ export function ProcessStory() {
       </div>
       <div className="process-visual-column">
         <div className="process-visual-sticky">
-          <div className="process-progress" aria-label={`Stage ${activeStep + 1} of ${steps.length}`}>
-            <span>0{activeStep + 1}</span><i><b style={{ width: `${((activeStep + 1) / steps.length) * 100}%` }} /></i><span>0{steps.length}</span>
-          </div>
-          <ProcessDiagram activeStep={activeStep} />
-          <div className="process-stage-nav" aria-label="Process stages">
-            {steps.map(([title], index) => <button key={title} type="button" className={activeStep === index ? "is-active" : ""} onClick={() => goToStep(index)}><span className="visually-hidden">Go to {title}</span></button>)}
+          <div className="process-visual-layout">
+            <nav className="process-stage-nav" aria-label={`Process stages. Stage ${activeStep + 1} of ${steps.length} is active.`}>
+              {progressLabels.map((label, index) => (
+                <button
+                  key={label}
+                  type="button"
+                  className={index === activeStep ? "is-active" : index < activeStep ? "is-complete" : "is-future"}
+                  aria-current={index === activeStep ? "step" : undefined}
+                  onClick={() => goToStep(index)}
+                >
+                  <span>0{index + 1}</span><small>{label}</small>
+                </button>
+              ))}
+            </nav>
+            <ProcessDiagram activeStep={activeStep} />
           </div>
         </div>
       </div>

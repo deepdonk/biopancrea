@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { TeamProfiles } from "../components/TeamProfiles";
 import { MissionPlatformGraphic } from "../components/MissionPlatformGraphic";
+import { FaqAccordion } from "../components/FaqAccordion";
 
 export const metadata: Metadata = {
   title: "Mission",
@@ -8,11 +9,11 @@ export const metadata: Metadata = {
 };
 
 const milestones = [
-  ["Initial concept", "Concept defined"],
-  ["Biological pathway", "Design exploration underway"],
-  ["Hydrogel integration", "Further validation required"],
-  ["Stent architecture", "Design exploration underway"],
-  ["Preclinical planning", "Further validation required"],
+  "Concept definition",
+  "Platform design",
+  "Experimental validation",
+  "Preclinical development",
+  "Clinical development",
 ] as const;
 
 export default function MissionPage() {
@@ -40,14 +41,18 @@ export default function MissionPage() {
       </section>
 
       <section className="mission-progress container">
-        <header><p className="section-label"><span>03</span>Current status</p><h2>Developing the concept</h2></header>
-        <ol>{milestones.map(([name, status], index) => <li key={name}><span>0{index + 1}</span><h3>{name}</h3><p>{status}</p></li>)}</ol>
-        <p className="mission-progress-note">Development descriptions are intentionally high-level. Further scientific and technical validation is required.</p>
+        <header><p className="section-label"><span>03</span>Development</p><div><h2>Current stage</h2><p>BioPancrea is currently developing and refining the artificial-pancreas concept. Further biological, engineering, preclinical, clinical, and regulatory validation will be required.</p></div></header>
+        <ol>{milestones.map((name, index) => <li key={name}><span>0{index + 1}</span><i aria-hidden="true"/><h3>{name}</h3></li>)}</ol>
       </section>
 
       <section className="mission-team container">
         <header><p className="section-label"><span>04</span>Founders</p><h2>Built by the founders</h2></header>
         <TeamProfiles />
+      </section>
+
+      <section className="mission-questions container">
+        <header><p className="section-label"><span>05</span>Practical information</p><h2>Questions</h2></header>
+        <FaqAccordion />
       </section>
     </main>
   );
