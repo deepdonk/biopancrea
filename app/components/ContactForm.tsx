@@ -10,17 +10,27 @@ const initialFields = { name: "", email: "", message: "", website: "" };
 export function ContactForm() {
   const [fields, setFields] = useState(initialFields);
   const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   function updateField(field: keyof typeof fields, value: string) {
     setFields((current) => ({ ...current, [field]: value }));
-    if (status === "error") setStatus("idle");
+    if (status === "error") {
+      setStatus("idle");
+      setErrorMessage("");
+    }
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (status === "loading") return;
 
+    if (!event.currentTarget.checkValidity()) {
+      event.currentTarget.reportValidity();
+      return;
+    }
+
     setStatus("loading");
+    setErrorMessage("");
 
     try {
       const response = await fetch("/api/contact", {
@@ -29,9 +39,20 @@ export function ContactForm() {
         body: JSON.stringify(fields),
       });
 
-      if (!response.ok) throw new Error("Contact request failed");
+      if (!response.ok) {
+        if (response.status === 400) {
+          setErrorMessage("Please check your details. Your message must be at least 10 characters.");
+        } else if (response.status === 429) {
+          setErrorMessage("Too many attempts. Please wait a few minutes and try again.");
+        } else {
+          setErrorMessage("We couldn’t send your message. Please try again later.");
+        }
+        setStatus("error");
+        return;
+      }
       setStatus("success");
     } catch {
+      setErrorMessage("We couldn’t send your message. Please check your connection and try again.");
       setStatus("error");
     }
   }
@@ -87,9 +108,11 @@ export function ContactForm() {
           minLength={10}
           maxLength={2000}
           required
+          aria-describedby={status === "error" ? "contact-message-help contact-form-error" : "contact-message-help"}
           value={fields.message}
           onChange={(event) => updateField("message", event.target.value)}
         />
+        <span className="contact-message-help" id="contact-message-help">Minimum 10 characters</span>
         <span className="contact-character-count" aria-hidden="true">{fields.message.length}/2000</span>
       </div>
 
@@ -107,8 +130,8 @@ export function ContactForm() {
       </div>
 
       {status === "error" && (
-        <p className="contact-form-error" role="alert">
-          We couldn’t send your message. Please try again.
+        <p className="contact-form-error" id="contact-form-error" role="alert">
+          {errorMessage}
         </p>
       )}
 
