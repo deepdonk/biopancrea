@@ -118,3 +118,16 @@ test("does not ship the private recipient in browser JavaScript", async () => {
     assert.ok(!(await readFile(path, "utf8")).includes(privateAddress), path);
   }
 });
+
+test("adds browser security headers to every response", async () => {
+  const worker = await loadWorker();
+  const response = await request(worker, "/");
+
+  assert.match(response.headers.get("content-security-policy") ?? "", /frame-ancestors 'none'/);
+  assert.equal(response.headers.get("strict-transport-security"), "max-age=31536000");
+  assert.equal(response.headers.get("x-content-type-options"), "nosniff");
+  assert.equal(response.headers.get("x-frame-options"), "DENY");
+  assert.equal(response.headers.get("referrer-policy"), "strict-origin-when-cross-origin");
+  assert.equal(response.headers.get("permissions-policy"), "camera=(), microphone=(), geolocation=(), payment=()");
+  assert.equal(response.headers.get("cross-origin-opener-policy"), "same-origin");
+});

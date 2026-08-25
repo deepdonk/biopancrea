@@ -4,11 +4,15 @@ export const runtime = "nodejs";
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
+const MAX_RATE_LIMIT_ENTRIES = 10_000;
+const RATE_LIMIT_CLEANUP_INTERVAL_MS = 60_000;
 const MAX_MESSAGE_LENGTH = 2000;
 const MAX_REQUEST_BYTES = 12_000;
+const EMAIL_REQUEST_TIMEOUT_MS = 10_000;
 
 type RateLimitEntry = { count: number; resetAt: number };
 const rateLimits = new Map<string, RateLimitEntry>();
+let nextRateLimitCleanup = 0;
 
 function plainText(value: string) {
   return value
@@ -28,20 +32,26 @@ function isValidEmail(value: string) {
 }
 
 function requestIp(request: NextRequest) {
-  return request.headers.get("cf-connecting-ip")
+  const value = request.headers.get("cf-connecting-ip")
     ?? request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
     ?? "anonymous";
+
+  return value.slice(0, 64);
 }
 
 function isRateLimited(identifier: string) {
   const now = Date.now();
 
-  for (const [key, entry] of rateLimits) {
-    if (entry.resetAt <= now) rateLimits.delete(key);
+  if (now >= nextRateLimitCleanup) {
+    for (const [key, entry] of rateLimits) {
+      if (entry.resetAt <= now) rateLimits.delete(key);
+    }
+    nextRateLimitCleanup = now + RATE_LIMIT_CLEANUP_INTERVAL_MS;
   }
 
   const current = rateLimits.get(identifier);
   if (!current || current.resetAt <= now) {
+    if (rateLimits.size >= MAX_RATE_LIMIT_ENTRIES) return true;
     rateLimits.set(identifier, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
     return false;
   }
@@ -50,32 +60,59 @@ function isRateLimited(identifier: string) {
   return current.count > RATE_LIMIT_MAX_REQUESTS;
 }
 
-function publicError(status = 400) {
+function publicError(status = 400, headers?: HeadersInit) {
   return NextResponse.json(
     { error: "Unable to send your message right now. Please try again." },
-    { status, headers: { "Cache-Control": "no-store" } },
+    { status, headers: { "Cache-Control": "no-store", ...headers } },
   );
+}
+
+function isAllowedOrigin(request: NextRequest) {
+  const origin = request.headers.get("origin");
+  if (!origin) return true;
+
+  const allowedOrigins = new Set(["https://biopancrea.com", "https://www.biopancrea.com"]);
+  const configuredSiteUrl = process.env.SITE_URL;
+
+  if (configuredSiteUrl) {
+    try {
+      allowedOrigins.add(new URL(configuredSiteUrl).origin);
+    } catch {
+      // Ignore a malformed optional URL and retain the canonical allowlist.
+    }
+  }
+
+  if (process.env.NODE_ENV !== "production") {
+    allowedOrigins.add("http://localhost:3000");
+    allowedOrigins.add("http://127.0.0.1:3000");
+  }
+
+  try {
+    return allowedOrigins.has(new URL(origin).origin);
+  } catch {
+    return false;
+  }
 }
 
 export async function POST(request: NextRequest) {
   const contentLength = Number(request.headers.get("content-length") ?? 0);
-  if (contentLength > MAX_REQUEST_BYTES || isRateLimited(requestIp(request))) {
-    return publicError(contentLength > MAX_REQUEST_BYTES ? 413 : 429);
+  if (!Number.isFinite(contentLength) || contentLength < 0 || contentLength > MAX_REQUEST_BYTES) {
+    return publicError(413);
   }
 
-  const origin = request.headers.get("origin");
-  const host = request.headers.get("host");
-  if (origin && host) {
-    try {
-      if (new URL(origin).host !== host) return publicError(403);
-    } catch {
-      return publicError(403);
-    }
+  const contentType = request.headers.get("content-type")?.toLowerCase() ?? "";
+  if (!contentType.startsWith("application/json")) return publicError(415);
+  if (!isAllowedOrigin(request)) return publicError(403);
+  if (isRateLimited(requestIp(request))) {
+    return publicError(429, { "Retry-After": String(Math.ceil(RATE_LIMIT_WINDOW_MS / 1000)) });
   }
 
   let payload: unknown;
   try {
-    payload = await request.json();
+    const rawBody = await request.arrayBuffer();
+    if (rawBody.byteLength > MAX_REQUEST_BYTES) return publicError(413);
+    const bodyText = new TextDecoder("utf-8", { fatal: true }).decode(rawBody);
+    payload = JSON.parse(bodyText);
   } catch {
     return publicError();
   }
@@ -111,8 +148,11 @@ export async function POST(request: NextRequest) {
   ].join("\n");
 
   try {
-    const response = await fetch("https://api.resend.com/emails", {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), EMAIL_REQUEST_TIMEOUT_MS);
+    const response = await globalThis.fetch("https://api.resend.com/emails", {
       method: "POST",
+      signal: controller.signal,
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
@@ -124,7 +164,7 @@ export async function POST(request: NextRequest) {
         subject: "New BioPancrea contact message",
         text: emailText,
       }),
-    });
+    }).finally(() => clearTimeout(timeout));
 
     if (!response.ok) return publicError(502);
     return NextResponse.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });
