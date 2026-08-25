@@ -109,3 +109,17 @@ test("contact endpoint returns a generic retryable error when the provider fails
     error: "Unable to send your message right now. Please try again.",
   });
 });
+
+test("contact endpoint rate limits repeated submissions", async () => {
+  globalThis.fetch = async () => new Response(JSON.stringify({ id: "test-message" }), { status: 200 });
+  const repeatedHeaders = { "cf-connecting-ip": "198.51.100.10" };
+
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const response = await POST(contactRequest(validBody, repeatedHeaders));
+    assert.equal(response.status, 200);
+  }
+
+  const limited = await POST(contactRequest(validBody, repeatedHeaders));
+  assert.equal(limited.status, 429);
+  assert.equal(limited.headers.get("retry-after"), "600");
+});
