@@ -1,8 +1,12 @@
-import type { Metadata } from "next";
 import { ContactForm } from "../components/ContactForm";
 import { PlatformModel } from "../components/PlatformModel";
+import { createPageMetadata } from "../lib/metadata";
 
-export const metadata: Metadata = { title: "Contact", description: "Contact BioPancrea, an early-stage biotechnology startup." };
+export const metadata = createPageMetadata({
+  title: "Contact BioPancrea",
+  description: "Contact the BioPancrea team about the startup and its artificial-pancreas concept.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

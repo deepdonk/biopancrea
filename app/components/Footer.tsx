@@ -2,7 +2,7 @@
 
 import { BrandMark, BrandWordmark } from "./BrandMark";
 
-const pages = [["Home", "/"], ["Mission", "/mission"], ["How It Works", "/how-it-works"], ["Meet the Team", "/team"], ["Contact", "/contact"]] as const;
+const pages = [["Home", "/"], ["Mission", "/mission"], ["How It Works", "/how-it-works"], ["Meet the Team", "/meet-the-team"], ["Contact", "/contact"]] as const;
 
 export function Footer() {
   return (

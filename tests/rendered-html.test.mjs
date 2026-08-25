@@ -1,91 +1,120 @@
 import assert from "node:assert/strict";
-import { access, readFile, readdir } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
-const developmentPreviewMeta =
-  /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
-const templateRoot = new URL("../", import.meta.url);
-const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
+const siteUrl = "https://biopancrea.com";
+const pages = {
+  "/": {
+    title: "BioPancrea | Artificial Pancreas Startup",
+    description: "BioPancrea is an early-stage biotechnology startup developing a cell-based artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
+    h1: "Building an artificial pancreas within a vascular stent.",
+  },
+  "/mission": {
+    title: "Our Mission | BioPancrea",
+    description: "Learn why BioPancrea is exploring a cell-based artificial pancreas combining cell biology, biomaterials and vascular-device design.",
+    h1: "Our mission",
+  },
+  "/how-it-works": {
+    title: "How BioPancrea Works | Cell-Based Artificial Pancreas",
+    description: "Explore the BioPancrea concept, from patient-derived cells and iPSCs to beta-like cells, hydrogel integration and a stent-based vascular platform.",
+    h1: "How BioPancrea works",
+  },
+  "/meet-the-team": {
+    title: "Meet the BioPancrea Founders",
+    description: "Meet BioPancrea founders Deepta Suresh and Janefrances Muoneke.",
+    h1: "Meet the team",
+  },
+  "/contact": {
+    title: "Contact BioPancrea",
+    description: "Contact the BioPancrea team about the startup and its artificial-pancreas concept.",
+    h1: "Want to connect?",
+  },
+};
 
-async function render() {
+async function loadWorker() {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
+  return (await import(workerUrl.href)).default;
+}
 
+async function request(worker, path) {
   return worker.fetch(
-    new Request("http://localhost/", {
-      headers: { accept: "text/html" },
-    }),
+    new Request(`${siteUrl}${path}`, { headers: { accept: "text/html" } }),
     {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
+      SITE_URL: siteUrl,
+      ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
     },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
+    { waitUntil() {}, passThroughOnException() {} },
   );
 }
 
-test("server-renders the starter loading skeleton", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+function textContent(html) {
+  return html.replace(/<[^>]+>/g, " ").replace(/&[^;]+;/g, " ").replace(/\s+/g, " ").trim();
+}
 
-  const html = await response.text();
-  assert.match(html, developmentPreviewMeta);
-  assert.match(html, /<title>Your site is taking shape<\/title>/i);
-  assert.match(html, /Building your site/);
-  assert.match(html, /Your site is taking shape/);
-  assert.match(
-    html,
-    /Your first version will appear here automatically when it’s ready\./,
-  );
-  assert.doesNotMatch(html, /Codex/);
-  assert.match(html, /react-loading-skeleton/);
-  assert.match(html, /role="status"/);
+test("server-renders all canonical public pages with complete SEO metadata", async () => {
+  const worker = await loadWorker();
+
+  for (const [path, expected] of Object.entries(pages)) {
+    const response = await request(worker, path);
+    assert.equal(response.status, 200, path);
+    assert.equal(response.headers.get("x-robots-tag"), null, path);
+
+    const html = await response.text();
+    const h1s = [...html.matchAll(/<h1(?:\s[^>]*)?>(.*?)<\/h1>/gs)].map((match) => textContent(match[1]));
+    const canonical = path === "/" ? siteUrl : `${siteUrl}${path}`;
+
+    assert.ok(html.includes(`<title>${expected.title}</title>`), path);
+    assert.ok(html.includes(`<meta name="description" content="${expected.description}"`), path);
+    assert.ok(html.includes(`<link rel="canonical" href="${canonical}"`), path);
+    assert.deepEqual(h1s, [expected.h1], path);
+    assert.match(html, /<meta name="robots" content="index, follow"/i, path);
+    assert.match(html, /<meta name="googlebot" content="index, follow"/i, path);
+    assert.match(html, /property="og:image"/i, path);
+    assert.match(html, /name="twitter:card"/i, path);
+  }
 });
 
-test("keeps the loading skeleton scoped and disposable", async () => {
-  const [preview, css, page, layout, packageJson, files] = await Promise.all([
-    readFile(new URL("SkeletonPreview.tsx", previewRoot), "utf8"),
-    readFile(new URL("preview.css", previewRoot), "utf8"),
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../package.json", import.meta.url), "utf8"),
-    readdir(previewRoot),
-  ]);
+test("publishes permissive robots and a canonical five-page sitemap", async () => {
+  const worker = await loadWorker();
+  const robots = await request(worker, "/robots.txt");
+  assert.equal(robots.status, 200);
+  assert.match(robots.headers.get("content-type") ?? "", /^text\/plain/i);
+  assert.equal(await robots.text(), `User-Agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
 
-  assert.deepEqual(files.sort(), ["SkeletonPreview.tsx", "preview.css"]);
-  assert.match(preview, /from "react-loading-skeleton"/);
-  assert.match(preview, /baseColor="#eceae7"/);
-  assert.match(preview, /highlightColor="#f9f8f6"/);
-  assert.match(preview, /duration=\{2\.8\}/);
-  assert.match(preview, /sites-skeleton-search-placeholder/);
-  assert.match(packageJson, /"react-loading-skeleton": "3\.5\.0"/);
+  const sitemap = await request(worker, "/sitemap.xml");
+  assert.equal(sitemap.status, 200);
+  const xml = await sitemap.text();
+  const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
+  assert.deepEqual(urls, Object.keys(pages).map((path) => path === "/" ? `${siteUrl}/` : `${siteUrl}${path}`));
+});
 
-  const shellIndex = preview.indexOf('className="sites-skeleton-shell"');
-  const statusIndex = preview.indexOf('className="sites-skeleton-status"');
-  assert.ok(shellIndex >= 0 && statusIndex > shellIndex);
-  assert.match(css, /position:\s*fixed/);
-  assert.match(css, /inset:\s*0/);
-  assert.match(css, /opacity:\s*0\.52/);
-  assert.match(css, /prefers-reduced-motion:\s*reduce/);
-  assert.doesNotMatch(css, /#020617|canvas|pets|progress/i);
-  assert.doesNotMatch(
-    preview,
-    /loading-spinner|status-mark|status-progress|canvas|cookie|random/i,
-  );
+test("returns real redirects, 404s, valid homepage JSON-LD, and crawlable navigation", async () => {
+  const worker = await loadWorker();
+  const missing = await request(worker, "/definitely-missing");
+  assert.equal(missing.status, 404);
 
-  assert.match(page, /export const metadata:\s*Metadata/);
-  assert.match(page, /"codex-preview": "development"/);
-  assert.match(page, /<SkeletonPreview \/>/);
-  assert.match(layout, /title:\s*"Starter Project"/);
-  assert.doesNotMatch(layout, /codex-preview|_sites-preview|themeColor|\bViewport\b/);
-  assert.doesNotMatch(css, /(^|\s)(html|body)\s*\{/m);
+  for (const [from, to] of [["/home", "/"], ["/team", "/meet-the-team"], ["/Mission", "/mission"]]) {
+    const response = await request(worker, from);
+    assert.equal(response.status, 308, from);
+    assert.equal(new URL(response.headers.get("location"), siteUrl).pathname, to, from);
+  }
 
-  await assert.rejects(
-    access(new URL("public/_sites-preview", templateRoot)),
-  );
+  const home = await (await request(worker, "/")).text();
+  for (const href of ["/", "/mission", "/how-it-works", "/meet-the-team", "/contact"]) {
+    assert.ok(home.includes(`href="${href}"`), href);
+  }
+  const scripts = [...home.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map((match) => JSON.parse(match[1]));
+  assert.deepEqual(scripts[0]["@graph"].map((entry) => entry["@type"]), ["Organization", "WebSite"]);
+});
+
+test("does not ship the private recipient in browser JavaScript", async () => {
+  const privateAddress = ["d.suresh22", "taylorshill.ie"].join("@");
+  const clientRoot = new URL("../dist/client/", import.meta.url);
+  const entries = await readdir(clientRoot, { recursive: true, withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isFile() || !/\.(?:js|html|json|map)$/i.test(entry.name)) continue;
+    const path = `${entry.parentPath}/${entry.name}`;
+    assert.ok(!(await readFile(path, "utf8")).includes(privateAddress), path);
+  }
 });

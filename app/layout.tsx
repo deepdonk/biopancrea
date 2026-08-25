@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { CursorAura } from "./components/CursorAura";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
+import { SITE_URL } from "./lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,22 +17,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://biopancrea.knmmkk.chatgpt.site"),
-  title: { default: "BioPancrea — Artificial pancreas startup", template: "%s — BioPancrea" },
-  description: "BioPancrea is an early-stage biotechnology startup developing an implantable artificial-pancreas concept using patient-derived beta-like cells, a supportive hydrogel, and a vascular stent.",
+  metadataBase: new URL(SITE_URL),
+  title: "BioPancrea | Artificial Pancreas Startup",
+  description: "BioPancrea is an early-stage biotechnology startup developing a cell-based artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
   icons: { icon: "/favicon.png", shortcut: "/favicon.png" },
-  openGraph: {
-    title: "BioPancrea — Artificial pancreas startup",
-    description: "An early-stage biotechnology startup developing an implantable artificial-pancreas concept.",
-    type: "website",
-    images: [{ url: "/og.png", width: 1672, height: 941, alt: "BioPancrea — Rethinking pancreatic health." }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "BioPancrea — Artificial pancreas startup",
-    description: "An early-stage biotechnology startup developing an implantable artificial-pancreas concept.",
-    images: ["/og.png"],
-  },
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION || undefined },
 };
 
 export default function RootLayout({

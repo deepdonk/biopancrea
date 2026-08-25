@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import { TeamProfiles } from "../components/TeamProfiles";
 import { MissionPlatformGraphic } from "../components/MissionPlatformGraphic";
 import { FaqAccordion } from "../components/FaqAccordion";
+import { createPageMetadata } from "../lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Mission",
-  description: "BioPancrea’s mission is to explore a cell-based artificial pancreas that can operate from within the body.",
-};
+export const metadata = createPageMetadata({
+  title: "Our Mission | BioPancrea",
+  description: "Learn why BioPancrea is exploring a cell-based artificial pancreas combining cell biology, biomaterials and vascular-device design.",
+  path: "/mission",
+});
 
 const milestones = [
   "Concept definition",
@@ -54,6 +55,11 @@ export default function MissionPage() {
         <header><p className="section-label"><span>05</span>Practical information</p><h2>Questions</h2></header>
         <FaqAccordion />
       </section>
+
+      <nav className="contextual-links container" aria-label="Explore BioPancrea">
+        <a className="button button-dark" href="/how-it-works">Explore how BioPancrea works</a>
+        <a className="button button-line" href="/meet-the-team">Meet the BioPancrea founders</a>
+      </nav>
     </main>
   );
 }

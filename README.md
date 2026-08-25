@@ -107,6 +107,39 @@ None of these values should use a public/client-exposed prefix. If delivery is n
 configured or the provider rejects a request, the endpoint returns a generic error
 and the form keeps the visitor's message so they can retry.
 
+## Production SEO configuration
+
+The canonical production origin is `https://biopancrea.com`. Configure this
+server environment value for production builds:
+
+```text
+SITE_URL=https://biopancrea.com
+```
+
+The app generates `/robots.txt` and `/sitemap.xml` from this origin. Only the
+home, Mission, How It Works, Meet the Team, and Contact pages are included in
+the sitemap. Do not point `SITE_URL` at a preview or local deployment.
+
+Google Search Console verification is optional and supported through the
+server environment variable below. Add the token supplied by Google; do not
+invent a value or use a public/client-prefixed variable.
+
+```text
+GOOGLE_SITE_VERIFICATION=google-provided-token
+```
+
+After production deployment, the site owner should:
+
+1. Add `biopancrea.com` to Google Search Console.
+2. Verify ownership, preferably using the DNS method.
+3. Inspect `https://biopancrea.com/` using URL Inspection.
+4. Run a live URL test.
+5. Confirm Googlebot can fetch the page.
+6. Submit `https://biopancrea.com/sitemap.xml` in the Sitemaps report.
+7. Request indexing for the homepage.
+8. Inspect the other four public URLs individually.
+9. Review Page Indexing and Crawl Stats after Google begins crawling.
+
 ## Learn More
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)

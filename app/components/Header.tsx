@@ -10,7 +10,7 @@ const navItems = [
   ["Home", "/"],
   ["Mission", "/mission"],
   ["How It Works", "/how-it-works"],
-  ["Meet the Team", "/team"],
+  ["Meet the Team", "/meet-the-team"],
   ["Contact", "/contact"],
 ] as const;
 
