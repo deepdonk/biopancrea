@@ -152,3 +152,12 @@ test("adds browser security headers to every response", async () => {
   assert.equal(response.headers.get("permissions-policy"), "camera=(), microphone=(), geolocation=(), payment=()");
   assert.equal(response.headers.get("cross-origin-opener-policy"), "same-origin");
 });
+
+test("uses the BioPancrea font system without Arial fallbacks", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
+
+  assert.doesNotMatch(css, /Arial/i);
+  assert.doesNotMatch(layout, /Arial/i);
+  assert.match(layout, /Manrope/);
+});
