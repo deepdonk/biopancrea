@@ -4,16 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { PlatformModelLayers } from "./PlatformModel";
 
 const steps = [
-  ["Skin-cell sample", "A small skin-cell sample provides the starting material."],
-  ["Reprogramming into iPSCs", "The skin cells are reprogrammed into induced pluripotent stem cells, giving them the ability to develop toward another specialised cell type."],
-  ["Differentiation into beta-like cells", "The iPSCs are guided through a controlled differentiation process toward insulin-producing beta-like cells."],
-  ["Integration with the hydrogel", "The cells are incorporated into a hydrogel designed to provide a supportive structural environment."],
-  ["Integration with the stent", "The cell-containing hydrogel is integrated with BioPancrea’s stent-based platform."],
-  ["Intended femoral-artery placement", "The platform is being explored for placement in the femoral artery through a vascular delivery approach."],
-  ["Intended glucose-responsive insulin release", "The aim is to investigate whether the cells can respond to changing glucose levels by releasing insulin into the bloodstream."],
+  ["Small skin-cell sample", "A small scientific tissue sample provides the starting material."],
+  ["Skin cell", "A skin cell is isolated from the sample as the biological starting point."],
+  ["iPSC colony", "The skin cell is reprogrammed into induced pluripotent stem cells."],
+  ["Beta-like cell cluster", "The iPSCs are guided toward insulin-producing beta-like cells."],
+  ["Hydrogel integration", "The beta-like cell clusters are incorporated into a supportive hydrogel."],
+  ["Stent integration", "The cell-containing hydrogel is integrated near the wall of the vascular stent."],
+  ["Femoral-artery placement", "The investigational platform is intended for placement in the femoral artery."],
+  ["Intended glucose-responsive insulin release", "The aim is to investigate whether the cells can respond to changing glucose levels and release insulin into the bloodstream."],
 ] as const;
 
-const progressLabels = ["Cell sample", "Reprogramming", "Beta-like cells", "Hydrogel", "Stent", "Placement", "Intended response"] as const;
+const progressLabels = ["Sample", "Skin cell", "iPSCs", "Beta-like cells", "Hydrogel", "Stent", "Placement", "Response"] as const;
 
 export function ProcessStory() {
   const [activeStep, setActiveStep] = useState(0);
@@ -21,10 +22,7 @@ export function ProcessStory() {
 
   function goToStep(index: number) {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    stepRefs.current[index]?.scrollIntoView({
-      behavior: prefersReducedMotion ? "auto" : "smooth",
-      block: "center",
-    });
+    stepRefs.current[index]?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "center" });
   }
 
   useEffect(() => {
@@ -81,45 +79,53 @@ export function ProcessStory() {
 
 function ProcessDiagram({ activeStep }: { activeStep: number }) {
   return (
-    <figure className="process-diagram" data-stage={activeStep}>
+    <figure className="process-diagram process-diagram-clean" data-stage={activeStep}>
       <svg viewBox="0 0 680 620" role="img" aria-labelledby="process-diagram-title process-diagram-description">
         <title id="process-diagram-title">{steps[activeStep][0]}</title>
-        <desc id="process-diagram-description">A conceptual vector animation showing the active stage in the BioPancrea research process.</desc>
-        <g className="diagram-grid" aria-hidden="true">{Array.from({ length: 10 }).map((_, index) => <path key={`g${index}`} d={`M 70 ${80 + index * 52} H 610 M ${80 + index * 58} 60 V 560`} />)}</g>
-        <g className="diagram-hand" aria-hidden="true">
-          <path d="M162 418 C140 382 142 327 162 292 L188 239 C195 225 214 231 212 247 L203 300 L216 184 C218 166 240 166 243 184 L245 284 L256 160 C258 143 281 144 283 162 L282 286 L296 183 C299 165 321 169 321 187 L313 302 L333 229 C338 211 360 219 356 237 L339 344 C335 384 313 427 280 453 Z" />
-          <circle cx="194" cy="326" r="12" />
+        <desc id="process-diagram-description">A continuous conceptual illustration showing the active stage in the BioPancrea research process.</desc>
+
+        <g className="process-sample" aria-hidden="true">
+          <path className="sample-surface" d="M170 226 C250 202 420 205 510 230 L500 346 C410 374 255 370 178 344 Z" />
+          <path d="M176 266 C270 242 414 246 506 270 M176 307 C272 286 410 289 502 310" />
+          <path className="sample-biopsy" d="M325 204 L355 204 L369 338 L311 338 Z" />
         </g>
-        <g className="diagram-cells" aria-hidden="true">
-          {[[278,294,31],[327,269,34],[373,302,32],[318,327,29],[365,345,27],[410,321,24]].map(([cx,cy,r], index) => <g key={index} className={`diagram-cell diagram-cell-${index + 1}`}><circle cx={cx} cy={cy} r={r} /><circle cx={cx - 7} cy={cy - 6} r={r * .22} /></g>)}
+
+        <g className="process-fibroblast" aria-hidden="true">
+          <path d="M176 318 C225 252 281 267 330 303 C385 344 440 355 504 287 C470 370 399 398 326 354 C265 318 222 318 176 318 Z" />
+          <ellipse cx="337" cy="324" rx="30" ry="18" />
         </g>
-        <g className="diagram-master-platform" aria-hidden="true">
-          <g transform="translate(22 134) scale(.66)">
-            <PlatformModelLayers id="process-platform" showLabels={false} showFlow={activeStep >= 5} />
+
+        <g className="process-ipsc" aria-hidden="true">
+          {[[265,275],[315,250],[367,266],[414,302],[380,348],[322,360],[274,329],[330,305]].map(([x, y], index) => (
+            <path key={index} d={`M${x - 24} ${y - 12} L${x - 5} ${y - 25} L${x + 22} ${y - 14} L${x + 26} ${y + 12} L${x + 4} ${y + 25} L${x - 23} ${y + 14} Z`} />
+          ))}
+        </g>
+
+        <g className="process-beta-cluster" aria-hidden="true">
+          {[[294,285,34],[344,260,37],[394,288,33],[318,329,31],[371,337,35]].map(([cx, cy, radius], index) => (
+            <g key={index}><circle cx={cx} cy={cy} r={radius} /><circle cx={cx - 7} cy={cy - 6} r={radius * .2} /></g>
+          ))}
+        </g>
+
+        <g className="process-platform-stage" aria-hidden="true">
+          <g transform="translate(5 138) scale(.7)">
+            <PlatformModelLayers id="process-platform" showLabels={false} showFlow={activeStep === 7} />
           </g>
         </g>
-        <g className="diagram-vessel" aria-hidden="true">
-          <path d="M40 235 C185 164 495 167 640 235" />
-          <path d="M40 415 C185 486 495 483 640 415" />
-          <path className="vessel-centre" d="M40 325 C210 292 470 292 640 325" />
+
+        <g className="process-vessel" aria-hidden="true">
+          <path d="M36 215 C190 150 492 150 644 215" />
+          <path d="M36 425 C190 490 492 490 644 425" />
         </g>
-        <g className="diagram-flow glucose-flow" aria-hidden="true">
-          {[[92,304],[154,345],[540,292],[595,342]].map(([cx,cy], index) => <path key={index} d={`M${cx - 7} ${cy} L${cx} ${cy - 7} L${cx + 7} ${cy} L${cx} ${cy + 7}Z`} />)}
+
+        <g className="process-glucose" aria-hidden="true">
+          {[[82,305],[132,350],[548,292]].map(([x, y], index) => <path key={index} d={`M${x - 8} ${y} L${x} ${y - 8} L${x + 8} ${y} L${x} ${y + 8} Z`} />)}
         </g>
-        <g className="diagram-flow insulin-flow" aria-hidden="true">
-          {[[468,286],[500,315],[470,350]].map(([cx,cy], index) => <circle key={index} cx={cx} cy={cy} r="5" />)}
-        </g>
-        <g className="diagram-labels" aria-hidden="true">
-          <text x="54" y="74">BIOPANCREA / PROCESS</text>
-          <text className="label-ipsc" x="226" y="505">INDUCED PLURIPOTENT STEM CELLS</text>
-          <text className="label-beta" x="224" y="505">INSULIN-PRODUCING BETA-LIKE CELLS</text>
-          <text className="label-gel" x="274" y="505">HYDROGEL INTEGRATION</text>
-          <text className="label-stent-diagram" x="280" y="505">STENT INTEGRATION</text>
-          <text className="label-artery" x="272" y="505">FEMORAL-ARTERY PLACEMENT</text>
-          <text className="label-response" x="266" y="505">INTENDED BIOLOGICAL RESPONSE</text>
+        <g className="process-insulin" aria-hidden="true">
+          {[[492,316],[536,350],[584,320]].map(([cx, cy], index) => <circle key={index} cx={cx} cy={cy} r="6" />)}
         </g>
       </svg>
-      <figcaption>Concept illustration / Not to scale / Research-stage</figcaption>
+      <figcaption><span>0{activeStep + 1}</span>{steps[activeStep][0]} · Concept illustration · Not to scale</figcaption>
     </figure>
   );
 }

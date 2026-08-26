@@ -61,8 +61,7 @@ export function ContactForm() {
     return (
       <div className="contact-success" role="status" aria-live="polite">
         <span aria-hidden="true">✓</span>
-        <h2>Message sent.</h2>
-        <p>Thanks for contacting BioPancrea.</p>
+        <h2>Message sent. We’ll get back to you.</h2>
       </div>
     );
   }

@@ -49,7 +49,7 @@ export function Header() {
           <a key={href} href={href} aria-current={pathname === href ? "page" : undefined}>{label}</a>
         ))}
       </nav>
-      <a className="header-connect" href="/how-it-works">How it works <span aria-hidden="true">↗</span></a>
+      <a className="header-connect" href="/contact#book-a-meeting">Book a meeting <span aria-hidden="true">↗</span></a>
       <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((value) => !value)}>
         <span className="visually-hidden">{open ? "Close menu" : "Open menu"}</span>
         <i /><i />
@@ -62,6 +62,7 @@ export function Header() {
               <a key={href} href={href} aria-current={pathname === href ? "page" : undefined} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}><span>0{index + 1}</span>{label}</a>
             ))}
           </nav>
+          <a className="mobile-booking-link" href="/contact#book-a-meeting" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>Book a meeting <span aria-hidden="true">→</span></a>
           <p className="mobile-disclaimer">General corporate and educational information only. Not medical advice.</p>
         </div>
       </div>

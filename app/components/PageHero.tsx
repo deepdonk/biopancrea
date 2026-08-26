@@ -1,5 +1,3 @@
-import { OrganicField } from "./OrganicField";
-
 export function PageHero({ index, label, title, copy, variant = "sage" }: { index: string; label: string; title: string; copy?: string; variant?: "sage" | "navy" | "coral" }) {
   return (
     <section className={`page-hero page-hero-${variant}`}>
@@ -8,8 +6,7 @@ export function PageHero({ index, label, title, copy, variant = "sage" }: { inde
         <h1>{title}</h1>
         {copy ? <p className="page-hero-support">{copy}</p> : null}
       </div>
-      <OrganicField variant={variant} />
-      <div className="scroll-cue" aria-hidden="true"><i /> Scroll to explore</div>
+      <div className="page-hero-tone" aria-hidden="true" />
     </section>
   );
 }

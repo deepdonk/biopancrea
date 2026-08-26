@@ -102,6 +102,7 @@ these private runtime variables in the hosting platform before enabling delivery
 - `CONTACT_RECIPIENT`: private destination mailbox
 - `RESEND_API_KEY`: private Resend API credential
 - `CONTACT_FROM_EMAIL`: a sender address on a domain verified in Resend
+- `NEXT_PUBLIC_BOOKING_URL`: optional public Calendly, Cal.com, or SavvyCal booking URL; redeploy after setting it
 
 None of these values should use a public/client-exposed prefix. If delivery is not
 configured or the provider rejects a request, the endpoint returns a generic error

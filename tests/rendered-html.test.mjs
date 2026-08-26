@@ -6,8 +6,8 @@ const siteUrl = "https://biopancrea.com";
 const pages = {
   "/": {
     title: "BioPancrea | Artificial Pancreas Startup",
-    description: "BioPancrea is an early-stage biotechnology startup developing a cell-based artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
-    h1: "Building an artificial pancreas within a vascular stent.",
+    description: "BioPancrea is developing a research-stage, implantable artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
+    h1: "An implantable artificial pancreas built around living cells.",
   },
   "/mission": {
     title: "Our Mission | BioPancrea",
@@ -25,9 +25,9 @@ const pages = {
     h1: "Meet the team",
   },
   "/contact": {
-    title: "Contact BioPancrea",
-    description: "Contact the BioPancrea team about the startup and its artificial-pancreas concept.",
-    h1: "Want to connect?",
+    title: "Book a Meeting or Contact BioPancrea",
+    description: "Book a meeting with the BioPancrea team or send a message about its investigational artificial-pancreas concept.",
+    h1: "Let’s talk.",
   },
 };
 
@@ -117,6 +117,23 @@ test("does not ship the private recipient in browser JavaScript", async () => {
     const path = `${entry.parentPath}/${entry.name}`;
     assert.ok(!(await readFile(path, "utf8")).includes(privateAddress), path);
   }
+});
+
+test("publishes clear concept, booking, and contact destinations", async () => {
+  const worker = await loadWorker();
+  const home = await (await request(worker, "/")).text();
+  const howItWorks = await (await request(worker, "/how-it-works")).text();
+  const contact = await (await request(worker, "/contact")).text();
+
+  assert.match(home, /What BioPancrea is building/);
+  assert.match(home, /vascular implant that combines insulin-producing beta-like cells/);
+  assert.match(home, /href="\/contact#book-a-meeting"/);
+  assert.match(howItWorks, /href="\/contact#book-a-meeting"/);
+  assert.match(contact, /id="book-a-meeting"/);
+  assert.match(contact, /Send a message/);
+  assert.doesNotMatch(contact, /Open booking calendar/);
+  assert.doesNotMatch(contact, /NEXT_PUBLIC_BOOKING_URL/);
+  assert.doesNotMatch(contact, /mailto:/i);
 });
 
 test("adds browser security headers to every response", async () => {

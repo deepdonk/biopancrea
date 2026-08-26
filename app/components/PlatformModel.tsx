@@ -17,9 +17,14 @@ type PlatformLayersProps = Pick<PlatformModelProps, "id" | "exploded" | "assembl
 const stations = Array.from({ length: 13 }, (_, index) => index);
 const lanes = Array.from({ length: 8 }, (_, index) => index);
 const cellClusters = [
-  [360, 334, 12], [381, 345, 9], [405, 330, 14],
-  [452, 218, 10], [472, 227, 13], [493, 216, 9],
-  [540, 325, 13], [563, 336, 9], [586, 320, 11],
+  [360, 330],
+  [470, 216],
+  [555, 324],
+  [650, 205],
+] as const;
+
+const clusterCells = [
+  [-12, -4, 10], [8, -10, 9], [-2, 11, 11], [15, 8, 8],
 ] as const;
 
 function stationPoint(station: number, lane: number) {
@@ -105,10 +110,14 @@ export function PlatformModelLayers({
       </g>
 
       <g className="master-cells" aria-hidden="true">
-        {cellClusters.map(([cx, cy, radius], index) => (
-          <g key={`${cx}-${cy}`} className={`master-cell master-cell-${index + 1}`}>
-            <circle cx={cx} cy={cy} r={radius} />
-            <circle cx={cx - radius * .25} cy={cy - radius * .24} r={radius * .22} />
+        {cellClusters.map(([cx, cy], clusterIndex) => (
+          <g key={`${cx}-${cy}`} className={`master-cell-cluster master-cell-cluster-${clusterIndex + 1}`}>
+            {clusterCells.map(([offsetX, offsetY, radius], cellIndex) => (
+              <g key={`${offsetX}-${offsetY}`} className={`master-cell master-cell-${cellIndex + 1}`}>
+                <circle cx={cx + offsetX} cy={cy + offsetY} r={radius} />
+                <circle cx={cx + offsetX - radius * .25} cy={cy + offsetY - radius * .24} r={radius * .22} />
+              </g>
+            ))}
           </g>
         ))}
       </g>
@@ -131,10 +140,10 @@ export function PlatformModelLayers({
 
       {showLabels && (
         <g className="master-labels" aria-hidden="true">
-          <g><path d="M666 186 L737 92 H866" /><circle cx="666" cy="186" r="3" /><text x="744" y="82">Stent scaffold</text></g>
-          <g><path d="M574 326 L665 410 H843" /><circle cx="574" cy="326" r="3" /><text x="674" y="432">Hydrogel</text></g>
-          <g><path d="M405 330 L318 420 H116" /><circle cx="405" cy="330" r="3" /><text x="116" y="442">Beta-like cells</text></g>
-          <g><path d="M398 262 L340 118 H150" /><circle cx="398" cy="262" r="3" /><text x="150" y="107">Open blood-flow channel</text></g>
+          <g><path d="M650 205 L700 112 H858" /><circle cx="650" cy="205" r="3" /><text x="706" y="101">Beta-like cells</text></g>
+          <g><path d="M555 324 L700 410 H858" /><circle cx="555" cy="324" r="3" /><text x="706" y="433">Hydrogel</text></g>
+          <g><path d="M292 205 L232 112 H94" /><circle cx="292" cy="205" r="3" /><text x="94" y="101">Stent scaffold</text></g>
+          <g><path d="M398 262 L280 410 H94" /><circle cx="398" cy="262" r="3" /><text x="94" y="433">Open lumen</text></g>
         </g>
       )}
       <title id={`${id}-layers-title`}>BioPancrea platform layers</title>
@@ -146,7 +155,7 @@ export function PlatformModel({
   id,
   className = "",
   title = "Conceptual BioPancrea vascular platform",
-  description = "A long, open vascular stent with a diamond lattice, a thin porous hydrogel layer, embedded beta-like cell clusters and an unobstructed central blood-flow channel.",
+  description = "A long, open vascular stent with a repeating diamond lattice, a thin hydrogel layer, four beta-like cell clusters and an unobstructed central lumen.",
   ...layerProps
 }: PlatformModelProps) {
   return (

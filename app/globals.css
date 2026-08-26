@@ -819,3 +819,154 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 @media(prefers-reduced-motion:reduce){
   .contact-coral-line{animation:none;transform:scaleX(1)}
 }
+
+/* Clarity, readability, and unified platform refinements */
+html{scroll-padding-top:calc(var(--header-height) + 18px)}
+body{font-size:18px;line-height:1.62}
+main h1{font-size:clamp(3rem,6vw,6rem);line-height:.98;text-wrap:balance;overflow-wrap:normal;word-break:normal;hyphens:none}
+main h2{font-size:clamp(2.25rem,4vw,4rem);line-height:1.02;text-wrap:balance;overflow-wrap:normal;word-break:normal;hyphens:none}
+main h3{font-size:clamp(1.4rem,2vw,2rem);line-height:1.18;text-wrap:balance}
+main p:not(.eyebrow):not(.section-label):not(.contact-label):not(.booking-index){max-width:68ch;font-size:18px;line-height:1.62}
+.eyebrow,.section-label,.contact-label,.booking-index,.micro-label{font-size:14px;line-height:1.35}
+.button,.header-connect,.desktop-nav{font-size:16px}
+.button{min-height:52px;padding-inline:21px}
+.desktop-nav{gap:34px}
+.header-connect{min-height:48px;padding-inline:18px}
+.mobile-menu nav a{min-height:56px}
+.mobile-booking-link{width:100%;min-height:52px;margin-top:30px;padding:0 0 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--coral-soft);color:var(--ivory);font-size:18px}
+.mobile-disclaimer{font-size:13px}
+main figcaption,.process-stage-nav button span,.process-stage-nav button small,.mission-progress li>span,.mission-progress h3,.contact-message-help,.contact-character-count{font-size:14px}
+.legal-page header>span,.legal-page>aside{font-size:13px}
+.contact-form-field input,.contact-form-field textarea{font-size:17px}
+.contact-form-field label,.contact-form-field:focus-within label,.contact-form-field.has-value label{font-size:14px}
+.contact-submit{font-size:16px}
+.footer-minimal nav,.footer-contact{font-size:14px;line-height:1.5}
+.footer-legal{font-size:13px}
+.team-profile-role{font-size:14px!important;line-height:1.5!important}
+.mission-concept-diagram figcaption{font-size:14px;line-height:1.5}
+.master-labels text{font-size:14px;letter-spacing:.045em}
+.platform-model-grid{display:none}
+
+/* Homepage */
+.landing-hero{min-height:780px;max-height:none;grid-template-columns:minmax(0,56%) minmax(0,44%)}
+.landing-hero-copy{padding-top:72px;padding-bottom:64px}
+.landing-hero h1{max-width:850px;margin:34px 0 30px;font-size:clamp(3rem,5.7vw,6rem);line-height:.96}
+.landing-hero-lead{max-width:66ch;margin-bottom:18px;font-size:18px;line-height:1.62}
+.landing-hero-detail{max-width:64ch;font-size:17px;line-height:1.62;color:rgba(11,34,49,.62)}
+.landing-hero-actions{margin-top:36px;gap:14px}
+.hero-stent-field{background:linear-gradient(145deg,#cbd5ca,#8ea391)}
+.hero-stent-field .hero-platform-model{inset:3%;width:94%;height:94%}
+.hero-platform-model .master-platform{animation:master-platform-enter .9s .15s cubic-bezier(.2,.8,.2,1) both}
+.hero-platform-model .master-cell>circle:first-child,.layered-platform .master-cell>circle:first-child,.mission-concept-diagram .master-cell>circle:first-child{animation:none}
+.hero-platform-model .master-flow circle,.layered-platform .master-flow circle{animation-duration:7s}
+
+.layered-platform{min-height:0;padding-top:116px;padding-bottom:116px;background:var(--navy-2)}
+.layered-platform::before{display:none}
+.layered-platform-heading{grid-template-columns:.34fr 1fr;gap:8%}
+.layered-platform-heading h2{max-width:880px;font-size:clamp(2.25rem,4vw,4rem);line-height:1.02}
+.layered-platform-body{margin-top:78px;grid-template-columns:minmax(0,1.2fr) minmax(330px,.8fr);gap:7%}
+.layered-platform-graphic{min-height:500px;transform:none}
+.layered-platform-controls{border-top:1px solid rgba(244,241,233,.24)}
+.layered-platform-controls article{min-height:142px;padding:25px 0;display:grid;grid-template-columns:42px 1fr;gap:18px;border-bottom:1px solid rgba(244,241,233,.24)}
+.layered-platform-controls article>span{padding-top:5px;color:var(--coral-soft);font:14px var(--font-geist-mono),monospace}
+.layered-platform-controls h3{margin:0 0 13px;font-size:clamp(1.4rem,2vw,2rem)}
+.layered-platform-controls p{margin:0;color:rgba(244,241,233,.68)}
+.layered-platform-summary{max-width:68ch;margin:54px 0 0 auto;padding-top:26px;border-top:1px solid var(--coral-soft);color:rgba(244,241,233,.82);font-weight:520}
+
+.why-matters{min-height:0;padding-top:120px;padding-bottom:120px;display:block;background:var(--paper)}
+.why-matters-copy{display:grid;grid-template-columns:.34fr minmax(0,1fr);gap:0 8%;align-items:start}
+.why-matters-copy .section-label{grid-column:1;grid-row:1 / span 4}
+.why-matters-copy h2,.why-matters-copy>p:not(.section-label),.why-matters-copy strong{grid-column:2}
+.why-matters-copy h2{max-width:780px;margin:0 0 34px;font-size:clamp(2.25rem,4vw,4rem)}
+.why-matters-copy>p:not(.section-label){max-width:66ch;margin:0;color:rgba(11,34,49,.7)}
+.why-matters-copy strong{max-width:66ch;margin-top:40px;padding-top:24px;font-size:clamp(1.4rem,2vw,2rem);line-height:1.4}
+
+/* Quiet page heroes */
+.page-hero{min-height:620px;height:auto;max-height:none;grid-template-columns:1fr;background:var(--sage-light)}
+.page-hero-copy{position:relative;z-index:1;max-width:1120px;padding-top:148px;padding-bottom:94px}
+.page-hero-copy h1{max-width:880px;margin:46px 0 34px;font-size:clamp(3rem,6vw,6rem)}
+.page-hero-support{max-width:66ch;font-size:18px;line-height:1.62;color:rgba(11,34,49,.7)}
+.page-hero-tone{display:none}
+.not-found-simple{grid-template-columns:minmax(0,760px);justify-content:center}
+
+/* Continuous How It Works graphic */
+.process-story{padding-top:96px;padding-bottom:110px;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:8%}
+.process-copy-step{min-height:560px;padding:80px 0}
+.process-copy-step h2{margin:44px 0 26px;font-size:clamp(2.25rem,4vw,4rem)}
+.process-copy-step>p:not(.section-label){max-width:62ch;color:rgba(11,34,49,.7)}
+.process-visual-sticky{top:calc(var(--header-height) + 28px)}
+.process-visual-layout{grid-template-columns:126px minmax(0,1fr);gap:22px}
+.process-stage-nav button{min-height:72px;padding-left:22px}
+.process-stage-nav button span,.process-stage-nav button small{font-size:14px}
+.process-diagram-clean{min-height:600px;background:linear-gradient(145deg,var(--sage-light),#91a392)}
+.process-diagram-clean::after{display:none}
+.process-diagram-clean svg{min-height:600px}
+.process-diagram-clean figcaption{left:24px;right:24px;bottom:20px;display:flex;gap:12px;align-items:center;color:rgba(11,34,49,.66);font:14px/1.45 var(--font-geist-mono),monospace;letter-spacing:.025em;text-transform:none}
+.process-diagram-clean figcaption span{color:var(--coral);font-weight:650}
+.process-sample,.process-fibroblast,.process-ipsc,.process-beta-cluster,.process-platform-stage,.process-vessel,.process-glucose,.process-insulin{opacity:0;transition:opacity .38s ease,transform .55s cubic-bezier(.2,.8,.2,1);transform-box:fill-box;transform-origin:center}
+.process-sample{fill:rgba(244,241,233,.2);stroke:rgba(244,241,233,.88);stroke-width:2}.process-sample .sample-biopsy{fill:rgba(220,128,109,.2);stroke:var(--coral)}
+.process-fibroblast{fill:rgba(244,241,233,.2);stroke:rgba(244,241,233,.9);stroke-width:2}.process-fibroblast ellipse{fill:rgba(220,128,109,.7);stroke:none}
+.process-ipsc{fill:rgba(244,241,233,.23);stroke:rgba(244,241,233,.82);stroke-width:1.4}
+.process-beta-cluster>g>circle:first-child{fill:rgba(220,128,109,.86);stroke:rgba(244,241,233,.82);stroke-width:1.4}.process-beta-cluster>g>circle:last-child{fill:rgba(244,241,233,.7)}
+.process-vessel{fill:none;stroke:rgba(244,241,233,.58);stroke-width:2}
+.process-glucose{fill:none;stroke:rgba(244,241,233,.85);stroke-width:1.3}.process-insulin{fill:var(--coral)}
+.process-diagram-clean[data-stage="0"] .process-sample,.process-diagram-clean[data-stage="1"] .process-fibroblast,.process-diagram-clean[data-stage="2"] .process-ipsc,.process-diagram-clean[data-stage="3"] .process-beta-cluster{opacity:1}
+.process-diagram-clean[data-stage="4"] .process-platform-stage,.process-diagram-clean[data-stage="5"] .process-platform-stage,.process-diagram-clean[data-stage="6"] .process-platform-stage,.process-diagram-clean[data-stage="7"] .process-platform-stage{opacity:1}
+.process-diagram-clean[data-stage="4"] .process-platform-stage .master-stent{opacity:.16}
+.process-diagram-clean[data-stage="6"] .process-platform-stage,.process-diagram-clean[data-stage="7"] .process-platform-stage{transform:scale(.78)}
+.process-diagram-clean[data-stage="6"] .process-vessel,.process-diagram-clean[data-stage="7"] .process-vessel{opacity:1}
+.process-diagram-clean[data-stage="7"] .process-glucose,.process-diagram-clean[data-stage="7"] .process-insulin{opacity:1}
+.process-diagram-clean[data-stage="7"] .process-glucose>*{animation:diagram-particle 4.8s linear infinite}.process-diagram-clean[data-stage="7"] .process-insulin>*{animation:diagram-insulin 3.8s ease-in-out infinite}
+
+/* Contact and booking */
+.contact-split{min-height:880px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.contact-introduction,.contact-form-panel{min-height:792px;padding-top:88px;padding-bottom:88px}
+.contact-introduction{align-items:flex-start}
+.contact-introduction-copy{width:min(100%,620px);margin:auto 0}
+.contact-introduction h1{margin:42px 0 28px;font-size:clamp(3rem,6vw,6rem)}
+.contact-introduction-copy>p:not(.contact-label):not(.booking-index){max-width:60ch;color:rgba(244,241,233,.72)}
+.contact-coral-line{margin-top:42px}
+.booking-panel{scroll-margin-top:calc(var(--header-height) + 20px);margin-top:52px;padding-top:30px;border-top:1px solid rgba(244,241,233,.24)}
+.booking-index{margin:0 0 18px;color:var(--coral-soft);font-family:var(--font-geist-mono),monospace}
+.booking-panel h2{margin:0 0 16px;font-size:clamp(2.25rem,4vw,4rem)}
+.booking-panel>p:not(.booking-index):not(.booking-setup-note){margin:0;color:rgba(244,241,233,.7)}
+.booking-provider-link{width:min(100%,310px);margin-top:30px;border-color:var(--ivory);color:var(--ivory)}
+.booking-provider-link:hover{background:var(--ivory);color:var(--navy)}
+.booking-setup-note{margin-top:24px!important;padding:14px;border:1px solid rgba(244,241,233,.24);color:rgba(244,241,233,.7)!important;font-size:14px!important}
+.contact-form-panel{flex-direction:column;align-items:stretch;justify-content:center}
+.contact-form-heading,.contact-message-form,.contact-success{width:min(100%,620px);margin-left:auto;margin-right:auto}
+.contact-form-heading{margin-bottom:38px}
+.contact-form-heading h2{margin:22px 0 0;font-size:clamp(2.25rem,4vw,4rem)}
+.contact-form-field{min-height:86px;margin-bottom:30px}
+.contact-form-field label{top:31px}
+.contact-form-field:focus-within label,.contact-form-field.has-value label{top:4px}
+.contact-form-field input,.contact-form-field textarea{min-height:56px;padding-top:34px}
+.contact-submit{min-height:56px}
+.contact-success h2{font-size:clamp(2.25rem,4vw,4rem)}
+
+@keyframes master-platform-enter{from{opacity:.15;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+@media(max-width:1050px){
+  .landing-hero{grid-template-columns:1fr;grid-template-rows:auto 520px}.landing-hero-copy{padding-top:72px}.hero-stent-field{min-height:520px}
+  .layered-platform-heading,.why-matters-copy{grid-template-columns:1fr;gap:38px}.why-matters-copy .section-label,.why-matters-copy h2,.why-matters-copy>p:not(.section-label),.why-matters-copy strong{grid-column:1;grid-row:auto}.layered-platform-body{grid-template-columns:1fr}.layered-platform-controls{max-width:none}
+  .process-story{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:5%}.process-visual-layout{grid-template-columns:102px minmax(0,1fr)}
+}
+
+@media(max-width:760px){
+  body{font-size:17px}.container{padding-left:24px;padding-right:24px}
+  main h1{font-size:clamp(3rem,14vw,4.3rem)}main h2{font-size:clamp(2.25rem,10vw,3.5rem)}main h3{font-size:clamp(1.4rem,7vw,1.8rem)}
+  main p:not(.eyebrow):not(.section-label):not(.contact-label):not(.booking-index){font-size:17px;line-height:1.62}
+  .eyebrow,.section-label,.contact-label,.booking-index{font-size:14px}
+  .global-header{padding-inline:18px}.brand{font-size:19px}
+  .landing-hero{padding-top:var(--header-height);grid-template-rows:auto 380px}.landing-hero-copy{padding:54px 24px 50px}.landing-hero h1{margin:30px 0 28px;font-size:clamp(3rem,13.5vw,4.1rem)}.landing-hero-lead{font-size:17px}.landing-hero-detail{font-size:17px}.landing-hero-actions{flex-direction:column;align-items:stretch}.landing-hero-actions .button{width:100%}.hero-stent-field{min-height:380px}.hero-stent-field .hero-platform-model{inset:-2%;width:104%;height:104%}.master-labels text{font-size:16px}
+  .layered-platform{padding-top:82px;padding-bottom:88px}.layered-platform-heading{gap:34px}.layered-platform-body{margin-top:52px;gap:44px}.layered-platform-graphic{min-height:340px}.layered-platform-graphic .platform-model{width:116%;min-height:330px;transform:translateX(-7%)}.layered-platform-controls article{min-height:0;padding:25px 0;grid-template-columns:38px 1fr}.layered-platform-summary{margin-top:38px}
+  .why-matters{padding-top:84px;padding-bottom:88px}.why-matters-copy{gap:34px}.why-matters-copy h2{margin:0}.why-matters-copy strong{margin-top:30px}
+  .page-hero{min-height:540px}.page-hero-copy{padding:150px 24px 80px}.page-hero-copy h1{margin:42px 0 30px;font-size:clamp(3rem,13.5vw,4.2rem)}.page-hero-support{font-size:17px}
+  .process-story{padding-top:38px;padding-bottom:82px;grid-template-columns:1fr;gap:22px}.process-visual-column{position:sticky;z-index:3;top:var(--header-height);padding:12px 0 16px;background:var(--ivory)}.process-visual-sticky{position:static}.process-copy-column{grid-row:2}.process-visual-column{grid-row:1}.process-visual-layout{grid-template-columns:1fr;gap:10px}.process-stage-nav{grid-template-columns:repeat(8,minmax(46px,1fr))}.process-stage-nav button{min-height:48px;padding:13px 4px 8px}.process-stage-nav button span{font-size:14px}.process-diagram-clean,.process-diagram-clean svg{min-height:320px}.process-diagram-clean figcaption{left:16px;right:16px;bottom:12px;font-size:14px}.process-copy-step{min-height:470px;padding:90px 0 56px}.process-copy-step h2{margin-top:38px}
+  .contact-split{grid-template-columns:1fr}.contact-introduction,.contact-form-panel{min-height:0;padding:72px 24px 78px}.contact-introduction h1{margin-top:38px}.booking-panel{margin-top:44px}.booking-provider-link{width:100%}.contact-form-heading{margin-bottom:30px}.contact-form-field{min-height:78px}.contact-form-field input,.contact-form-field textarea{min-height:54px;font-size:17px}.contact-submit{width:100%;min-height:56px}
+  .footer-minimal nav,.footer-contact{font-size:14px}.footer-legal{font-size:13px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-platform-model .master-platform,.process-sample,.process-fibroblast,.process-ipsc,.process-beta-cluster,.process-platform-stage,.process-vessel,.process-glucose,.process-insulin{animation:none!important;transition:none!important}
+}

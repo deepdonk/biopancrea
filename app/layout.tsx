@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { CursorAura } from "./components/CursorAura";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { SITE_URL } from "./lib/site";
@@ -19,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "BioPancrea | Artificial Pancreas Startup",
-  description: "BioPancrea is an early-stage biotechnology startup developing a cell-based artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
+  description: "BioPancrea is developing a research-stage, implantable artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
   icons: { icon: "/favicon.png", shortcut: "/favicon.png" },
   robots: {
     index: true,
@@ -42,7 +41,6 @@ export default function RootLayout({
         <Header />
         <div className="page-transition">{children}</div>
         <Footer />
-        <CursorAura />
       </body>
     </html>
   );
