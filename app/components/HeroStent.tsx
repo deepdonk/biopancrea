@@ -2,7 +2,7 @@ import { PlatformModel } from "./PlatformModel";
 
 export function HeroStent() {
   return (
-    <figure className="hero-stent-field">
+    <figure className="hero-stent-field" data-diagram="labelled-platform">
       <PlatformModel
         id="hero-platform"
         className="hero-platform-model"

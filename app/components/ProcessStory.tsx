@@ -115,7 +115,7 @@ export function ProcessStory() {
 
 function ProcessDiagram({ activeStep }: { activeStep: number }) {
   return (
-    <figure className="process-diagram process-diagram-clean" data-stage={activeStep}>
+    <figure className="process-diagram process-diagram-clean" data-diagram="labelled-process" data-stage={activeStep}>
       <svg viewBox="0 0 680 620" role="img" aria-label={`${steps[activeStep][0]}. Conceptual illustration of this stage in the BioPancrea research process.`}>
 
         <g className="process-sample" aria-hidden="true">

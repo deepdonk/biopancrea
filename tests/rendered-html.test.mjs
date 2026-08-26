@@ -130,6 +130,7 @@ test("publishes clear concept, booking, and contact destinations", async () => {
   assert.match(home, /vascular implant that combines insulin-producing beta-like cells/);
   assert.match(home, /A research-stage vascular implant\./);
   assert.match(home, /class="hero-platform-key"/);
+  assert.match(home, /data-diagram="labelled-platform"/);
   for (const label of ["Beta-like cells", "Hydrogel", "Vascular stent"]) {
     assert.match(home, new RegExp(label));
   }
@@ -138,6 +139,7 @@ test("publishes clear concept, booking, and contact destinations", async () => {
   assert.doesNotMatch(howItWorks, /Concept illustration · Not to scale/);
   assert.match(processStory, /className="cell-membrane"/);
   assert.match(processStory, /className="cell-nucleus"/);
+  assert.match(processStory, /data-diagram="labelled-process"/);
   for (const note of [
     "Layered skin tissue · sample area",
     "Cell membrane · nucleus",
