@@ -124,13 +124,32 @@ test("publishes clear concept, booking, and contact destinations", async () => {
   const home = await (await request(worker, "/")).text();
   const howItWorks = await (await request(worker, "/how-it-works")).text();
   const contact = await (await request(worker, "/contact")).text();
+  const processStory = await readFile(new URL("../app/components/ProcessStory.tsx", import.meta.url), "utf8");
 
   assert.match(home, /What BioPancrea is building/);
   assert.match(home, /vascular implant that combines insulin-producing beta-like cells/);
   assert.match(home, /A research-stage vascular implant\./);
+  assert.match(home, /class="hero-platform-key"/);
+  for (const label of ["Beta-like cells", "Hydrogel", "Vascular stent"]) {
+    assert.match(home, new RegExp(label));
+  }
   const hero = home.match(/<section class="landing-hero">([\s\S]*?)<\/section>/)?.[1] ?? "";
   assert.doesNotMatch(hero, /combines insulin-producing beta-like cells/);
   assert.doesNotMatch(howItWorks, /Concept illustration · Not to scale/);
+  assert.match(processStory, /className="cell-membrane"/);
+  assert.match(processStory, /className="cell-nucleus"/);
+  for (const note of [
+    "Layered skin tissue · sample area",
+    "Cell membrane · nucleus",
+    "Reprogrammed cells · dense colony",
+    "Beta-like cells · islet-like cluster",
+    "Beta-like cells held inside hydrogel",
+    "Hydrogel near the stent wall · open lumen",
+    "Implant positioned inside the femoral artery",
+    "Glucose enters · insulin is released",
+  ]) {
+    assert.match(processStory, new RegExp(note));
+  }
   assert.match(home, /href="\/contact#book-a-meeting"/);
   assert.match(howItWorks, /href="\/contact#book-a-meeting"/);
   assert.match(contact, /id="book-a-meeting"/);

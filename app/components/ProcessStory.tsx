@@ -16,6 +16,42 @@ const steps = [
 
 const progressLabels = ["Sample", "Skin cell", "iPSCs", "Beta-like cells", "Hydrogel", "Stent", "Placement", "Response"] as const;
 
+const visualNotes = [
+  "Layered skin tissue · sample area",
+  "Cell membrane · nucleus",
+  "Reprogrammed cells · dense colony",
+  "Beta-like cells · islet-like cluster",
+  "Beta-like cells held inside hydrogel",
+  "Hydrogel near the stent wall · open lumen",
+  "Implant positioned inside the femoral artery",
+  "Glucose enters · insulin is released",
+] as const;
+
+function DiagramCallout({
+  label,
+  x,
+  y,
+  anchorX,
+  anchorY,
+  align = "start",
+}: {
+  label: string;
+  x: number;
+  y: number;
+  anchorX: number;
+  anchorY: number;
+  align?: "start" | "end";
+}) {
+  const lineX = align === "end" ? x - 12 : x + 12;
+  return (
+    <g className="diagram-callout">
+      <path d={`M${anchorX} ${anchorY} L${lineX} ${y}`} />
+      <circle cx={anchorX} cy={anchorY} r="3" />
+      <text x={x} y={y - 9} textAnchor={align}>{label}</text>
+    </g>
+  );
+}
+
 export function ProcessStory() {
   const [activeStep, setActiveStep] = useState(0);
   const stepRefs = useRef<Array<HTMLElement | null>>([]);
@@ -91,23 +127,32 @@ function ProcessDiagram({ activeStep }: { activeStep: number }) {
             <path d="M455 244 l24-12 23 15-5 25-27 7-18-17z" />
             <path d="M468 361 l23-13 24 14-4 25-28 8-19-18z" />
           </g>
+          <DiagramCallout label="Skin tissue" x={92} y={128} anchorX={178} anchorY={236} />
+          <DiagramCallout label="Sample area" x={588} y={145} anchorX={350} anchorY={205} align="end" />
         </g>
 
         <g className="process-fibroblast" aria-hidden="true">
-          <path d="M176 318 C225 252 281 267 330 303 C385 344 440 355 504 287 C470 370 399 398 326 354 C265 318 222 318 176 318 Z" />
-          <ellipse cx="337" cy="324" rx="30" ry="18" />
+          <circle className="microscope-field" cx="340" cy="306" r="178" />
+          <path className="cell-membrane" d="M167 316 C221 225 286 226 340 276 C397 226 471 240 520 313 C470 386 397 397 340 344 C281 395 215 390 167 316 Z" />
+          <ellipse className="cell-nucleus" cx="344" cy="311" rx="46" ry="31" />
+          <DiagramCallout label="Cell membrane" x={112} y={142} anchorX={226} anchorY={257} />
+          <DiagramCallout label="Nucleus" x={568} y={176} anchorX={372} anchorY={304} align="end" />
         </g>
 
         <g className="process-ipsc" aria-hidden="true">
           {[[265,275],[315,250],[367,266],[414,302],[380,348],[322,360],[274,329],[330,305]].map(([x, y], index) => (
             <path key={index} d={`M${x - 24} ${y - 12} L${x - 5} ${y - 25} L${x + 22} ${y - 14} L${x + 26} ${y + 12} L${x + 4} ${y + 25} L${x - 23} ${y + 14} Z`} />
           ))}
+          <DiagramCallout label="Reprogrammed cells" x={104} y={139} anchorX={276} anchorY={275} />
+          <DiagramCallout label="Dense colony" x={576} y={163} anchorX={406} anchorY={304} align="end" />
         </g>
 
         <g className="process-beta-cluster" aria-hidden="true">
           {[[294,285,34],[344,260,37],[394,288,33],[318,329,31],[371,337,35]].map(([cx, cy, radius], index) => (
             <g key={index}><circle cx={cx} cy={cy} r={radius} /><circle cx={cx - 7} cy={cy - 6} r={radius * .2} /></g>
           ))}
+          <DiagramCallout label="Beta-like cells" x={105} y={145} anchorX={294} anchorY={285} />
+          <DiagramCallout label="Compact cluster" x={578} y={177} anchorX={395} anchorY={288} align="end" />
         </g>
 
         <g className="process-platform-stage" aria-hidden="true">
@@ -121,14 +166,38 @@ function ProcessDiagram({ activeStep }: { activeStep: number }) {
           <path d="M36 425 C190 490 492 490 644 425" />
         </g>
 
+        <g className="process-hydrogel-callouts" aria-hidden="true">
+          <DiagramCallout label="Beta-like cells" x={110} y={140} anchorX={338} anchorY={370} />
+          <DiagramCallout label="Supportive hydrogel" x={576} y={166} anchorX={458} anchorY={354} align="end" />
+        </g>
+
+        <g className="process-stent-callouts" aria-hidden="true">
+          <DiagramCallout label="Stent scaffold" x={108} y={142} anchorX={246} anchorY={292} />
+          <DiagramCallout label="Open lumen" x={574} y={168} anchorX={354} anchorY={330} align="end" />
+        </g>
+
+        <g className="process-placement-callouts" aria-hidden="true">
+          <DiagramCallout label="Femoral artery" x={108} y={132} anchorX={188} anchorY={215} />
+          <DiagramCallout label="Implant location" x={574} y={156} anchorX={390} anchorY={320} align="end" />
+        </g>
+
         <g className="process-glucose" aria-hidden="true">
           {[[82,305],[132,350],[548,292]].map(([x, y], index) => <path key={index} d={`M${x - 8} ${y} L${x} ${y - 8} L${x + 8} ${y} L${x} ${y + 8} Z`} />)}
         </g>
         <g className="process-insulin" aria-hidden="true">
           {[[492,316],[536,350],[584,320]].map(([cx, cy], index) => <circle key={index} cx={cx} cy={cy} r="6" />)}
         </g>
+
+        <g className="process-response-callouts" aria-hidden="true">
+          <DiagramCallout label="Glucose enters" x={108} y={136} anchorX={132} anchorY={350} />
+          <DiagramCallout label="Insulin released" x={576} y={162} anchorX={536} anchorY={350} align="end" />
+        </g>
       </svg>
-      <figcaption><span>0{activeStep + 1}</span>{steps[activeStep][0]}</figcaption>
+      <figcaption>
+        <span>0{activeStep + 1}</span>
+        <strong>{steps[activeStep][0]}</strong>
+        <small>{visualNotes[activeStep]}</small>
+      </figcaption>
     </figure>
   );
 }

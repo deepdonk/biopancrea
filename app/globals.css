@@ -1055,3 +1055,110 @@ main figcaption,.process-stage-nav button span,.process-stage-nav button small,.
     padding:12px 16px;
   }
 }
+
+/* Clear, labelled scientific graphics */
+.hero-stent-field{margin:0}
+.hero-stent-field .hero-platform-model{
+  inset:1% 3% 12%;
+  width:94%;
+  height:87%;
+}
+.hero-platform-key{
+  position:absolute;
+  z-index:3;
+  left:28px;
+  right:28px;
+  bottom:24px;
+  display:flex;
+  justify-content:center;
+  gap:24px;
+  color:rgba(11,34,49,.72);
+  font-size:14px;
+  font-weight:600;
+  line-height:1.35;
+}
+.hero-platform-key span{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.hero-platform-key i{width:11px;height:11px;display:inline-block;flex:0 0 auto}
+.hero-platform-key .key-cell{border-radius:50%;background:var(--coral)}
+.hero-platform-key .key-gel{border:1px solid rgba(11,34,49,.42);background:rgba(244,241,233,.38)}
+.hero-platform-key .key-stent{height:8px;border-top:2px solid var(--ivory);border-bottom:2px solid var(--ivory)}
+
+.process-diagram-clean{width:100%;min-width:0;overflow:hidden}
+.process-diagram-clean figcaption{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  gap:4px 13px;
+  align-items:baseline;
+}
+.process-diagram-clean figcaption>span{
+  grid-row:1 / span 2;
+  color:var(--coral);
+  font-family:var(--font-geist-mono);
+  font-weight:700;
+}
+.process-diagram-clean figcaption strong{
+  min-width:0;
+  color:var(--navy);
+  font-family:var(--font-biopancrea-sans);
+  font-size:16px;
+  font-weight:700;
+  line-height:1.25;
+}
+.process-diagram-clean figcaption small{
+  min-width:0;
+  color:rgba(11,34,49,.62);
+  font-family:var(--font-biopancrea-sans);
+  font-size:14px;
+  line-height:1.35;
+}
+
+.process-fibroblast{fill:none;stroke:none}
+.process-fibroblast .microscope-field{
+  fill:rgba(244,241,233,.08);
+  stroke:rgba(244,241,233,.5);
+  stroke-width:1.5;
+}
+.process-fibroblast .cell-membrane{
+  fill:rgba(244,241,233,.22);
+  stroke:rgba(244,241,233,.92);
+  stroke-width:2.4;
+}
+.process-fibroblast .cell-nucleus{
+  fill:rgba(220,128,109,.86);
+  stroke:rgba(244,241,233,.7);
+  stroke-width:1.5;
+}
+.diagram-callout path{
+  fill:none!important;
+  stroke:rgba(11,34,49,.5)!important;
+  stroke-width:1.2!important;
+  stroke-dasharray:4 5;
+}
+.diagram-callout circle{
+  fill:var(--navy)!important;
+  stroke:none!important;
+}
+.diagram-callout text{
+  fill:rgba(11,34,49,.76)!important;
+  stroke:none!important;
+  font-family:var(--font-biopancrea-sans);
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:.01em;
+}
+.process-hydrogel-callouts,.process-stent-callouts,.process-placement-callouts,.process-response-callouts{
+  opacity:0;
+  transition:opacity .38s ease;
+}
+.process-diagram-clean[data-stage="4"] .process-hydrogel-callouts,
+.process-diagram-clean[data-stage="5"] .process-stent-callouts,
+.process-diagram-clean[data-stage="6"] .process-placement-callouts,
+.process-diagram-clean[data-stage="7"] .process-response-callouts{opacity:1}
+
+@media(max-width:760px){
+  .hero-stent-field .hero-platform-model{inset:0 0 17%;width:100%;height:83%}
+  .hero-platform-key{left:16px;right:16px;bottom:16px;gap:10px 16px;flex-wrap:wrap;font-size:14px}
+  .process-diagram-clean{height:370px}
+  .process-diagram-clean .diagram-callout{display:none}
+  .process-diagram-clean figcaption{min-height:74px;padding:13px 16px}
+}
