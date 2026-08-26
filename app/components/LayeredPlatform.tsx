@@ -11,7 +11,11 @@ export function LayeredPlatform() {
     <section className="layered-platform container" aria-labelledby="platform-heading">
       <header className="layered-platform-heading">
         <p className="section-label light"><span>01</span>The concept</p>
-        <h2 id="platform-heading">What BioPancrea is building</h2>
+        <div className="layered-platform-introduction">
+          <h2 id="platform-heading">What BioPancrea is building</h2>
+          <p>BioPancrea is developing a vascular implant that combines insulin-producing beta-like cells, a supportive hydrogel, and a stent designed for placement in the femoral artery.</p>
+          <p>The aim is to investigate whether the cells can sense glucose and release insulin from within the body.</p>
+        </div>
       </header>
       <div className="layered-platform-body">
         <div className="layered-platform-graphic">

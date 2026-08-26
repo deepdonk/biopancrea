@@ -80,14 +80,17 @@ export function ProcessStory() {
 function ProcessDiagram({ activeStep }: { activeStep: number }) {
   return (
     <figure className="process-diagram process-diagram-clean" data-stage={activeStep}>
-      <svg viewBox="0 0 680 620" role="img" aria-labelledby="process-diagram-title process-diagram-description">
-        <title id="process-diagram-title">{steps[activeStep][0]}</title>
-        <desc id="process-diagram-description">A continuous conceptual illustration showing the active stage in the BioPancrea research process.</desc>
+      <svg viewBox="0 0 680 620" role="img" aria-label={`${steps[activeStep][0]}. Conceptual illustration of this stage in the BioPancrea research process.`}>
 
         <g className="process-sample" aria-hidden="true">
-          <path className="sample-surface" d="M170 226 C250 202 420 205 510 230 L500 346 C410 374 255 370 178 344 Z" />
-          <path d="M176 266 C270 242 414 246 506 270 M176 307 C272 286 410 289 502 310" />
-          <path className="sample-biopsy" d="M325 204 L355 204 L369 338 L311 338 Z" />
+          <path className="sample-surface" d="M92 205 C225 164 458 168 588 212 L570 410 C444 454 225 450 110 408 Z" />
+          <path d="M100 272 C236 226 452 232 580 275 M105 344 C245 304 442 307 575 346" />
+          <path className="sample-biopsy" d="M315 164 L371 164 L396 404 L292 404 Z" />
+          <g className="sample-cells">
+            <path d="M158 298 l22-14 25 12-2 26-27 10-22-14z" />
+            <path d="M455 244 l24-12 23 15-5 25-27 7-18-17z" />
+            <path d="M468 361 l23-13 24 14-4 25-28 8-19-18z" />
+          </g>
         </g>
 
         <g className="process-fibroblast" aria-hidden="true">
@@ -109,7 +112,7 @@ function ProcessDiagram({ activeStep }: { activeStep: number }) {
 
         <g className="process-platform-stage" aria-hidden="true">
           <g transform="translate(5 138) scale(.7)">
-            <PlatformModelLayers id="process-platform" showLabels={false} showFlow={activeStep === 7} />
+            <PlatformModelLayers showLabels={false} showFlow={activeStep === 7} />
           </g>
         </g>
 
@@ -125,7 +128,7 @@ function ProcessDiagram({ activeStep }: { activeStep: number }) {
           {[[492,316],[536,350],[584,320]].map(([cx, cy], index) => <circle key={index} cx={cx} cy={cy} r="6" />)}
         </g>
       </svg>
-      <figcaption><span>0{activeStep + 1}</span>{steps[activeStep][0]} · Concept illustration · Not to scale</figcaption>
+      <figcaption><span>0{activeStep + 1}</span>{steps[activeStep][0]}</figcaption>
     </figure>
   );
 }

@@ -52,9 +52,8 @@ export default function Home() {
       <section className="landing-hero">
         <div className="landing-hero-copy">
           <p className="eyebrow">ARTIFICIAL PANCREAS STARTUP</p>
-          <h1>An implantable artificial pancreas built around living cells.</h1>
-          <p className="landing-hero-lead">BioPancrea is developing a vascular implant that combines insulin-producing beta-like cells, a supportive hydrogel, and a stent designed for placement in the femoral artery.</p>
-          <p className="landing-hero-detail">The aim is to investigate whether the cells can sense glucose and release insulin from within the body.</p>
+          <h1>An artificial pancreas built around living cells.</h1>
+          <p className="landing-hero-lead">A research-stage vascular implant.</p>
           <div className="landing-hero-actions">
             <a className="button button-dark" href="/how-it-works">See the concept</a>
             <a className="button button-line" href="/contact#book-a-meeting">Book a meeting</a>

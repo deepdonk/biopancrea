@@ -7,7 +7,7 @@ const pages = {
   "/": {
     title: "BioPancrea | Artificial Pancreas Startup",
     description: "BioPancrea is developing a research-stage, implantable artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
-    h1: "An implantable artificial pancreas built around living cells.",
+    h1: "An artificial pancreas built around living cells.",
   },
   "/mission": {
     title: "Our Mission | BioPancrea",
@@ -127,6 +127,10 @@ test("publishes clear concept, booking, and contact destinations", async () => {
 
   assert.match(home, /What BioPancrea is building/);
   assert.match(home, /vascular implant that combines insulin-producing beta-like cells/);
+  assert.match(home, /A research-stage vascular implant\./);
+  const hero = home.match(/<section class="landing-hero">([\s\S]*?)<\/section>/)?.[1] ?? "";
+  assert.doesNotMatch(hero, /combines insulin-producing beta-like cells/);
+  assert.doesNotMatch(howItWorks, /Concept illustration · Not to scale/);
   assert.match(home, /href="\/contact#book-a-meeting"/);
   assert.match(howItWorks, /href="\/contact#book-a-meeting"/);
   assert.match(contact, /id="book-a-meeting"/);

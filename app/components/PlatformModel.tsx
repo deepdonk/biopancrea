@@ -12,7 +12,7 @@ type PlatformModelProps = {
   description?: string;
 };
 
-type PlatformLayersProps = Pick<PlatformModelProps, "id" | "exploded" | "assembled" | "activeLayer" | "showLabels" | "showFlow">;
+type PlatformLayersProps = Pick<PlatformModelProps, "exploded" | "assembled" | "activeLayer" | "showLabels" | "showFlow">;
 
 const stations = Array.from({ length: 13 }, (_, index) => index);
 const lanes = Array.from({ length: 8 }, (_, index) => index);
@@ -71,7 +71,6 @@ function Lattice({ front }: { front: boolean }) {
 }
 
 export function PlatformModelLayers({
-  id,
   exploded = false,
   assembled = true,
   activeLayer = null,
@@ -146,7 +145,6 @@ export function PlatformModelLayers({
           <g><path d="M398 262 L280 410 H94" /><circle cx="398" cy="262" r="3" /><text x="94" y="433">Open lumen</text></g>
         </g>
       )}
-      <title id={`${id}-layers-title`}>BioPancrea platform layers</title>
     </g>
   );
 }
@@ -159,13 +157,12 @@ export function PlatformModel({
   ...layerProps
 }: PlatformModelProps) {
   return (
-    <svg className={`platform-model ${className}`.trim()} viewBox="0 0 960 520" role="img" aria-labelledby={`${id}-title ${id}-description`}>
-      <title id={`${id}-title`}>{title}</title>
+    <svg className={`platform-model ${className}`.trim()} viewBox="0 0 960 520" role="img" aria-label={title} aria-describedby={`${id}-description`}>
       <desc id={`${id}-description`}>{description}</desc>
       <g className="platform-model-grid" aria-hidden="true">
         {Array.from({ length: 9 }).map((_, index) => <path key={index} d={`M40 ${54 + index * 52} H920 M${60 + index * 105} 30 V490`} />)}
       </g>
-      <PlatformModelLayers id={id} {...layerProps} />
+      <PlatformModelLayers {...layerProps} />
     </svg>
   );
 }
