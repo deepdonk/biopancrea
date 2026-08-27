@@ -200,3 +200,19 @@ test("uses the BioPancrea font system without Arial fallbacks", async () => {
   assert.doesNotMatch(layout, /Arial/i);
   assert.match(layout, /Manrope/);
 });
+
+test("uses accessible contrast, stable font fallbacks, and a JavaScript-free global header", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
+  const header = await readFile(new URL("../app/components/Header.tsx", import.meta.url), "utf8");
+
+  for (const token of ["--muted-text: #3f515b", "--coral-text: #a54635", "--light-text: #d9ddd5"]) {
+    assert.match(css, new RegExp(token));
+  }
+  assert.match(css, /\.page-transition\{animation:none\}/);
+  assert.match(css, /\.layered-platform\{content-visibility:visible;contain-intrinsic-size:auto\}/);
+  assert.match(css, /\.global-footer\{min-height:340px\}/);
+  assert.match(layout, /adjustFontFallback: true/g);
+  assert.doesNotMatch(header, /["']use client["']|usePathname|useEffect|useState/);
+  assert.match(header, /<details className="mobile-navigation">/);
+});

@@ -9,14 +9,14 @@ const manrope = Manrope({
   variable: "--font-biopancrea-sans",
   subsets: ["latin"],
   display: "swap",
-  adjustFontFallback: false,
+  adjustFontFallback: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
-  adjustFontFallback: false,
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
