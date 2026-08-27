@@ -5,7 +5,7 @@ import test from "node:test";
 const siteUrl = "https://biopancrea.com";
 const pages = {
   "/": {
-    title: "BioPancrea | Artificial Pancreas Startup",
+    title: "BioPancrea | Biotechnology Startup",
     description: "BioPancrea is developing a research-stage, implantable artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
     h1: "An artificial pancreas built around living cells.",
   },
@@ -127,6 +127,9 @@ test("publishes clear concept, booking, and contact destinations", async () => {
   const processStory = await readFile(new URL("../app/components/ProcessStory.tsx", import.meta.url), "utf8");
 
   assert.match(home, /What BioPancrea is building/);
+  assert.doesNotMatch(home, /ARTIFICIAL PANCREAS STARTUP/);
+  assert.ok((home.match(/class="brand-trademark"/g) ?? []).length >= 2);
+  assert.doesNotMatch(home, /®|patented/i);
   assert.match(home, /vascular implant that combines insulin-producing beta-like cells/);
   assert.match(home, /A research-stage vascular implant\./);
   assert.match(home, /class="hero-platform-key"/);

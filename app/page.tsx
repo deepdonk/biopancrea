@@ -6,7 +6,7 @@ import { createPageMetadata } from "./lib/metadata";
 import { absoluteUrl } from "./lib/site";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "BioPancrea | Artificial Pancreas Startup",
+  title: "BioPancrea | Biotechnology Startup",
   description: "BioPancrea is developing a research-stage, implantable artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
   path: "/",
 });
@@ -51,7 +51,6 @@ export default function Home() {
     <main>
       <section className="landing-hero">
         <div className="landing-hero-copy">
-          <p className="eyebrow">ARTIFICIAL PANCREAS STARTUP</p>
           <h1>An artificial pancreas built around living cells.</h1>
           <p className="landing-hero-lead">A research-stage vascular implant.</p>
           <div className="landing-hero-actions">
