@@ -126,7 +126,7 @@ test("publishes clear concept, booking, and contact destinations", async () => {
   const contact = await (await request(worker, "/contact")).text();
   const processStory = await readFile(new URL("../app/components/ProcessStory.tsx", import.meta.url), "utf8");
 
-  assert.match(home, /What BioPancrea is building/);
+  assert.match(home, /Three components\. One concept\./);
   assert.doesNotMatch(home, /ARTIFICIAL PANCREAS STARTUP/);
   assert.ok((home.match(/class="brand-trademark"/g) ?? []).length >= 2);
   assert.doesNotMatch(home, /®|patented/i);
@@ -215,4 +215,30 @@ test("uses accessible contrast, stable font fallbacks, and a JavaScript-free glo
   assert.match(layout, /adjustFontFallback: true/g);
   assert.doesNotMatch(header, /["']use client["']|usePathname|useEffect|useState/);
   assert.match(header, /<details className="mobile-navigation">/);
+});
+
+test("ships the focused visual-polish system without changing the public routes", async () => {
+  const worker = await loadWorker();
+  const home = await (await request(worker, "/")).text();
+  const howItWorks = await (await request(worker, "/how-it-works")).text();
+  const missing = await request(worker, "/not-a-real-page");
+  const missingHtml = await missing.text();
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+
+  assert.equal(missing.status, 404);
+  assert.match(missingHtml, /Nothing here\./);
+  assert.match(missingHtml, /The page you’re looking for doesn’t exist\./);
+  assert.match(missingHtml, /Incomplete vascular stent lattice/);
+  for (const stage of ["cells", "hydrogel", "stent", "assembled"]) {
+    assert.match(home, new RegExp(`data-platform-step="${stage}"`));
+  }
+  for (const label of ["01", "Cells", "02", "Gel", "03", "Stent"]) {
+    assert.match(howItWorks, new RegExp(`>${label}<`));
+  }
+  assert.match(css, /@keyframes signature-cells/);
+  assert.match(css, /@keyframes signature-gel/);
+  assert.match(css, /@keyframes signature-stent-front/);
+  assert.match(css, /@keyframes page-coral-travel/);
+  assert.match(css, /prefers-reduced-motion:reduce/);
+  assert.match(css, /\.team-profile:hover \.team-profile-portrait\.has-photo img[^}]*scale\(1\.02\)/);
 });

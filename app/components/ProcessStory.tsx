@@ -12,7 +12,11 @@ const steps = [
   ["Intended glucose-responsive insulin release", "The aim is to investigate whether the cells can respond to changing glucose levels and release insulin into the bloodstream."],
 ] as const;
 
-const progressLabels = ["Sample", "Skin cell", "Beta-like cells", "Hydrogel", "Stent", "Response"] as const;
+const componentStages = [
+  { index: "01", label: "Cells", step: 2 },
+  { index: "02", label: "Gel", step: 3 },
+  { index: "03", label: "Stent", step: 4 },
+] as const;
 
 const visualNotes = [
   "Layered skin tissue · sample area",
@@ -51,6 +55,7 @@ function DiagramCallout({
 export function ProcessStory() {
   const [activeStep, setActiveStep] = useState(0);
   const stepRefs = useRef<Array<HTMLElement | null>>([]);
+  const activeComponent = activeStep <= 2 ? 0 : activeStep === 3 ? 1 : 2;
 
   function goToStep(index: number) {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -88,16 +93,16 @@ export function ProcessStory() {
       <div className="process-visual-column">
         <div className="process-visual-sticky">
           <div className="process-visual-layout">
-            <nav className="process-stage-nav" aria-label={`Process stages. Stage ${activeStep + 1} of ${steps.length} is active.`}>
-              {progressLabels.map((label, index) => (
+            <nav className="process-stage-nav" aria-label={`Platform components. ${componentStages[activeComponent].label} is active.`}>
+              {componentStages.map(({ index, label, step }, componentIndex) => (
                 <button
                   key={label}
                   type="button"
-                  className={index === activeStep ? "is-active" : index < activeStep ? "is-complete" : "is-future"}
-                  aria-current={index === activeStep ? "step" : undefined}
-                  onClick={() => goToStep(index)}
+                  className={componentIndex === activeComponent ? "is-active" : componentIndex < activeComponent ? "is-complete" : "is-future"}
+                  aria-current={componentIndex === activeComponent ? "step" : undefined}
+                  onClick={() => goToStep(step)}
                 >
-                  <span>0{index + 1}</span><small>{label}</small>
+                  <span>{index}</span><small>{label}</small>
                 </button>
               ))}
             </nav>

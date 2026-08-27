@@ -2,11 +2,11 @@ import { PlatformModel } from "./PlatformModel";
 
 export function HeroStent() {
   return (
-    <figure className="hero-stent-field" data-diagram="labelled-platform">
+    <figure className="hero-stent-field" data-diagram="labelled-platform" data-platform-tilt>
       <PlatformModel
         id="hero-platform"
         className="hero-platform-model"
-        showLabels
+        showFlow={false}
         title="BioPancrea vascular implant concept"
         description="A long open vascular stent containing a thin hydrogel layer and beta-like cell clusters."
       />

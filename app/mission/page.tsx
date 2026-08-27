@@ -20,25 +20,27 @@ const milestones = [
 export default function MissionPage() {
   return (
     <main>
-      <section className="mission-hero container">
-        <p className="eyebrow"><span>01</span>Mission</p>
-        <h1>Our mission</h1>
-        <p className="mission-statement">To explore a cell-based artificial pancreas that can operate from within the body.</p>
-        <p className="mission-support">BioPancrea is bringing together cell engineering, biomaterials, and vascular-device design to investigate a new approach to insulin production.</p>
-      </section>
-
-      <section className="mission-building container">
-        <div className="mission-section-copy">
-          <p className="section-label"><span>01</span>The concept</p>
-          <h2>What we are building</h2>
-          <p>BioPancrea is developing a concept in which patient-derived cells are guided toward an insulin-producing beta-like identity, supported within a hydrogel, and incorporated into a vascular stent platform.</p>
+      <section className="mission-hero container" data-reveal>
+        <p className="eyebrow" data-reveal-label><span>01</span>Mission</p>
+        <h1 data-reveal-heading>Our mission</h1>
+        <div data-reveal-copy>
+          <p className="mission-statement">To explore a cell-based artificial pancreas that can operate from within the body.</p>
+          <p className="mission-support">BioPancrea is bringing together cell engineering, biomaterials, and vascular-device design to investigate a new approach to insulin production.</p>
         </div>
-        <MissionPlatformGraphic />
       </section>
 
-      <section className="mission-why container">
-        <p className="section-label light"><span>02</span>Ambition</p>
-        <div><h2>Why we are building it</h2><p>Our ambition is to move beyond systems that only deliver insulin externally and explore whether living insulin-producing cells could provide a more direct biological response to changing glucose levels.</p></div>
+      <section className="mission-building container" data-reveal>
+        <div className="mission-section-copy">
+          <p className="section-label" data-reveal-label><span>01</span>The concept</p>
+          <h2 data-reveal-heading>What we are building</h2>
+          <p data-reveal-copy>BioPancrea is developing a concept in which patient-derived cells are guided toward an insulin-producing beta-like identity, supported within a hydrogel, and incorporated into a vascular stent platform.</p>
+        </div>
+        <div data-reveal-graphic><MissionPlatformGraphic /></div>
+      </section>
+
+      <section className="mission-why container" data-header-tone="dark" data-reveal>
+        <p className="section-label light" data-reveal-label><span>02</span>Ambition</p>
+        <div><h2 data-reveal-heading>Why we are building it</h2><p data-reveal-copy>Our ambition is to move beyond systems that only deliver insulin externally and explore whether living insulin-producing cells could provide a more direct biological response to changing glucose levels.</p></div>
       </section>
 
       <section className="mission-progress container">

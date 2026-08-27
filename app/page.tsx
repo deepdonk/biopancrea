@@ -50,10 +50,10 @@ export default function Home() {
   return (
     <main>
       <section className="landing-hero">
-        <div className="landing-hero-copy">
-          <h1>An artificial pancreas built around living cells.</h1>
-          <p className="landing-hero-lead">A research-stage vascular implant.</p>
-          <div className="landing-hero-actions">
+        <div className="landing-hero-copy" data-reveal>
+          <h1 data-reveal-heading>An artificial pancreas built around living cells.</h1>
+          <p className="landing-hero-lead" data-reveal-copy>A research-stage vascular implant.</p>
+          <div className="landing-hero-actions" data-reveal-copy>
             <a className="button button-dark" href="/how-it-works">See the concept</a>
             <a className="button button-line" href="/contact#book-a-meeting">Book a meeting</a>
           </div>

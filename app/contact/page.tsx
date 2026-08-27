@@ -24,11 +24,11 @@ export default function ContactPage() {
 
   return (
     <main className="contact-split">
-      <section className="contact-introduction">
+      <section className="contact-introduction" data-reveal>
         <div className="contact-introduction-copy">
-          <p className="contact-label">CONTACT</p>
-          <h1>Let’s talk.</h1>
-          <p>Book a meeting or send the BioPancrea team a message.</p>
+          <p className="contact-label" data-reveal-label>CONTACT</p>
+          <h1 data-reveal-heading>Let’s talk.</h1>
+          <p data-reveal-copy>Book a meeting or send the BioPancrea team a message.</p>
           <i className="contact-coral-line" aria-hidden="true" />
           <div className="booking-panel" id="book-a-meeting">
             <p className="booking-index">01</p>
@@ -45,12 +45,12 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-      <section className="contact-form-panel" aria-labelledby="message-heading">
+      <section className="contact-form-panel" aria-labelledby="message-heading" data-reveal>
         <header className="contact-form-heading">
-          <p className="contact-label">02</p>
-          <h2 id="message-heading">Send a message</h2>
+          <p className="contact-label" data-reveal-label>02</p>
+          <h2 id="message-heading" data-reveal-heading>Send a message</h2>
         </header>
-        <ContactForm />
+        <div data-reveal-copy><ContactForm /></div>
       </section>
     </main>
   );

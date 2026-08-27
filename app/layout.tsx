@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono, Manrope } from "next/font/google";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
+import { SitePolish } from "./components/SitePolish";
 import { SITE_URL } from "./lib/site";
 import "./globals.css";
 
@@ -43,6 +44,7 @@ export default function RootLayout({
         className={`${manrope.variable} ${geistMono.variable} antialiased`}
       >
         <Header />
+        <SitePolish />
         <div className="page-transition">{children}</div>
         <Footer />
       </body>
