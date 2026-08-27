@@ -6,8 +6,8 @@ import { createPageMetadata } from "./lib/metadata";
 import { absoluteUrl } from "./lib/site";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "BioPancrea | Biotechnology Startup",
-  description: "BioPancrea is developing a research-stage, implantable artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
+  title: "BioPancrea | Artificial Pancreas Startup",
+  description: "BioPancrea is an early-stage biotechnology startup developing an artificial-pancreas concept combining cells, a supportive gel and a vascular stent.",
   path: "/",
 });
 
@@ -20,7 +20,7 @@ const structuredData = {
       name: "BioPancrea",
       url: absoluteUrl("/"),
       logo: { "@type": "ImageObject", url: absoluteUrl("/favicon.png") },
-      description: "A biotechnology startup developing a research-stage, implantable artificial-pancreas concept.",
+      description: "An early-stage biotechnology startup developing an artificial-pancreas concept combining cells, a supportive gel and a vascular stent.",
       founder: [
         {
           "@type": "Person",
@@ -41,6 +41,7 @@ const structuredData = {
       "@id": `${absoluteUrl("/")}#website`,
       name: "BioPancrea",
       url: absoluteUrl("/"),
+      description: "An early-stage biotechnology startup developing an artificial-pancreas concept combining cells, a supportive gel and a vascular stent.",
       publisher: { "@id": `${absoluteUrl("/")}#organization` },
     },
   ],
@@ -51,10 +52,12 @@ export default function Home() {
     <main>
       <section className="landing-hero">
         <div className="landing-hero-copy">
-          <h1>An artificial pancreas built around living cells.</h1>
-          <p className="landing-hero-lead">A research-stage vascular implant.</p>
+          <p className="eyebrow">ARTIFICIAL PANCREAS STARTUP</p>
+          <h1>Building a new kind of artificial pancreas.</h1>
+          <p className="landing-hero-lead">BioPancrea is an early-stage biotechnology startup developing an implantable concept that brings together living cells, a supportive gel, and a vascular stent.</p>
+          <p className="landing-hero-detail">Three components designed to work as one platform.</p>
           <div className="landing-hero-actions">
-            <a className="button button-dark" href="/how-it-works">See the concept</a>
+            <a className="button button-dark" href="/how-it-works">Explore the concept</a>
             <a className="button button-line" href="/contact#book-a-meeting">Book a meeting</a>
           </div>
         </div>

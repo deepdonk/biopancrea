@@ -4,16 +4,16 @@ import { useState } from "react";
 
 const questions = [
   {
-    question: "Is BioPancrea an approved treatment?",
-    answer: "No. BioPancrea is an early-stage biotechnology concept and is not currently an approved medical treatment.",
+    question: "Is BioPancrea available as a treatment?",
+    answer: "No. BioPancrea is an early-stage concept and is not an approved medical treatment.",
   },
   {
-    question: "Where is the platform intended to be placed?",
-    answer: "The current concept is being explored for placement within the femoral artery using a stent-based vascular platform.",
+    question: "What is BioPancrea developing?",
+    answer: "An artificial-pancreas concept combining cells, a supportive gel, and a vascular stent.",
   },
   {
-    question: "What is the intended goal?",
-    answer: "The goal is to investigate whether supported beta-like cells could respond to changing glucose levels and release insulin from within the body.",
+    question: "Can I learn more?",
+    answer: "Additional information may be shared as the project develops. You can book a meeting or contact the BioPancrea team.",
   },
 ] as const;
 

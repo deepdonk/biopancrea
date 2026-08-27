@@ -8,11 +8,11 @@ export function HeroStent() {
         className="hero-platform-model"
         showLabels
         title="BioPancrea vascular implant concept"
-        description="A long open vascular stent containing a thin hydrogel layer and beta-like cell clusters."
+        description="A conceptual platform combining cells, a supportive gel and a vascular stent."
       />
       <figcaption className="hero-platform-key">
-        <span><i className="key-cell" aria-hidden="true" />Beta-like cells</span>
-        <span><i className="key-gel" aria-hidden="true" />Hydrogel</span>
+        <span><i className="key-cell" aria-hidden="true" />Cells</span>
+        <span><i className="key-gel" aria-hidden="true" />Supportive gel</span>
         <span><i className="key-stent" aria-hidden="true" />Vascular stent</span>
       </figcaption>
     </figure>

@@ -4,8 +4,8 @@ export function WhyItMatters() {
       <div className="why-matters-copy">
         <p className="section-label"><span>02</span>Purpose</p>
         <h2>Why it matters</h2>
-        <p>Current diabetes management can require continuous monitoring and external insulin delivery. BioPancrea is exploring whether living insulin-producing cells could provide a more direct biological response to changing glucose levels.</p>
-        <strong>The ambition is to move from external insulin delivery toward an internal, glucose-responsive system.</strong>
+        <p>Living with diabetes can require continuous monitoring and insulin management. BioPancrea is exploring a different approach through an implantable, cell-based concept.</p>
+        <strong>The goal is to explore a more integrated approach to insulin support.</strong>
       </div>
     </section>
   );

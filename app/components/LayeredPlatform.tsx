@@ -1,9 +1,9 @@
 import { PlatformModel } from "./PlatformModel";
 
 const layers = [
-  { index: "01", name: "Beta-like cells", copy: "Insulin-producing cells form the biological component." },
-  { index: "02", name: "Hydrogel", copy: "A supportive biomaterial holds the cells within the platform." },
-  { index: "03", name: "Vascular stent", copy: "An expandable scaffold carries the platform inside the femoral artery." },
+  { index: "01", name: "Cells", copy: "The biological component of the BioPancrea concept." },
+  { index: "02", name: "Supportive gel", copy: "A structured environment designed to support the cells." },
+  { index: "03", name: "Vascular stent", copy: "An implantable scaffold that carries the platform." },
 ] as const;
 
 export function LayeredPlatform() {
@@ -12,14 +12,12 @@ export function LayeredPlatform() {
       <header className="layered-platform-heading">
         <p className="section-label light"><span>01</span>The concept</p>
         <div className="layered-platform-introduction">
-          <h2 id="platform-heading">What BioPancrea is building</h2>
-          <p>BioPancrea is developing a vascular implant that combines insulin-producing beta-like cells, a supportive hydrogel, and a stent designed for placement in the femoral artery.</p>
-          <p>The aim is to investigate whether the cells can sense glucose and release insulin from within the body.</p>
+          <h2 id="platform-heading">Three parts. One concept.</h2>
         </div>
       </header>
       <div className="layered-platform-body">
         <div className="layered-platform-graphic">
-          <PlatformModel id="layered-platform" showLabels showFlow />
+          <PlatformModel id="layered-platform" showLabels exploded assembled={false} />
         </div>
         <div className="layered-platform-controls">
           {layers.map((layer) => (
@@ -30,7 +28,7 @@ export function LayeredPlatform() {
           ))}
         </div>
       </div>
-      <p className="layered-platform-summary">Together, these components form BioPancrea’s investigational artificial-pancreas concept.</p>
+      <p className="layered-platform-summary">BioPancrea is exploring how these three components could work together as an artificial-pancreas platform.</p>
     </section>
   );
 }

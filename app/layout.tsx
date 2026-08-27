@@ -21,8 +21,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "BioPancrea | Biotechnology Startup",
-  description: "BioPancrea is developing a research-stage, implantable artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
+  title: "BioPancrea | Artificial Pancreas Startup",
+  description: "BioPancrea is an early-stage biotechnology startup developing an artificial-pancreas concept combining cells, a supportive gel and a vascular stent.",
   icons: { icon: "/favicon.png", shortcut: "/favicon.png" },
   robots: {
     index: true,
