@@ -30,7 +30,7 @@ export function createPageMetadata({ title, description, path }: PageMetadata): 
           url: SOCIAL_IMAGE_PATH,
           width: 1200,
           height: 627,
-          alt: "BioPancrea artificial-pancreas concept",
+          alt: "BioPancrea biotechnology startup",
         },
       ],
     },

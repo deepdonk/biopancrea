@@ -1,4 +1,4 @@
-type PlatformLayer = "cells" | "gel" | "stent";
+type PlatformLayer = "cells" | "hydrogel" | "stent";
 
 type PlatformModelProps = {
   id: string;
@@ -7,15 +7,16 @@ type PlatformModelProps = {
   assembled?: boolean;
   activeLayer?: PlatformLayer | null;
   showLabels?: boolean;
+  showFlow?: boolean;
   title?: string;
   description?: string;
 };
 
-type PlatformLayersProps = Pick<PlatformModelProps, "exploded" | "assembled" | "activeLayer" | "showLabels">;
+type PlatformLayersProps = Pick<PlatformModelProps, "exploded" | "assembled" | "activeLayer" | "showLabels" | "showFlow">;
 
 const stations = Array.from({ length: 13 }, (_, index) => index);
 const lanes = Array.from({ length: 8 }, (_, index) => index);
-const conceptualCellGroups = [
+const cellClusters = [
   [360, 330],
   [470, 216],
   [555, 324],
@@ -74,6 +75,7 @@ export function PlatformModelLayers({
   assembled = true,
   activeLayer = null,
   showLabels = false,
+  showFlow = true,
 }: PlatformLayersProps) {
   const state = [
     "master-platform",
@@ -92,7 +94,7 @@ export function PlatformModelLayers({
         })}
       </g>
 
-      <g className="master-gel" aria-hidden="true">
+      <g className="master-hydrogel" aria-hidden="true">
         <path className="master-gel-surface" d="M174 312 C318 342 630 329 792 287 L792 310 C630 354 318 367 173 337 Z" />
         <path className="master-gel-surface" d="M174 220 C320 198 635 188 793 194 L793 211 C632 209 321 218 175 242 Z" />
         {[0, 1, 2, 3, 4].map((index) => (
@@ -102,12 +104,12 @@ export function PlatformModelLayers({
           <path key={`upper-${index}`} className="master-gel-network" d={`M183 ${224 + index * 7} C335 ${202 + index * 5} 630 ${192 + index * 4} 784 ${198 + index * 5}`} />
         ))}
         {[250, 330, 420, 515, 610, 700].map((x, index) => (
-          <path key={`mark-${x}`} className="master-gel-mark" d={`M${x} ${index % 2 ? 320 : 329} q14 13 0 27 q-14-14 0-27 M${x + 12} ${index % 2 ? 207 : 201} q12 10 0 21 q-12-11 0-21`} />
+          <path key={`pore-${x}`} className="master-gel-pore" d={`M${x} ${index % 2 ? 320 : 329} q14 13 0 27 q-14-14 0-27 M${x + 12} ${index % 2 ? 207 : 201} q12 10 0 21 q-12-11 0-21`} />
         ))}
       </g>
 
       <g className="master-cells" aria-hidden="true">
-        {conceptualCellGroups.map(([cx, cy], clusterIndex) => (
+        {cellClusters.map(([cx, cy], clusterIndex) => (
           <g key={`${cx}-${cy}`} className={`master-cell-cluster master-cell-cluster-${clusterIndex + 1}`}>
             {clusterCells.map(([offsetX, offsetY, radius], cellIndex) => (
               <g key={`${offsetX}-${offsetY}`} className={`master-cell master-cell-${cellIndex + 1}`}>
@@ -119,19 +121,28 @@ export function PlatformModelLayers({
         ))}
       </g>
 
+      {showFlow && (
+        <g className="master-flow" aria-hidden="true">
+          {[[205, 267, 4], [300, 279, 3], [396, 256, 4], [493, 269, 3], [590, 242, 4], [688, 256, 3]].map(([cx, cy, radius], index) => (
+            <circle key={index} cx={cx} cy={cy} r={radius} />
+          ))}
+        </g>
+      )}
+
       <g className="master-stent master-stent-front" aria-hidden="true">
         <Lattice front />
         <ellipse cx="166" cy="274" rx="34" ry="80" />
-        <ellipse className="master-inner-ring" cx="166" cy="274" rx="25" ry="65" />
+        <ellipse className="master-lumen-ring" cx="166" cy="274" rx="25" ry="65" />
         <ellipse cx="798" cy="242" rx="28" ry="68" />
-        <ellipse className="master-inner-ring" cx="798" cy="242" rx="20" ry="55" />
+        <ellipse className="master-lumen-ring" cx="798" cy="242" rx="20" ry="55" />
       </g>
 
       {showLabels && (
         <g className="master-labels" aria-hidden="true">
-          <g><path d="M650 205 L700 112 H858" /><circle cx="650" cy="205" r="3" /><text x="706" y="101">Cells</text></g>
-          <g><path d="M555 324 L700 410 H858" /><circle cx="555" cy="324" r="3" /><text x="706" y="433">Supportive gel</text></g>
-          <g><path d="M292 205 L232 112 H94" /><circle cx="292" cy="205" r="3" /><text x="94" y="101">Vascular stent</text></g>
+          <g><path d="M650 205 L700 112 H858" /><circle cx="650" cy="205" r="3" /><text x="706" y="101">Beta-like cells</text></g>
+          <g><path d="M555 324 L700 410 H858" /><circle cx="555" cy="324" r="3" /><text x="706" y="433">Hydrogel</text></g>
+          <g><path d="M292 205 L232 112 H94" /><circle cx="292" cy="205" r="3" /><text x="94" y="101">Stent scaffold</text></g>
+          <g><path d="M398 262 L280 410 H94" /><circle cx="398" cy="262" r="3" /><text x="94" y="433">Open lumen</text></g>
         </g>
       )}
     </g>
@@ -142,7 +153,7 @@ export function PlatformModel({
   id,
   className = "",
   title = "Conceptual BioPancrea vascular platform",
-  description = "A conceptual illustration showing cells, a supportive gel and a vascular stent as three parts of one platform.",
+  description = "A long, open vascular stent with a repeating diamond lattice, a thin hydrogel layer, four beta-like cell clusters and an unobstructed central lumen.",
   ...layerProps
 }: PlatformModelProps) {
   return (

@@ -5,9 +5,17 @@ import { createPageMetadata } from "../lib/metadata";
 
 export const metadata = createPageMetadata({
   title: "Our Mission | BioPancrea",
-  description: "Learn about BioPancrea’s mission to develop a new implantable artificial-pancreas concept.",
+  description: "Learn why BioPancrea is exploring a cell-based artificial pancreas combining cell biology, biomaterials and vascular-device design.",
   path: "/mission",
 });
+
+const milestones = [
+  "Concept definition",
+  "Platform design",
+  "Experimental validation",
+  "Preclinical development",
+  "Clinical development",
+] as const;
 
 export default function MissionPage() {
   return (
@@ -15,26 +23,27 @@ export default function MissionPage() {
       <section className="mission-hero container">
         <p className="eyebrow"><span>01</span>Mission</p>
         <h1>Our mission</h1>
-        <p className="mission-statement">BioPancrea is exploring a new artificial-pancreas concept that brings together cell biology, biomaterials, and vascular-device design.</p>
-        <p className="mission-support">Our aim is to develop the concept responsibly while protecting the technical work that makes it distinct.</p>
+        <p className="mission-statement">To explore a cell-based artificial pancreas that can operate from within the body.</p>
+        <p className="mission-support">BioPancrea is bringing together cell engineering, biomaterials, and vascular-device design to investigate a new approach to insulin production.</p>
       </section>
 
       <section className="mission-building container">
         <div className="mission-section-copy">
           <p className="section-label"><span>01</span>The concept</p>
           <h2>What we are building</h2>
-          <p>An implantable platform combining cells, a supportive gel, and a vascular stent.</p>
+          <p>BioPancrea is developing a concept in which patient-derived cells are guided toward an insulin-producing beta-like identity, supported within a hydrogel, and incorporated into a vascular stent platform.</p>
         </div>
         <MissionPlatformGraphic />
       </section>
 
       <section className="mission-why container">
         <p className="section-label light"><span>02</span>Ambition</p>
-        <div><h2>Why we are building it</h2><p>To explore a different approach to supporting people who depend on insulin management.</p></div>
+        <div><h2>Why we are building it</h2><p>Our ambition is to move beyond systems that only deliver insulin externally and explore whether living insulin-producing cells could provide a more direct biological response to changing glucose levels.</p></div>
       </section>
 
       <section className="mission-progress container">
-        <header><p className="section-label"><span>03</span>Development</p><div><h2>Current stage</h2><p>BioPancrea is currently developing and refining the concept.</p></div></header>
+        <header><p className="section-label"><span>03</span>Development</p><div><h2>Current stage</h2><p>BioPancrea is currently developing and refining the artificial-pancreas concept. Further biological, engineering, preclinical, clinical, and regulatory validation will be required.</p></div></header>
+        <ol>{milestones.map((name, index) => <li key={name}><span>0{index + 1}</span><i aria-hidden="true"/><h3>{name}</h3></li>)}</ol>
       </section>
 
       <section className="mission-team container">

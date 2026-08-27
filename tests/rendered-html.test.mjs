@@ -5,19 +5,19 @@ import test from "node:test";
 const siteUrl = "https://biopancrea.com";
 const pages = {
   "/": {
-    title: "BioPancrea | Artificial Pancreas Startup",
-    description: "BioPancrea is an early-stage biotechnology startup developing an artificial-pancreas concept combining cells, a supportive gel and a vascular stent.",
-    h1: "Building a new kind of artificial pancreas.",
+    title: "BioPancrea | Biotechnology Startup",
+    description: "BioPancrea is developing a research-stage, implantable artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
+    h1: "An artificial pancreas built around living cells.",
   },
   "/mission": {
     title: "Our Mission | BioPancrea",
-    description: "Learn about BioPancrea’s mission to develop a new implantable artificial-pancreas concept.",
+    description: "Learn why BioPancrea is exploring a cell-based artificial pancreas combining cell biology, biomaterials and vascular-device design.",
     h1: "Our mission",
   },
   "/how-it-works": {
-    title: "The BioPancrea Concept | Cells, Gel and Stent",
-    description: "Explore the three high-level components of the BioPancrea artificial-pancreas concept: cells, supportive gel and a vascular stent.",
-    h1: "The BioPancrea concept",
+    title: "How BioPancrea Works | Cell-Based Artificial Pancreas",
+    description: "Explore the BioPancrea concept, from patient-derived cells and iPSCs to beta-like cells, hydrogel integration and a stent-based vascular platform.",
+    h1: "How BioPancrea works",
   },
   "/meet-the-team": {
     title: "Meet the BioPancrea Founders",
@@ -119,33 +119,42 @@ test("does not ship the private recipient in browser JavaScript", async () => {
   }
 });
 
-test("publishes the approved high-level concept, booking, and contact destinations", async () => {
+test("publishes clear concept, booking, and contact destinations", async () => {
   const worker = await loadWorker();
   const home = await (await request(worker, "/")).text();
   const howItWorks = await (await request(worker, "/how-it-works")).text();
   const contact = await (await request(worker, "/contact")).text();
   const processStory = await readFile(new URL("../app/components/ProcessStory.tsx", import.meta.url), "utf8");
 
-  assert.match(home, /ARTIFICIAL PANCREAS STARTUP/);
-  assert.match(home, /Three parts\. One concept\./);
-  assert.match(home, /Three components designed to work as one platform\./);
+  assert.match(home, /What BioPancrea is building/);
+  assert.doesNotMatch(home, /ARTIFICIAL PANCREAS STARTUP/);
   assert.ok((home.match(/class="brand-trademark"/g) ?? []).length >= 2);
   assert.doesNotMatch(home, /®|patented/i);
-  assert.match(home, /implantable concept that brings together living cells, a supportive gel, and a vascular stent/);
+  assert.match(home, /vascular implant that combines insulin-producing beta-like cells/);
+  assert.match(home, /A research-stage vascular implant\./);
   assert.match(home, /class="hero-platform-key"/);
   assert.match(home, /data-diagram="labelled-platform"/);
-  for (const label of ["Cells", "Supportive gel", "Vascular stent"]) {
+  for (const label of ["Beta-like cells", "Hydrogel", "Vascular stent"]) {
     assert.match(home, new RegExp(label));
   }
-  assert.match(processStory, /data-diagram="three-part-platform"/);
-  for (const copy of [
-    "Living cells form the biological element of the BioPancrea concept.",
-    "A specialised gel is intended to provide the cells with a structured environment.",
-    "A vascular stent provides the scaffold that brings the concept together.",
+  const hero = home.match(/<section class="landing-hero">([\s\S]*?)<\/section>/)?.[1] ?? "";
+  assert.doesNotMatch(hero, /combines insulin-producing beta-like cells/);
+  assert.doesNotMatch(howItWorks, /Concept illustration · Not to scale/);
+  assert.match(processStory, /className="cell-membrane"/);
+  assert.match(processStory, /className="cell-nucleus"/);
+  assert.match(processStory, /data-diagram="labelled-process"/);
+  for (const note of [
+    "Layered skin tissue · sample area",
+    "Cell membrane · nucleus",
+    "Reprogrammed cells · dense colony",
+    "Beta-like cells · islet-like cluster",
+    "Beta-like cells held inside hydrogel",
+    "Hydrogel near the stent wall · open lumen",
+    "Implant positioned inside the femoral artery",
+    "Glucose enters · insulin is released",
   ]) {
-    assert.match(processStory, new RegExp(copy));
+    assert.match(processStory, new RegExp(note));
   }
-  assert.match(howItWorks, /currently developing and refining how these components may operate as one platform/);
   assert.match(home, /href="\/contact#book-a-meeting"/);
   assert.match(howItWorks, /href="\/contact#book-a-meeting"/);
   assert.match(contact, /id="book-a-meeting"/);
@@ -153,44 +162,6 @@ test("publishes the approved high-level concept, booking, and contact destinatio
   assert.doesNotMatch(contact, /Open booking calendar/);
   assert.doesNotMatch(contact, /NEXT_PUBLIC_BOOKING_URL/);
   assert.doesNotMatch(contact, /mailto:/i);
-});
-
-test("removes confidential technical detail from every public response and browser asset", async () => {
-  const worker = await loadWorker();
-  const prohibited = [
-    /\biPSCs?\b/i,
-    /\binduced pluripotent\b/i,
-    /\bskin[- ]cell\b/i,
-    /\bskin sample\b/i,
-    /\bpatient[- ]derived\b/i,
-    /\breprogram(?:ming|med)?\b/i,
-    /\bcell conversion\b/i,
-    /\bdifferentiat(?:ion|ed?|ing)\b/i,
-    /\bbeta[- ]like\b/i,
-    /\bpancreatic progenitor\b/i,
-    /\bfemoral\b/i,
-    /\bartery placement\b/i,
-    /\bglucose[- ]responsive\b/i,
-    /\bglucose enters\b/i,
-    /\binsulin release\b/i,
-    /\binsulin-producing\b/i,
-    /\bopen lumen\b/i,
-    /\bhydrogel\b/i,
-  ];
-
-  for (const path of Object.keys(pages)) {
-    const html = await (await request(worker, path)).text();
-    for (const term of prohibited) assert.doesNotMatch(html, term, `${path}: ${term}`);
-  }
-
-  const clientRoot = new URL("../dist/client/", import.meta.url);
-  const entries = await readdir(clientRoot, { recursive: true, withFileTypes: true });
-  for (const entry of entries) {
-    if (!entry.isFile() || !/\.(?:js|css|html|json|svg|map)$/i.test(entry.name)) continue;
-    const path = `${entry.parentPath}/${entry.name}`;
-    const contents = await readFile(path, "utf8");
-    for (const term of prohibited) assert.doesNotMatch(contents, term, `${path}: ${term}`);
-  }
 });
 
 test("adds browser security headers to every response", async () => {
