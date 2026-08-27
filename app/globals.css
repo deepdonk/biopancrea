@@ -1188,6 +1188,7 @@ main figcaption,.process-stage-nav button span,.process-stage-nav button small,.
 
 /* Focused visual-polish pass */
 .global-header{
+  background:#a6b5a7;
   transition:background-color .28s ease,color .28s ease,border-color .28s ease,box-shadow .28s ease;
 }
 .global-header.is-scrolled{box-shadow:0 8px 24px rgba(5,18,27,.12)}
