@@ -1,5 +1,5 @@
 const terms = [
-  ["iPSC", "A cell that has been reprogrammed into a flexible state from which it can be guided toward another specialised cell type."],
+  ["Cell engineering", "The process of guiding cells toward a specialised biological identity."],
   ["Beta-like cell", "A stem-cell-derived cell designed to reproduce important characteristics of an insulin-producing pancreatic beta cell."],
   ["Hydrogel", "A water-rich biomaterial that can provide cells with a supportive three-dimensional environment."],
   ["Vascular stent", "A small expandable scaffold designed to sit within a blood vessel."],

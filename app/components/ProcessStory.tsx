@@ -6,24 +6,20 @@ import { PlatformModelLayers } from "./PlatformModel";
 const steps = [
   ["Small skin-cell sample", "A small scientific tissue sample provides the starting material."],
   ["Skin cell", "A skin cell is isolated from the sample as the biological starting point."],
-  ["iPSC colony", "The skin cell is reprogrammed into induced pluripotent stem cells."],
-  ["Beta-like cell cluster", "The iPSCs are guided toward insulin-producing beta-like cells."],
+  ["Beta-like cell cluster", "The cells are guided toward insulin-producing beta-like cells."],
   ["Hydrogel integration", "The beta-like cell clusters are incorporated into a supportive hydrogel."],
   ["Stent integration", "The cell-containing hydrogel is integrated near the wall of the vascular stent."],
-  ["Femoral-artery placement", "The investigational platform is intended for placement in the femoral artery."],
   ["Intended glucose-responsive insulin release", "The aim is to investigate whether the cells can respond to changing glucose levels and release insulin into the bloodstream."],
 ] as const;
 
-const progressLabels = ["Sample", "Skin cell", "iPSCs", "Beta-like cells", "Hydrogel", "Stent", "Placement", "Response"] as const;
+const progressLabels = ["Sample", "Skin cell", "Beta-like cells", "Hydrogel", "Stent", "Response"] as const;
 
 const visualNotes = [
   "Layered skin tissue · sample area",
   "Cell membrane · nucleus",
-  "Reprogrammed cells · dense colony",
   "Beta-like cells · islet-like cluster",
   "Beta-like cells held inside hydrogel",
   "Hydrogel near the stent wall · open lumen",
-  "Implant positioned inside the femoral artery",
   "Glucose enters · insulin is released",
 ] as const;
 
@@ -139,14 +135,6 @@ function ProcessDiagram({ activeStep }: { activeStep: number }) {
           <DiagramCallout label="Nucleus" x={568} y={176} anchorX={372} anchorY={304} align="end" />
         </g>
 
-        <g className="process-ipsc" aria-hidden="true">
-          {[[265,275],[315,250],[367,266],[414,302],[380,348],[322,360],[274,329],[330,305]].map(([x, y], index) => (
-            <path key={index} d={`M${x - 24} ${y - 12} L${x - 5} ${y - 25} L${x + 22} ${y - 14} L${x + 26} ${y + 12} L${x + 4} ${y + 25} L${x - 23} ${y + 14} Z`} />
-          ))}
-          <DiagramCallout label="Reprogrammed cells" x={104} y={139} anchorX={276} anchorY={275} />
-          <DiagramCallout label="Dense colony" x={576} y={163} anchorX={406} anchorY={304} align="end" />
-        </g>
-
         <g className="process-beta-cluster" aria-hidden="true">
           {[[294,285,34],[344,260,37],[394,288,33],[318,329,31],[371,337,35]].map(([cx, cy, radius], index) => (
             <g key={index}><circle cx={cx} cy={cy} r={radius} /><circle cx={cx - 7} cy={cy - 6} r={radius * .2} /></g>
@@ -157,13 +145,8 @@ function ProcessDiagram({ activeStep }: { activeStep: number }) {
 
         <g className="process-platform-stage" aria-hidden="true">
           <g transform="translate(5 138) scale(.7)">
-            <PlatformModelLayers showLabels={false} showFlow={activeStep === 7} />
+            <PlatformModelLayers showLabels={false} showFlow={activeStep === 5} />
           </g>
-        </g>
-
-        <g className="process-vessel" aria-hidden="true">
-          <path d="M36 215 C190 150 492 150 644 215" />
-          <path d="M36 425 C190 490 492 490 644 425" />
         </g>
 
         <g className="process-hydrogel-callouts" aria-hidden="true">
@@ -174,11 +157,6 @@ function ProcessDiagram({ activeStep }: { activeStep: number }) {
         <g className="process-stent-callouts" aria-hidden="true">
           <DiagramCallout label="Stent scaffold" x={108} y={142} anchorX={246} anchorY={292} />
           <DiagramCallout label="Open lumen" x={574} y={168} anchorX={354} anchorY={330} align="end" />
-        </g>
-
-        <g className="process-placement-callouts" aria-hidden="true">
-          <DiagramCallout label="Femoral artery" x={108} y={132} anchorX={188} anchorY={215} />
-          <DiagramCallout label="Implant location" x={574} y={156} anchorX={390} anchorY={320} align="end" />
         </g>
 
         <g className="process-glucose" aria-hidden="true">

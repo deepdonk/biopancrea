@@ -16,7 +16,7 @@ const pages = {
   },
   "/how-it-works": {
     title: "How BioPancrea Works | Cell-Based Artificial Pancreas",
-    description: "Explore the BioPancrea concept, from patient-derived cells and iPSCs to beta-like cells, hydrogel integration and a stent-based vascular platform.",
+    description: "Explore the BioPancrea concept, from patient-derived cells to beta-like cells, hydrogel integration and a stent-based vascular platform.",
     h1: "How BioPancrea works",
   },
   "/meet-the-team": {
@@ -146,11 +146,9 @@ test("publishes clear concept, booking, and contact destinations", async () => {
   for (const note of [
     "Layered skin tissue · sample area",
     "Cell membrane · nucleus",
-    "Reprogrammed cells · dense colony",
     "Beta-like cells · islet-like cluster",
     "Beta-like cells held inside hydrogel",
     "Hydrogel near the stent wall · open lumen",
-    "Implant positioned inside the femoral artery",
     "Glucose enters · insulin is released",
   ]) {
     assert.match(processStory, new RegExp(note));
@@ -162,6 +160,23 @@ test("publishes clear concept, booking, and contact destinations", async () => {
   assert.doesNotMatch(contact, /Open booking calendar/);
   assert.doesNotMatch(contact, /NEXT_PUBLIC_BOOKING_URL/);
   assert.doesNotMatch(contact, /mailto:/i);
+});
+
+test("does not publish iPSC or femoral-artery references", async () => {
+  const worker = await loadWorker();
+  for (const path of Object.keys(pages)) {
+    const html = await (await request(worker, path)).text();
+    assert.doesNotMatch(html, /\biPSCs?\b|induced pluripotent|femoral/i, path);
+  }
+
+  const clientRoot = new URL("../dist/client/", import.meta.url);
+  const entries = await readdir(clientRoot, { recursive: true, withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isFile() || !/\.(?:js|css|html|json|svg|map)$/i.test(entry.name)) continue;
+    const path = `${entry.parentPath}/${entry.name}`;
+    const contents = await readFile(path, "utf8");
+    assert.doesNotMatch(contents, /\biPSCs?\b|induced pluripotent|femoral/i, path);
+  }
 });
 
 test("adds browser security headers to every response", async () => {

@@ -8,8 +8,8 @@ const questions = [
     answer: "No. BioPancrea is an early-stage biotechnology concept and is not currently an approved medical treatment.",
   },
   {
-    question: "Where is the platform intended to be placed?",
-    answer: "The current concept is being explored for placement within the femoral artery using a stent-based vascular platform.",
+    question: "What does the platform combine?",
+    answer: "The concept combines beta-like cells, a supportive hydrogel, and a stent-based vascular platform.",
   },
   {
     question: "What is the intended goal?",
