@@ -87,6 +87,26 @@ test("contact endpoint rejects cross-site submissions", async () => {
   assert.equal(response.status, 403);
 });
 
+test("contact endpoint rejects requests without a browser origin", async () => {
+  globalThis.fetch = async () => assert.fail("email provider must not be called");
+  const request = contactRequest(validBody);
+  request.headers.delete("origin");
+  const response = await POST(request);
+  assert.equal(response.status, 403);
+});
+
+test("contact endpoint rejects misleading JSON content types", async () => {
+  globalThis.fetch = async () => assert.fail("email provider must not be called");
+  const response = await POST(contactRequest(validBody, { "content-type": "application/json-p" }));
+  assert.equal(response.status, 415);
+});
+
+test("contact endpoint rejects cross-site fetch metadata", async () => {
+  globalThis.fetch = async () => assert.fail("email provider must not be called");
+  const response = await POST(contactRequest(validBody, { "sec-fetch-site": "cross-site" }));
+  assert.equal(response.status, 403);
+});
+
 test("contact endpoint enforces the actual body size", async () => {
   globalThis.fetch = async () => assert.fail("email provider must not be called");
   const response = await POST(

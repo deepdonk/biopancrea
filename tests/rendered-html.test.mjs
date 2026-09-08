@@ -184,12 +184,16 @@ test("adds browser security headers to every response", async () => {
   const response = await request(worker, "/");
 
   assert.match(response.headers.get("content-security-policy") ?? "", /frame-ancestors 'none'/);
-  assert.equal(response.headers.get("strict-transport-security"), "max-age=31536000");
+  assert.equal(response.headers.get("strict-transport-security"), "max-age=31536000; includeSubDomains");
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   assert.equal(response.headers.get("x-frame-options"), "DENY");
+  assert.equal(response.headers.get("x-permitted-cross-domain-policies"), "none");
+  assert.equal(response.headers.get("x-dns-prefetch-control"), "off");
   assert.equal(response.headers.get("referrer-policy"), "strict-origin-when-cross-origin");
   assert.equal(response.headers.get("permissions-policy"), "camera=(), microphone=(), geolocation=(), payment=()");
   assert.equal(response.headers.get("cross-origin-opener-policy"), "same-origin");
+  assert.equal(response.headers.get("cross-origin-resource-policy"), "same-origin");
+  assert.match(response.headers.get("content-security-policy") ?? "", /script-src-attr 'none'/);
 });
 
 test("uses the BioPancrea font system without Arial fallbacks", async () => {

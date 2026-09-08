@@ -32,9 +32,11 @@ function isValidEmail(value: string) {
 }
 
 function requestIp(request: NextRequest) {
-  const value = request.headers.get("cf-connecting-ip")
-    ?? request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
-    ?? "anonymous";
+  const cloudflareIp = request.headers.get("cf-connecting-ip");
+  const developmentIp = process.env.NODE_ENV !== "production"
+    ? request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
+    : null;
+  const value = cloudflareIp ?? developmentIp ?? "anonymous";
 
   return value.slice(0, 64);
 }
@@ -69,7 +71,10 @@ function publicError(status = 400, headers?: HeadersInit) {
 
 function isAllowedOrigin(request: NextRequest) {
   const origin = request.headers.get("origin");
-  if (!origin) return true;
+  if (!origin) return false;
+
+  const fetchSite = request.headers.get("sec-fetch-site");
+  if (fetchSite && fetchSite !== "same-origin" && fetchSite !== "same-site") return false;
 
   const allowedOrigins = new Set(["https://biopancrea.com", "https://www.biopancrea.com"]);
   const configuredSiteUrl = process.env.SITE_URL;
@@ -100,8 +105,8 @@ export async function POST(request: NextRequest) {
     return publicError(413);
   }
 
-  const contentType = request.headers.get("content-type")?.toLowerCase() ?? "";
-  if (!contentType.startsWith("application/json")) return publicError(415);
+  const contentType = request.headers.get("content-type")?.split(";", 1)[0]?.trim().toLowerCase() ?? "";
+  if (contentType !== "application/json") return publicError(415);
   if (!isAllowedOrigin(request)) return publicError(403);
   if (isRateLimited(requestIp(request))) {
     return publicError(429, { "Retry-After": String(Math.ceil(RATE_LIMIT_WINDOW_MS / 1000)) });
