@@ -29,7 +29,7 @@ export function LayeredPlatform() {
             <article key={layer.name} data-platform-step={layer.stage}>
               <button type="button" data-platform-jump={layer.stage} aria-label={`Show ${layer.name}`}>
                 <span>{layer.index}</span>
-                <div><h3>{layer.name}</h3><p>{layer.copy}</p></div>
+                <span className="platform-step-text"><strong className="platform-step-title">{layer.name}</strong><span className="platform-step-copy">{layer.copy}</span></span>
                 <i aria-hidden="true" />
               </button>
             </article>

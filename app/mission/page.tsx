@@ -50,7 +50,7 @@ export default function MissionPage() {
 
       <section className="mission-team container">
         <header><p className="section-label"><span>04</span>Founders</p><h2>Built by the founders</h2></header>
-        <TeamProfiles />
+        <TeamProfiles headingLevel={3} />
       </section>
 
       <section className="mission-questions container">

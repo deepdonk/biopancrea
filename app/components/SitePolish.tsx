@@ -87,6 +87,8 @@ export function SitePolish() {
     };
 
     const onClick = (event: MouseEvent) => {
+      const menuLink = (event.target as Element | null)?.closest(".mobile-navigation a");
+      menuLink?.closest("details")?.removeAttribute("open");
       const button = (event.target as Element | null)?.closest<HTMLButtonElement>("[data-platform-jump]");
       if (!button) return;
       const target = Array.from(document.querySelectorAll<HTMLElement>("[data-platform-step]")).find((step) => step.dataset.platformStep === button.dataset.platformJump);

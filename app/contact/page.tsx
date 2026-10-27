@@ -33,12 +33,21 @@ export default function ContactPage() {
           <div className="booking-panel" id="book-a-meeting">
             <p className="booking-index">01</p>
             <h2>Book a meeting</h2>
-            <p>Choose a time that works for you.</p>
             {bookingUrl ? (
-              <a className="button booking-provider-link" href={bookingUrl} target="_blank" rel="noopener noreferrer">
-                Open booking calendar <span aria-hidden="true">→</span>
-              </a>
-            ) : null}
+              <>
+                <p>Choose a time that works for you.</p>
+                <a className="button booking-provider-link" href={bookingUrl} target="_blank" rel="noopener noreferrer">
+                  Open booking calendar <span aria-hidden="true">→</span>
+                </a>
+              </>
+            ) : (
+              <>
+                <p>Send us a message with a few times that suit you, and we’ll confirm a meeting.</p>
+                <a className="button booking-provider-link" href="#message-heading">
+                  Request a meeting <span aria-hidden="true">→</span>
+                </a>
+              </>
+            )}
             {!bookingUrl && process.env.NODE_ENV !== "production" ? (
               <p className="booking-setup-note">Set NEXT_PUBLIC_BOOKING_URL to enable online scheduling.</p>
             ) : null}

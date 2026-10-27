@@ -23,7 +23,9 @@ const team = [
   },
 ] as const;
 
-export function TeamProfiles() {
+export function TeamProfiles({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
+  const NameHeading = headingLevel === 3 ? "h3" : "h2";
+
   return (
     <div className="team-profile-grid">
       {team.map(({ name, role, linkedIn, image, width, height, imageClass, imageAlt }) => (
@@ -32,7 +34,7 @@ export function TeamProfiles() {
             <Image className={imageClass} src={image} alt={imageAlt} width={width} height={height} sizes="(max-width: 760px) calc(100vw - 56px), 50vw" />
           </div>
           <div className="team-profile-copy">
-            <h2>{name}</h2>
+            <NameHeading>{name}</NameHeading>
             <p className="team-profile-role">{role}</p>
             <a className="button button-dark team-link" href={linkedIn} target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
