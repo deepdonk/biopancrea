@@ -61,6 +61,7 @@ export default function MissionPage() {
       <nav className="contextual-links container" aria-label="Explore BioPancrea">
         <a className="button button-dark" href="/how-it-works">Explore how BioPancrea works</a>
         <a className="button button-line" href="/meet-the-team">Meet the BioPancrea founders</a>
+        <a className="button button-line" href="/work-with-us">Work with us</a>
       </nav>
     </main>
   );

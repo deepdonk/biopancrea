@@ -1,4 +1,5 @@
 import { ContactForm } from "../components/ContactForm";
+import { DEFAULT_CONTACT_TOPIC, isContactTopic } from "../lib/contact-topics";
 import { createPageMetadata } from "../lib/metadata";
 
 export const metadata = createPageMetadata({
@@ -19,8 +20,10 @@ function configuredBookingUrl() {
   }
 }
 
-export default function ContactPage() {
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ topic?: string | string[] }> }) {
   const bookingUrl = configuredBookingUrl();
+  const { topic } = await searchParams;
+  const initialTopic = isContactTopic(topic) ? topic : DEFAULT_CONTACT_TOPIC;
 
   return (
     <main className="contact-split">
@@ -59,7 +62,7 @@ export default function ContactPage() {
           <p className="contact-label" data-reveal-label>02</p>
           <h2 id="message-heading" data-reveal-heading>Send a message</h2>
         </header>
-        <div data-reveal-copy><ContactForm /></div>
+        <div data-reveal-copy><ContactForm initialTopic={initialTopic} /></div>
       </section>
     </main>
   );

@@ -1438,3 +1438,96 @@ main figcaption,.process-stage-nav button span,.process-stage-nav button small,.
 @keyframes particle-drift{from{background-position:0 0,40px 70px}to{background-position:190px -760px,-80px -410px}}
 @keyframes timeline-pulse{0%{left:0;opacity:0}8%{opacity:1}85%{opacity:1}100%{left:calc(100% - 7px);opacity:0}}
 @keyframes answer-open{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+/* Contact topic dropdown */
+.contact-form-field select{width:100%;min-height:56px;padding:34px 36px 12px 0;border:0;border-radius:0;outline:0;background:transparent;color:var(--navy);font-size:17px;line-height:1.5;appearance:none;cursor:pointer}
+.contact-form-select>i{position:absolute;right:4px;bottom:24px;font-style:normal;font-size:20px;line-height:1;color:var(--coral);pointer-events:none}
+
+/* Interactive glucose response demo */
+.glucose-demo{padding-top:120px;padding-bottom:120px;background:var(--navy);color:var(--ivory)}
+.glucose-demo>header{display:grid;grid-template-columns:.42fr 1fr;gap:10%;align-items:start}
+.glucose-demo>header h2{margin:0}
+.glucose-demo>header [data-reveal-copy]{margin:28px 0 0;color:rgba(244,241,233,.72)}
+.glucose-demo-body{margin-top:64px;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.8fr);gap:56px;align-items:center}
+.glucose-demo-visual{margin:0;padding:18px 18px 20px;border:1px solid rgba(244,241,233,.16);background:radial-gradient(ellipse at 50% 45%,rgba(124,146,130,.32),transparent 70%),var(--navy-2)}
+.glucose-demo-visual svg{display:block;width:100%;height:auto}
+.glucose-demo-visual figcaption{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;color:rgba(244,241,233,.74);font-size:14px}
+.glucose-demo-visual figcaption small{flex-basis:100%;color:rgba(244,241,233,.58);font-size:13px}
+.glucose-demo-key{display:inline-flex;align-items:center;gap:8px}
+.glucose-demo-key i{width:10px;height:10px;display:inline-block}
+.key-glucose{background:#9cc3d9;transform:rotate(45deg) scale(.85)}
+.key-insulin{border-radius:50%;background:#f3d27a}
+.key-cells{border-radius:50%;background:var(--coral)}
+.glucose-demo-glow{opacity:calc(.08 + var(--response,0) * .85);transform-box:fill-box;transform-origin:center;transition:opacity .5s ease}
+.glucose-particle,.insulin-particle{opacity:0;transition:opacity .5s ease}
+.glucose-particle.is-active,.insulin-particle.is-active{opacity:1}
+.glucose-particle path{fill:#9cc3d9;stroke:rgba(11,34,49,.35);stroke-width:1}
+.insulin-particle circle{fill:#f3d27a;stroke:rgba(11,34,49,.3);stroke-width:1}
+.glucose-particle-motion,.insulin-particle-motion{transform:translate(var(--rest-x),var(--rest-y))}
+.glucose-demo-controls{display:grid;gap:16px}
+.glucose-demo-controls>label{color:var(--coral-soft);font:14px var(--font-geist-mono),monospace;letter-spacing:.08em;text-transform:uppercase}
+main .glucose-demo-value{margin:0;font-size:18px;color:rgba(244,241,233,.7)}
+.glucose-demo-value strong{color:var(--ivory);font-size:clamp(3rem,5vw,4.2rem);font-weight:450;line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.glucose-demo-value small{margin-left:10px;font-size:15px;color:rgba(244,241,233,.6)}
+.glucose-demo-range{width:100%;height:30px;margin:0;background:transparent;appearance:none;-webkit-appearance:none;cursor:pointer}
+.glucose-demo-range::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,#9cc3d9 0%,#9cc3d9 5%,var(--sage-light) 5%,var(--sage-light) 60%,var(--coral) 60%,var(--coral) 100%)}
+.glucose-demo-range::-moz-range-track{height:6px;border-radius:3px;background:linear-gradient(90deg,#9cc3d9 0%,#9cc3d9 5%,var(--sage-light) 5%,var(--sage-light) 60%,var(--coral) 60%,var(--coral) 100%)}
+.glucose-demo-range::-webkit-slider-thumb{width:26px;height:26px;margin-top:-10px;border:3px solid var(--coral);border-radius:50%;background:var(--ivory);box-shadow:0 0 0 7px rgba(220,128,109,.22);-webkit-appearance:none;appearance:none;transition:box-shadow .2s ease}
+.glucose-demo-range::-moz-range-thumb{width:20px;height:20px;border:3px solid var(--coral);border-radius:50%;background:var(--ivory);box-shadow:0 0 0 7px rgba(220,128,109,.22)}
+.glucose-demo-range:hover::-webkit-slider-thumb,.glucose-demo-range:active::-webkit-slider-thumb{box-shadow:0 0 0 11px rgba(220,128,109,.28)}
+.glucose-demo-range:focus-visible{outline:2px solid var(--coral-soft);outline-offset:6px}
+.glucose-demo-scale{margin-top:-8px;display:flex;justify-content:space-between;color:rgba(244,241,233,.55);font:13px var(--font-geist-mono),monospace}
+.glucose-demo-presets{display:flex;flex-wrap:wrap;gap:10px}
+.glucose-demo-presets button{min-height:44px;padding:0 16px;border:1px solid rgba(244,241,233,.32);border-radius:999px;background:transparent;color:var(--ivory);font-size:15px;cursor:pointer;transition:background-color .2s ease,border-color .2s ease,color .2s ease}
+.glucose-demo-presets button:hover{border-color:var(--coral-soft)}
+.glucose-demo-presets button[aria-pressed="true"]{border-color:var(--coral-soft);background:var(--coral-soft);color:var(--navy)}
+.glucose-demo-presets button:focus-visible{outline:2px solid var(--coral-soft);outline-offset:3px}
+.glucose-demo-readout{margin:8px 0 0;padding-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:16px;border-top:1px solid rgba(244,241,233,.18)}
+.glucose-demo-readout dt{color:rgba(244,241,233,.6);font:12px var(--font-geist-mono),monospace;letter-spacing:.06em;text-transform:uppercase}
+.glucose-demo-readout dd{margin:8px 0 0;font-size:24px;font-weight:500;letter-spacing:-.02em}
+.glucose-demo-readout dd[data-band="Below range"]{color:#9cc3d9}
+.glucose-demo-readout dd[data-band="Above range"]{color:var(--coral-soft)}
+.glucose-demo-meter{height:5px;overflow:hidden;border-radius:3px;background:rgba(244,241,233,.14)}
+.glucose-demo-meter span{display:block;height:100%;background:linear-gradient(90deg,#f3d27a,var(--coral));transform-origin:0 50%;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+
+@media (prefers-reduced-motion:no-preference){
+  .glucose-particle-motion{transform:none;animation:glucose-travel 6s var(--delay,0s) linear infinite}
+  .insulin-particle-motion{transform:none;animation:insulin-drift 2.7s var(--delay,0s) ease-out infinite}
+  .glucose-demo-glow{animation:glucose-glow 2.4s ease-in-out infinite alternate}
+}
+@keyframes glucose-travel{0%{transform:translate(0,0);opacity:0}8%{opacity:1}88%{opacity:1}100%{transform:translate(var(--travel-x),var(--travel-y));opacity:0}}
+@keyframes insulin-drift{0%{transform:translate(0,0) scale(.4);opacity:0}20%{opacity:1}100%{transform:translate(var(--travel-x),var(--travel-y)) scale(1);opacity:0}}
+@keyframes glucose-glow{from{transform:scale(.9)}to{transform:scale(1.08)}}
+
+/* Work with us */
+.work-audiences{padding-top:24px;padding-bottom:40px;background:var(--paper)}
+.work-audience{padding:88px 0;display:grid;grid-template-columns:.42fr 1fr;gap:10%;align-items:start;border-top:1px solid var(--line)}
+.work-audience:first-child{border-top:0}
+.work-audience h2{max-width:780px;margin:0}
+.work-audience-body [data-reveal-copy]>p{margin:28px 0 0;color:var(--muted-text)}
+.work-audience h3{margin:36px 0 14px;color:var(--coral-text);font:14px var(--font-geist-mono),monospace;letter-spacing:.08em;text-transform:uppercase}
+.work-audience ul{margin:0 0 36px;padding:0;list-style:none;border-top:1px solid var(--line)}
+.work-audience li{position:relative;padding:14px 0 14px 30px;border-bottom:1px solid var(--line);font-size:18px}
+.work-audience li::before{content:"";position:absolute;left:0;top:27px;width:16px;height:1px;background:var(--coral)}
+.work-steps{padding-top:110px;padding-bottom:110px;background:var(--navy);color:var(--ivory)}
+.work-steps>header{display:grid;grid-template-columns:.42fr 1fr;gap:10%;align-items:start}
+.work-steps>header h2{margin:0}
+.work-steps ol{margin:64px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;list-style:none;counter-reset:none}
+.work-steps li{padding-top:24px;border-top:1px solid rgba(244,241,233,.24)}
+.work-steps li>span{color:var(--coral-soft);font:14px var(--font-geist-mono),monospace}
+.work-steps h3{margin:22px 0 12px;color:var(--ivory)}
+main .work-steps li p{margin:0;color:rgba(244,241,233,.7)}
+
+@media(max-width:1050px){
+  .glucose-demo-body{grid-template-columns:1fr;gap:40px}
+}
+@media(max-width:760px){
+  .glucose-demo,.work-steps{padding-top:84px;padding-bottom:84px}
+  .glucose-demo>header,.work-audience,.work-steps>header{grid-template-columns:1fr;gap:28px}
+  .glucose-demo-visual{margin-inline:-8px;padding:10px 10px 14px}
+  .glucose-demo-readout dd{font-size:20px}
+  .work-audience{padding:64px 0}
+  .work-steps ol{grid-template-columns:1fr;gap:28px;margin-top:44px}
+  .work-audience .button{width:100%}
+}
+.glucose-demo>header h2,.work-audience h2,.work-steps>header h2{font-weight:440;letter-spacing:-.055em}

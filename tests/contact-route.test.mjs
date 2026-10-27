@@ -143,3 +143,36 @@ test("contact endpoint rate limits repeated submissions", async () => {
   assert.equal(limited.status, 429);
   assert.equal(limited.headers.get("retry-after"), "600");
 });
+
+test("contact endpoint labels messages with the chosen topic", async () => {
+  let outbound;
+  globalThis.fetch = async (_input, init) => {
+    outbound = JSON.parse(init.body);
+    return new Response(JSON.stringify({ id: "test-message" }), { status: 200 });
+  };
+
+  const response = await POST(contactRequest({ ...validBody, topic: "investment" }));
+
+  assert.equal(response.status, 200);
+  assert.equal(outbound.subject, "New BioPancrea contact message: Investment");
+  assert.match(outbound.text, /Topic: Investment/);
+});
+
+test("contact endpoint defaults to a general enquiry when no topic is sent", async () => {
+  let outbound;
+  globalThis.fetch = async (_input, init) => {
+    outbound = JSON.parse(init.body);
+    return new Response(JSON.stringify({ id: "test-message" }), { status: 200 });
+  };
+
+  const response = await POST(contactRequest(validBody));
+
+  assert.equal(response.status, 200);
+  assert.match(outbound.text, /Topic: General enquiry/);
+});
+
+test("contact endpoint rejects unknown topics", async () => {
+  globalThis.fetch = async () => assert.fail("email provider must not be called");
+  const response = await POST(contactRequest({ ...validBody, topic: "<script>" }));
+  assert.equal(response.status, 400);
+});

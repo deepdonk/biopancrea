@@ -4,6 +4,7 @@ const canonicalPaths = new Set([
   "/mission",
   "/how-it-works",
   "/meet-the-team",
+  "/work-with-us",
   "/contact",
 ]);
 

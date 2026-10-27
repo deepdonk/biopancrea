@@ -8,7 +8,7 @@ const terms = [
 export function KeyTerms() {
   return (
     <section className="key-terms container">
-      <header><p className="section-label"><span>07</span>Reference</p><h2>Key terms</h2></header>
+      <header><p className="section-label"><span>08</span>Reference</p><h2>Key terms</h2></header>
       <div className="key-term-rows">
         {terms.map(([term, definition]) => (
           <details key={term}>

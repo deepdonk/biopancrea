@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { contactTopicLabel, DEFAULT_CONTACT_TOPIC, isContactTopic } from "../../lib/contact-topics";
 
 export const runtime = "nodejs";
 
@@ -126,6 +127,9 @@ export async function POST(request: NextRequest) {
   const body = payload as Record<string, unknown>;
   if (typeof body.website !== "string" || body.website.trim() !== "") return publicError();
   if (typeof body.name !== "string" || typeof body.email !== "string" || typeof body.message !== "string") return publicError();
+  const topicValue = body.topic ?? DEFAULT_CONTACT_TOPIC;
+  if (!isContactTopic(topicValue)) return publicError();
+  const topic = contactTopicLabel(topicValue);
 
   const name = plainText(body.name);
   const email = plainText(body.email).toLowerCase();
@@ -146,6 +150,7 @@ export async function POST(request: NextRequest) {
     "",
     `Name: ${name}`,
     `Email: ${email}`,
+    `Topic: ${topic}`,
     `Submission time: ${submissionTime}`,
     "",
     "Message:",
@@ -166,7 +171,7 @@ export async function POST(request: NextRequest) {
         from: fromAddress,
         to: [recipient],
         reply_to: email,
-        subject: "New BioPancrea contact message",
+        subject: `New BioPancrea contact message: ${topic}`,
         text: emailText,
       }),
     }).finally(() => clearTimeout(timeout));

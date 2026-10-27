@@ -118,8 +118,7 @@ SITE_URL=https://biopancrea.com
 ```
 
 The app generates `/robots.txt` and `/sitemap.xml` from this origin. Only the
-home, Mission, How It Works, Meet the Team, and Contact pages are included in
-the sitemap. Do not point `SITE_URL` at a preview or local deployment.
+home, Mission, How It Works, Meet the Team, Work With Us, and Contact pages are included in the sitemap. Do not point `SITE_URL` at a preview or local deployment.
 
 Google Search Console verification is optional and supported through the
 server environment variable below. Add the token supplied by Google; do not
@@ -138,7 +137,7 @@ After production deployment, the site owner should:
 5. Confirm Googlebot can fetch the page.
 6. Submit `https://biopancrea.com/sitemap.xml` in the Sitemaps report.
 7. Request indexing for the homepage.
-8. Inspect the other four public URLs individually.
+8. Inspect the other five public URLs individually.
 9. Review Page Indexing and Crawl Stats after Google begins crawling.
 
 ## Learn More

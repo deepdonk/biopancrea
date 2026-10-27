@@ -19,6 +19,7 @@ export default function MeetTheTeamPage() {
       </section>
       <nav className="contextual-links container" aria-label="Contact BioPancrea">
         <a className="button button-dark" href="/contact">Contact the BioPancrea team</a>
+        <a className="button button-line" href="/work-with-us">Work with us</a>
       </nav>
     </main>
   );

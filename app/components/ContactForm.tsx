@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import type { FormEvent } from "react";
+import { CONTACT_TOPICS, DEFAULT_CONTACT_TOPIC } from "../lib/contact-topics";
+import type { ContactTopic } from "../lib/contact-topics";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
-const initialFields = { name: "", email: "", message: "", website: "" };
-
-export function ContactForm() {
-  const [fields, setFields] = useState(initialFields);
+export function ContactForm({ initialTopic = DEFAULT_CONTACT_TOPIC }: { initialTopic?: ContactTopic }) {
+  const [fields, setFields] = useState({ topic: initialTopic as string, name: "", email: "", message: "", website: "" });
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -68,6 +68,20 @@ export function ContactForm() {
 
   return (
     <form className="contact-message-form" onSubmit={handleSubmit} noValidate>
+      <div className="contact-form-field contact-form-select has-value">
+        <label htmlFor="contact-topic">What’s this about?</label>
+        <select
+          id="contact-topic"
+          name="topic"
+          required
+          value={fields.topic}
+          onChange={(event) => updateField("topic", event.target.value)}
+        >
+          {CONTACT_TOPICS.map(({ value, label }) => <option key={value} value={value}>{label}</option>)}
+        </select>
+        <i aria-hidden="true">⌄</i>
+      </div>
+
       <div className={`contact-form-field${fields.name ? " has-value" : ""}`}>
         <label htmlFor="contact-name">Name</label>
         <input

@@ -1,5 +1,6 @@
 import { PageHero } from "../components/PageHero";
 import { ProcessStory } from "../components/ProcessStory";
+import { GlucoseResponseDemo } from "../components/GlucoseResponseDemo";
 import { KeyTerms } from "../components/KeyTerms";
 import { createPageMetadata } from "../lib/metadata";
 
@@ -13,6 +14,7 @@ export default function HowItWorksPage() {
   return <main>
     <PageHero index="02" label="How it works" title="How BioPancrea works" copy="Six connected stages show how the research-stage concept moves from a small skin-cell sample to an intended glucose-responsive vascular platform." variant="sage" />
     <ProcessStory />
+    <GlucoseResponseDemo />
     <section className="process-disclaimer process-disclaimer-simple container"><p>BioPancrea is a research-stage concept and is not an approved medical treatment.</p></section>
     <KeyTerms />
     <nav className="contextual-links container" aria-label="Explore BioPancrea">

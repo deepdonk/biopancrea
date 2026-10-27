@@ -24,6 +24,11 @@ const pages = {
     description: "Meet BioPancrea founders Deepta Suresh and Janefrances Muoneke.",
     h1: "Meet the team",
   },
+  "/work-with-us": {
+    title: "Work with BioPancrea | Investors, Researchers and Clinicians",
+    description: "How investors, research collaborators and clinicians can work with BioPancrea on its research-stage, cell-based artificial-pancreas concept.",
+    h1: "Work with us",
+  },
   "/contact": {
     title: "Book a Meeting or Contact BioPancrea",
     description: "Book a meeting with the BioPancrea team or send a message about its investigational artificial-pancreas concept.",
@@ -75,7 +80,7 @@ test("server-renders all canonical public pages with complete SEO metadata", asy
   }
 });
 
-test("publishes permissive robots and a canonical five-page sitemap", async () => {
+test("publishes permissive robots and a canonical public-page sitemap", async () => {
   const worker = await loadWorker();
   const robots = await request(worker, "/robots.txt");
   assert.equal(robots.status, 200);
