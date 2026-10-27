@@ -6,7 +6,6 @@ export function HeroStent() {
       <PlatformModel
         id="hero-platform"
         className="hero-platform-model"
-        showFlow={false}
         title="BioPancrea vascular implant concept"
         description="A long open vascular stent containing a thin hydrogel layer and beta-like cell clusters."
       />

@@ -43,7 +43,7 @@ export default function MissionPage() {
         <div><h2 data-reveal-heading>Why we are building it</h2><p data-reveal-copy>Our ambition is to move beyond systems that only deliver insulin externally and explore whether living insulin-producing cells could provide a more direct biological response to changing glucose levels.</p></div>
       </section>
 
-      <section className="mission-progress container">
+      <section className="mission-progress container" data-reveal>
         <header><p className="section-label"><span>03</span>Development</p><div><h2>Current stage</h2><p>BioPancrea is currently developing and refining the artificial-pancreas concept. Further biological, engineering, preclinical, clinical, and regulatory validation will be required.</p></div></header>
         <ol>{milestones.map((name, index) => <li key={name}><span>0{index + 1}</span><i aria-hidden="true"/><h3>{name}</h3></li>)}</ol>
       </section>

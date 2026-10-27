@@ -59,6 +59,8 @@ export function SitePolish() {
 
     const updateHeader = () => {
       frame = 0;
+      const scrollRange = document.documentElement.scrollHeight - window.innerHeight;
+      document.documentElement.style.setProperty("--scroll-progress", String(scrollRange > 0 ? Math.min(1, window.scrollY / scrollRange) : 0));
       if (header) {
         header.classList.toggle("is-scrolled", window.scrollY > 12);
         const sampleY = header.getBoundingClientRect().height / 2;

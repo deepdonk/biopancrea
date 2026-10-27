@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Manrope } from "next/font/google";
+import { CursorAura } from "./components/CursorAura";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { SitePolish } from "./components/SitePolish";
@@ -43,8 +44,10 @@ export default function RootLayout({
       <body
         className={`${manrope.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="scroll-progress" aria-hidden="true" />
         <Header />
         <SitePolish />
+        <CursorAura />
         <div className="page-transition">{children}</div>
         <Footer />
       </body>

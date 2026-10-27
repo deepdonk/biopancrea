@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
+import type { CSSProperties } from "react";
 import { HeroStent } from "./components/HeroStent";
 import { LayeredPlatform } from "./components/LayeredPlatform";
 import { WhyItMatters } from "./components/WhyItMatters";
@@ -10,6 +12,8 @@ export const metadata: Metadata = createPageMetadata({
   description: "BioPancrea is developing a research-stage, implantable artificial-pancreas concept combining beta-like cells, hydrogel and a vascular stent.",
   path: "/",
 });
+
+const heroWords = ["An", "artificial", "pancreas", "built", "around", "living", "cells."] as const;
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -51,7 +55,14 @@ export default function Home() {
     <main>
       <section className="landing-hero">
         <div className="landing-hero-copy" data-reveal>
-          <h1 data-reveal-heading>An artificial pancreas built around living cells.</h1>
+          <h1 data-reveal-heading>
+            {heroWords.map((word, index) => (
+              <Fragment key={word}>
+                {index ? " " : null}
+                <span className={`hero-word${index >= heroWords.length - 2 ? " hero-word-accent" : ""}`} style={{ "--word-index": index } as CSSProperties}>{word}</span>
+              </Fragment>
+            ))}
+          </h1>
           <p className="landing-hero-lead" data-reveal-copy>A research-stage vascular implant.</p>
           <div className="landing-hero-actions" data-reveal-copy>
             <a className="button button-dark" href="/how-it-works">See the concept</a>
