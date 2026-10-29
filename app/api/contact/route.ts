@@ -34,10 +34,12 @@ function isValidEmail(value: string) {
 
 function requestIp(request: NextRequest) {
   const cloudflareIp = request.headers.get("cf-connecting-ip");
+  // Vercel overwrites x-real-ip with the client address, so it can't be spoofed there.
+  const vercelIp = process.env.VERCEL ? request.headers.get("x-real-ip") : null;
   const developmentIp = process.env.NODE_ENV !== "production"
     ? request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
     : null;
-  const value = cloudflareIp ?? developmentIp ?? "anonymous";
+  const value = cloudflareIp ?? vercelIp ?? developmentIp ?? "anonymous";
 
   return value.slice(0, 64);
 }
