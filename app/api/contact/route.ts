@@ -178,9 +178,13 @@ export async function POST(request: NextRequest) {
       }),
     }).finally(() => clearTimeout(timeout));
 
-    if (!response.ok) return publicError(502);
+    if (!response.ok) {
+      console.error(`Resend rejected contact email: ${response.status} ${(await response.text()).slice(0, 500)}`);
+      return publicError(502);
+    }
     return NextResponse.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });
-  } catch {
+  } catch (error) {
+    console.error("Contact email request failed:", error);
     return publicError(502);
   }
 }
