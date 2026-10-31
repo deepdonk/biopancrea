@@ -1531,3 +1531,26 @@ main .work-steps li p{margin:0;color:rgba(244,241,233,.7)}
   .work-audience .button{width:100%}
 }
 .glucose-demo>header h2,.work-audience h2,.work-steps>header h2{font-weight:440;letter-spacing:-.055em}
+
+/* Homepage closing sections: statement-led team and partner routes. */
+.home-statement{padding-top:120px;padding-bottom:120px;display:grid;grid-template-columns:.34fr minmax(0,1fr);gap:0 8%;align-items:start;border-top:1px solid var(--line)}
+.home-statement h2{max-width:780px;margin:0 0 34px;font-size:clamp(2.25rem,4vw,4rem);font-weight:560;letter-spacing:-.055em}
+main .home-statement p:not(.section-label){margin:0;color:rgba(11,34,49,.7)}
+.home-status{max-width:780px;margin:40px 0;border-top:1px solid var(--line)}
+.home-status>div{padding:16px 0;display:grid;grid-template-columns:.34fr 1fr;gap:24px;border-bottom:1px solid var(--line)}
+.home-status dt{color:var(--muted-text);font-size:14px}
+.home-status dd{margin:0;font-size:18px;line-height:1.5}
+.home-partner-routes{max-width:780px;margin:0 0 40px;padding:0;list-style:none;border-top:1px solid var(--line)}
+.home-partner-routes a{padding:22px 0;display:grid;grid-template-columns:.34fr 1fr 24px;gap:24px;align-items:center;border-bottom:1px solid var(--line);color:inherit;text-decoration:none}
+.home-partner-routes span{color:var(--muted-text);font-size:14px}
+.home-partner-routes strong{font-size:clamp(1.15rem,1.7vw,1.5rem);font-weight:520;letter-spacing:-.025em}
+.home-partner-routes i{color:var(--coral-text);font-style:normal;transition:transform .25s}
+.home-partner-routes a:hover i,.home-partner-routes a:focus-visible i{transform:translateX(4px)}
+@media(prefers-reduced-motion:reduce){.home-partner-routes i{transition:none}}
+@media(max-width:760px){
+  .home-statement{padding-top:84px;padding-bottom:84px;grid-template-columns:1fr;gap:28px}
+  .home-status>div{grid-template-columns:1fr;gap:4px}
+  .home-partner-routes a{grid-template-columns:1fr 24px;gap:6px 16px}
+  .home-partner-routes span{grid-column:1/-1}
+  .home-statement .button{width:100%}
+}

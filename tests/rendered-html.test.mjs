@@ -167,6 +167,19 @@ test("publishes clear concept, booking, and contact destinations", async () => {
   assert.doesNotMatch(contact, /mailto:/i);
 });
 
+test("tells the homepage story through to team and partner routes", async () => {
+  const worker = await loadWorker();
+  const home = await (await request(worker, "/")).text();
+
+  assert.match(home, /It still happens from outside the body\./);
+  assert.match(home, /Led by its founders, from the first concept\./);
+  assert.match(home, /Partner or build with BioPancrea\./);
+  assert.match(home, /href="\/meet-the-team"/);
+  for (const topic of ["investment", "research", "clinical"]) {
+    assert.ok(home.includes(`href="/contact?topic=${topic}#message-heading"`), topic);
+  }
+});
+
 test("does not publish iPSC or femoral-artery references", async () => {
   const worker = await loadWorker();
   for (const path of Object.keys(pages)) {

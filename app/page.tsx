@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Fragment } from "react";
 import type { CSSProperties } from "react";
 import { HeroStent } from "./components/HeroStent";
+import { HomePartner } from "./components/HomePartner";
+import { HomeTeam } from "./components/HomeTeam";
 import { LayeredPlatform } from "./components/LayeredPlatform";
 import { WhyItMatters } from "./components/WhyItMatters";
 import { createPageMetadata } from "./lib/metadata";
@@ -75,6 +77,8 @@ export default function Home() {
 
       <LayeredPlatform />
       <WhyItMatters />
+      <HomeTeam />
+      <HomePartner />
     </main>
   );
 }
