@@ -129,9 +129,14 @@ export function SitePolish() {
     };
 
     const mutationObserver = new MutationObserver(preparePage);
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
-    preparePage();
-    updateHeader();
+    const startPolish = () => {
+      mutationObserver.observe(document.body, { childList: true, subtree: true });
+      preparePage();
+      updateHeader();
+    };
+    // Page content hydrates after this effect, so wait for idle before changing its classes.
+    const startIdle = window.requestIdleCallback?.(startPolish, { timeout: 1000 });
+    const startTimer = startIdle === undefined ? window.setTimeout(startPolish, 200) : 0;
     window.addEventListener("scroll", scheduleHeaderUpdate, { passive: true });
     window.addEventListener("resize", scheduleHeaderUpdate, { passive: true });
     document.addEventListener("click", onClick);
@@ -140,6 +145,8 @@ export function SitePolish() {
     document.addEventListener("pointerdown", onPointerDown, { passive: true });
 
     return () => {
+      if (startIdle !== undefined) window.cancelIdleCallback(startIdle);
+      window.clearTimeout(startTimer);
       if (frame) window.cancelAnimationFrame(frame);
       window.clearTimeout(touchReset);
       window.removeEventListener("scroll", scheduleHeaderUpdate);
